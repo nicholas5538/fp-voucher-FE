@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Foodpanda Capstone #
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Topic ##
+Voucher
+* The food delivery process consists of users picking their meals, collecting the order into a basket and then confirming payment during the checkout process.
+* Build a system that that implements Voucher functionality. The company needs to be able to create, manage vouchers (amounts, %-ages, expiry dates); and to distribute them to our users.
+* Further, we also need to enable the user to later apply the voucher during the checkout process.
 
-## Available Scripts
+## Frontend ##
+Design draft: [Figma link](https://www.figma.com/file/LH7wvGmxsn1LUdAqaVOHKS/Capstone-draft-1?node-id=0%3A1&t=UiYe1Bpx3OwKiPp0-1 "Figma Capstone draft")
 
-In the project directory, you can run:
+<h4>To start vite build</h4>
 
-### `npm start`
+```
+npm run dev 👉 Development
+npm run build 👉 Production
+npm run preview 👉 Preview
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backend ##
+**_ TBC _**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Version 1 ###
+Admin-only access: 
+1. CRUD - Voucher
 
-### `npm test`
+Customer access:
+1. Read, Delete - Voucher
+2. Voucher Type (Pick-up / Delivery)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Additional feature(s):
+1. Map
 
-### `npm run build`
+    [Google Maps Platform](https://www.figma.com/file/LH7wvGmxsn1LUdAqaVOHKS/Capstone-draft-1?node-id=0%3A1&t=UiYe1Bpx3OwKiPp0-1 "Google Maps Platform URL") OR [mapbox](https://www.mapbox.com "mapbox URL")
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Flow of our project
+1. Home page (Regardless of login status)
+2. Login page (Google / Apple / Facebook login, forget password, create new account)
+3. Main page (Restaurant)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    Redirect to login page if user is not logged in
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Restaurant Page (Selected)
+5. Checkout Page (Cart)
 
-### `npm run eject`
+### Version 2 ###
+Additional features if time permits:
+1. Separate pages for admin and customer
+2. Fintech Payment
+3. Map (Redirect to restaurant with markers)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### GitHub workflow ###
+2 important branches:
+1. main branch :point_right: Production
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Only **merge** to **_main branch_** when a full prototype is functional in the **_deploy branch_**.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. deploy branch :point_right: Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    Only **rebase** to **_deploy branch_** when a feature has been completed.
 
-## Learn More
+* Always create a new branch when implementing a new feature
+```
+git checkout -b <branch name> 👉 If the branch doesn't exist
+git switch <branch name> 👉 If the branch exists
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Commit with a short message and detailed description
+```
+Always commit with small changes, not with large changes
+git commit -m "short message" -m "detailed description"
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Create a new pull request when a feature is completed
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    Do it via GitHub desktop website, submit a pull request for everyone to review
