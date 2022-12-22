@@ -16,8 +16,8 @@ function MainNavigation() {
   useOutsideAlerter(dropdownRef, setOpen)
 
   return (
-    <nav className="relative z-0 flex place-content-between items-center shadow-lg h-16">
-      <div ref={dropdownRef}>
+    <nav className="z-0 flex place-content-between items-center shadow-lg h-16">
+      <div className="relative" ref={dropdownRef}>
         <button
           className="flex items-center space-x-2 px-4 h-16"
           onClick={() => setOpen(prevState => !prevState)}
@@ -33,7 +33,7 @@ function MainNavigation() {
             <FaAngleDown />
           </IconContext.Provider>
         </button>
-        {open ? <Dropdown setOpen={setOpen}/> : null}
+        <Dropdown open={open} />
       </div>
       <div className="px-6 w-3/4 h-16">
         <div className="mx-auto my-4 w-1/3 h-1/2">
