@@ -1,18 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     screens: {
-      'xs': '568px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '992px',
-      'xl': '1280px',
-      '2xl': '1536px', 
+      xs: '568px',
+      sm: '640px',
+      md: '768px',
+      lg: '992px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
     colors: {
       white: '#fff',
-      black: "hsl(0, 0%, 20%)",
+      black: 'hsl(0, 0%, 20%)',
       pink: {
         300: 'hsl(334, 24%, 45%)',
         400: 'hsl(334, 79%, 43%)',
@@ -30,7 +30,7 @@ module.exports = {
         500: 'rgb(107 114 128)',
         600: 'rgb(75 85 99)',
         700: 'rgb(55 65 81)',
-      }
+      },
     },
     fontFamily: {
       sans: 'Open Sans, Arial, sans-serif',

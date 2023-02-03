@@ -1,14 +1,14 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CartPage from "./pages/Cart";
-import FavouritesPage from "./pages/Favourites";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import CartPage from './pages/Cart';
+import FavouritesPage from './pages/Favourites';
 
-import HomePage from "./pages/Home";
-import RootLayout from "./pages/RootLayout";
-import ErrorPage from "./pages/Error";
+import HomePage from './pages/Home';
+import RootLayout from './pages/RootLayout';
+import ErrorPage from './pages/Error';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -17,11 +17,11 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/favourites",
+        path: '/favourites',
         element: <FavouritesPage />,
       },
       {
-        path: "/cart",
+        path: '/cart',
         element: <CartPage />,
       },
     ],

@@ -1,5 +1,5 @@
-import React from "react";
-import classes from "./Card.module.css";
+import React from 'react';
+import classes from './Card.module.css';
 // reuseable card wrapper
 
 const Card = (props) => {
