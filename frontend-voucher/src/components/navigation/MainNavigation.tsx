@@ -16,7 +16,7 @@ const MainNavigation = () => {
   useOutsideAlerter(dropdownRef, setOpen);
 
   return (
-    <nav className='shadow-lg w-full sticky top-0'>
+    <nav className='shadow-lg w-full sticky top-0 bg-white z-50	'>
       <div className='flex justify-between items-center mx-auto w-full max-w-7xl h-16'>
         <div
           className='relative lg:order-2 lg:border-x lg:border-gray-200'
