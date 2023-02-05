@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
-// import classes from './PandaHome.module.css';
+import classes from './Home.module.css';
 import { ReactComponent as PersonalIcon } from '../../assets/personal-icon.svg';
-import Card from '../UI/Card';
 import { ReactComponent as LocationIcon } from '../../assets/location-icon.svg';
-// import Button from '../UI/Button';
 import { Link } from 'react-router-dom';
 // import { useAuth } from '../../context/auth';
 
@@ -12,25 +10,6 @@ const Home: React.FC = () => {
   return (
     <Fragment>
       <section className='mt-5 font-light'>
-        {/* <div className='absolute rounded-lg w-10/12 p-4 bg-white drop-shadow-xl h-24 mt-80 ml-12 mr-96 z-10'>
-          <form className='flex mx-2 '>
-            <input
-              className='border border-gray-400 p-2 w-full rounded-lg focus:border-black h-14 mt-2'
-              type='text'
-              placeholder='Enter your street or postal code'
-            />
-            <div className='flex items-center justify-between my-2 ml-4'>
-              <button className='px-8 py-4 bg-pink-500 text-white rounded-lg text-center'>
-                Submit
-              </button>
-              <span className='ml-2 mr-2'>or</span>
-              <button className='px-8 py-4 bg-pink-500 text-white rounded-lg text-center'>
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-
         <div className='flex'>
           <div className='relative -z-negative-10 lg:mx-12 md:mx-10 ml-6 bg-transparent '>
             <ul>
@@ -53,14 +32,35 @@ const Home: React.FC = () => {
             className='lg:h-96 lg:w-64 md:h-80 md:w-56 w-40 h-40 ml-auto object-cover -z-negative-100 overflow-x-hidden'
             style={{
               objectPosition: '30% 0',
-              transform: 'translateX(20%)',
             }}
           />
-        </div> */}
+        </div>
+        <div className={classes['form']}>
+          <div className={classes['location-form']}>
+            <label htmlFor='address'>Enter your street or postal code</label>
+            <button className={classes['location-icon']}>
+              <LocationIcon />
+            </button>
+            <input
+              id='address'
+              placeholder='Enter your street or postal code'
+            ></input>
+          </div>
+          <div className={classes.mode}>
+            <Link to='/delivery'>
+              <button>Delivery</button>
+            </Link>
+
+            <p>or</p>
+
+            <Link to='/delivery'>
+              <button>Pick-up</button>
+            </Link>
+          </div>
+        </div>
       </section>
     </Fragment>
   );
 };
 
 export default Home;
-
