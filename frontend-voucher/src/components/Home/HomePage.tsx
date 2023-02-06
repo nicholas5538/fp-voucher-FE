@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
-import classes from './Home.module.css';
+import { Fragment } from 'react';
+import classes from './HomePage.module.css';
 import { ReactComponent as PersonalIcon } from '../../assets/personal-icon.svg';
 import { ReactComponent as LocationIcon } from '../../assets/location-icon.svg';
 import { Link } from 'react-router-dom';
 // import { useAuth } from '../../context/auth';
 
-const Home: React.FC = () => {
+const Home = () => {
   //   const [auth, setAuth] = useAuth();
   return (
     <Fragment>
