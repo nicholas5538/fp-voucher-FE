@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import classes from './HomePage.module.css';
+import classes from './Home.module.css';
 import { ReactComponent as PersonalIcon } from '../../assets/personal-icon.svg';
 import { ReactComponent as LocationIcon } from '../../assets/location-icon.svg';
 import { Link } from 'react-router-dom';
