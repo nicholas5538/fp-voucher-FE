@@ -5,6 +5,8 @@ import FavouritesPage from './pages/FavouritesPage';
 import HomePage from './pages/HomePage';
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
+import FoodDeliveryPage from './pages/FoodDeliveryPage';
+import FoodPickupPage from './pages/FoodPickupPage';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />,
+      },
+      {
+        path: '/delivery',
+        element: <FoodDeliveryPage />,
+      },
+      {
+        path: '/pick-up',
+        element: <FoodPickupPage />,
       },
     ],
   },
