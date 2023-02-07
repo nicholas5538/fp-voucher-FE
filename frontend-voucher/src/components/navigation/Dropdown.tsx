@@ -33,7 +33,7 @@ function Dropdown({ open }: dropdownProps) {
 
   return (
     <ul
-      className={`absolute py-2 shadow-md text-black text-start bg-white border-[0.02em] border-gray-200 top-[65px] w-[273px] lg:right-0 transition duration-300 ${
+      className={`ul-dropdown ${
         open
           ? 'ease-out opacity-100 translate-x-0 pointer-events-auto lg:translate-y-0'
           : 'ease-in opacity-0 -translate-x-28 pointer-events-none lg:translate-x-0 lg:-translate-y-28'
