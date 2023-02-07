@@ -73,7 +73,7 @@ const ServiceButtons: FC<Props> = ({ services }) => {
 
   const handleClick = (service: Service) => {
     setActiveService(service);
-    navigate(`/${service.url}`)
+    navigate(`/${service.url}`);
   };
 
   return (
