@@ -14,6 +14,7 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint .. --ext .tsx --ext .ts",
+    "precommit": "pretty-quick --staged",
     "preview": "vite preview",
     "prepare": "cd .. && husky install frontend-voucher/.husky"
   },
