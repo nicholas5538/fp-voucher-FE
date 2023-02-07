@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 type Service = {
@@ -37,7 +37,6 @@ const StyledButton = styled.button<{
   background-color: ${({ isActive }) => (isActive ? '#FFFFFF' : '#EAEAEA')};
   font-weight: ${({ isActive }) => (isActive ? '550' : 'normal')};
 
-
   @media (min-width: 992px) {
     background-color: white;
     opacity: ${({ isActive }) => (isActive ? 1 : 0.8)};
@@ -45,14 +44,14 @@ const StyledButton = styled.button<{
     background-image: url(${({ service_image }) => service_image});
     background-repeat: no-repeat;
     background-position: right;
-    background-size:fit ;
+    background-size: fit;
     flex: initial;
     width: 14rem;
     margin-right: 2rem;
     justify-self: flex-start;
-    text-align:left;
-    padding-left:1rem;
-    padding-top:1rem;
+    text-align: left;
+    padding-left: 1rem;
+    padding-top: 1rem;
   }
 `;
 
@@ -61,7 +60,7 @@ type Props = {
 };
 
 const ServiceButtons = ({ services }: Props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const pathname = location.pathname.slice(1);

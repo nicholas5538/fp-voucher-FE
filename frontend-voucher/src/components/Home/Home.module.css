@@ -48,98 +48,97 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-	.location-form label {
-		margin-right: 14rem;
-		font-weight: 100;
-		font-size:xx-small;
-		width: auto;
-		float: left;
-		position: absolute;
-		top: 27.4rem;
-		left: 2.5rem;
-		background-color: white;
-		height: 0.6rem;
-	  }
-	  .mode button {
-		padding: 0.5rem 1.5rem;
-		background-color: #e60073;
-		color: #fff;
-		border-radius: 0.5rem;
-		text-align: center;
-		height: 4rem;
-		width: 15rem;
-	  }
+  .location-form label {
+    margin-right: 14rem;
+    font-weight: 100;
+    font-size: xx-small;
+    width: auto;
+    float: left;
+    position: absolute;
+    top: 27.4rem;
+    left: 2.5rem;
+    background-color: white;
+    height: 0.6rem;
+  }
+  .mode button {
+    padding: 0.5rem 1.5rem;
+    background-color: #e60073;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 4rem;
+    width: 15rem;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1023px) {
-	.location-form label {
-		margin-right: 14rem;
-		font-weight: 100;
-		font-size:xx-small;
-		width: auto;
-		float: left;
-		position: absolute;
-		top: 31.4rem;
-		left: 2.5rem;
-		background-color: white;
-		height: 0.6rem;
-	  }
-	  .mode button {
-		padding: 0.5rem 1.5rem;
-		background-color: #e60073;
-		color: #fff;
-		border-radius: 0.5rem;
-		text-align: center;
-		height: 4rem;
-		width: 18rem;
-	  }
+  .location-form label {
+    margin-right: 14rem;
+    font-weight: 100;
+    font-size: xx-small;
+    width: auto;
+    float: left;
+    position: absolute;
+    top: 31.4rem;
+    left: 2.5rem;
+    background-color: white;
+    height: 0.6rem;
+  }
+  .mode button {
+    padding: 0.5rem 1.5rem;
+    background-color: #e60073;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 4rem;
+    width: 18rem;
+  }
 }
 
 @media (min-width: 1024px) {
-	.location-form label {
-		margin-right: 14rem;
-		font-weight: 100;
-		font-size:xx-small;
-		width: auto;
-		float: left;
-		position: absolute;
-		top: 31.4rem;
-		left: 2.5rem;
-		background-color: white;
-		height: 0.6rem;
-	  }
-	  .mode button {
-		padding: 0.5rem 1.5rem;
-		background-color: #e60073;
-		color: #fff;
-		border-radius: 0.5rem;
-		text-align: center;
-		height: 4rem;
-		width: 20rem;
-	  }
-
+  .location-form label {
+    margin-right: 14rem;
+    font-weight: 100;
+    font-size: xx-small;
+    width: auto;
+    float: left;
+    position: absolute;
+    top: 31.4rem;
+    left: 2.5rem;
+    background-color: white;
+    height: 0.6rem;
+  }
+  .mode button {
+    padding: 0.5rem 1.5rem;
+    background-color: #e60073;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 4rem;
+    width: 20rem;
+  }
 }
 
 @media (min-width: 506px) and (max-width: 767px) {
-	.location-form label {
-		margin-right: 14rem;
-		font-weight: 100;
-		font-size:xx-small;
-		width: auto;
-		float: left;
-		position: absolute;
-		top: 17.4rem;
-		left: 2.5rem;
-		background-color: white;
-		height: 0.6rem;
-	  }
-	  .mode button {
-		padding: 0.5rem 1.5rem;
-		background-color: #e60073;
-		color: #fff;
-		border-radius: 0.5rem;
-		text-align: center;
-		height: 4rem;
-		width: 12rem;
-	  }
+  .location-form label {
+    margin-right: 14rem;
+    font-weight: 100;
+    font-size: xx-small;
+    width: auto;
+    float: left;
+    position: absolute;
+    top: 17.4rem;
+    left: 2.5rem;
+    background-color: white;
+    height: 0.6rem;
+  }
+  .mode button {
+    padding: 0.5rem 1.5rem;
+    background-color: #e60073;
+    color: #fff;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 4rem;
+    width: 12rem;
+  }
 }
