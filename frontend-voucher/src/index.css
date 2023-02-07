@@ -13,6 +13,9 @@ body {
 }
 
 @layer components {
+  .ul-dropdown {
+    @apply absolute shadow-md text-black text-start bg-white border-[0.02em] border-gray-200 top-[65px] w-[273px] lg:right-0 transition duration-300;
+  }
   .li-dropdown {
     @apply grid items-center px-6 text-gray-500 text-[.875rem] cursor-pointer w-[100%] h-[50px] transition ease-linear duration-200 hover:text-pink-700 hover:bg-gray-100;
   }
