@@ -8,4 +8,4 @@ const FoodPickup = () => {
   )
 }
 
-export default FoodPickup
+export default FoodPickup;
