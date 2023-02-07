@@ -8,4 +8,4 @@ const FoodDelivery = () => {
   )
 }
 
-export default FoodDelivery
+export default FoodDelivery;
