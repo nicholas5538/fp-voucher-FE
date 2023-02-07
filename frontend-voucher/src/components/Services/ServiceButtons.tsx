@@ -60,7 +60,7 @@ type Props = {
   services: Service[];
 };
 
-const ServiceButtons: FC<Props> = ({ services }) => {
+const ServiceButtons = ({ services }: Props) => {
   const navigate = useNavigate()
   const location = useLocation();
 
