@@ -14,7 +14,8 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint .. --ext .tsx --ext .ts",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "cd .. && husky install frontend-voucher/.husky"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -37,7 +38,7 @@
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.3",
     "pretty-quick": "^3.1.3",
