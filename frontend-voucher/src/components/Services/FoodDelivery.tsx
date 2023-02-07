@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ServiceButtons from './ServiceButtons';
 import { services } from './services';
 
