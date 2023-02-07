@@ -53,7 +53,7 @@ const Home = () => {
 
             <p>or</p>
 
-            <Link to='/delivery'>
+            <Link to='/pick-up'>
               <button>Pick-up</button>
             </Link>
           </div>

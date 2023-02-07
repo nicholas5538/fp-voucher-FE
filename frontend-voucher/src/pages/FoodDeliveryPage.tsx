@@ -1,5 +1,11 @@
+import FoodDelivery from '../components/Services/FoodDelivery';
+
 const FoodDeliveryPage = () => {
-  return <h1>This is the Food Delivery Page</h1>;
+  return (
+    <>
+      <FoodDelivery />
+    </>
+  );
 };
 
 export default FoodDeliveryPage;
