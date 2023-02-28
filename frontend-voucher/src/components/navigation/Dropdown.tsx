@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import { menuItems } from './MenuItems';
 
-{
-  /* Edit Link 'to' attribute in MenuItems.jsx */
-}
-
 type dropdownProps = {
   open: boolean;
 };
