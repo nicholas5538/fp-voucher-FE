@@ -1,14 +1,13 @@
-import { Fragment } from 'react';
-import classes from './Home.module.css';
+import classes from './HomePage.module.css';
 import { ReactComponent as PersonalIcon } from '../../assets/personal-icon.svg';
 import { ReactComponent as LocationIcon } from '../../assets/location-icon.svg';
 import { Link } from 'react-router-dom';
 // import { useAuth } from '../../context/auth';
 
-const Home = () => {
+const HomePage = () => {
   //   const [auth, setAuth] = useAuth();
   return (
-    <Fragment>
+    <>
       <section className='mt-5 font-light'>
         <div className='flex'>
           <div className='relative -z-negative-10 ml-6 bg-transparent md:mx-10 lg:mx-12'>
@@ -59,8 +58,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-    </Fragment>
+    </>
   );
 };
 
-export default Home;
+export default HomePage;

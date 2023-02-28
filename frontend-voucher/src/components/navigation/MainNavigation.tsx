@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useRef, useState } from 'react';
 import { IconContext } from 'react-icons';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { ReactComponent as Brand } from '../../assets/brand.svg';
-import { ReactComponent as Profile } from '../../assets/profile.svg';
-import { ReactComponent as Favourite } from '../../assets/favourite.svg';
-import { ReactComponent as Cart } from '../../assets/cart.svg';
 import { FaAngleDown } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
+import { ReactComponent as Brand } from '../../assets/brand.svg';
+import { ReactComponent as Cart } from '../../assets/cart.svg';
+import { ReactComponent as Favourite } from '../../assets/favourite.svg';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Profile } from '../../assets/profile.svg';
 import Dropdown from './Dropdown';
 import useOutsideAlerter from './useOutSideAlerter';
 
@@ -29,7 +29,7 @@ const MainNavigation = () => {
             <Profile />
             {/* Replace hardcoded name with Authentication */}
             <span className='hidden text-black text-xs text-ellipsis text-center font-bold font-sans lg:block'>
-              ANDY
+              NICK
             </span>
             <IconContext.Provider
               value={{
