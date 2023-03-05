@@ -19,7 +19,7 @@ export const menuItems = [
   },
   {
     id: 4,
-    url: '#',
+    url: '/voucher',
     element: 'Vouchers',
   },
   {

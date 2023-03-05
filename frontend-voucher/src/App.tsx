@@ -4,6 +4,7 @@ import CartPage from './pages/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
 import RootLayout from './pages/RootLayout';
+import VoucherPage from './pages/VoucherPage';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <CartPage />,
+      },
+      {
+        path: '/voucher',
+        element: <VoucherPage />,
       },
     ],
   },
