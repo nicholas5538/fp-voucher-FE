@@ -17,13 +17,13 @@ const MainNavigation = () => {
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
-      <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-between'>
+      <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-between border-none'>
         <div
-          className='relative lg:order-2 lg:border-x lg:border-gray-200'
+          className='relative lg:order-2 lg:border-x lg:border-y-0 lg:border-solid lg:border-gray-300'
           ref={dropdownRef}
         >
           <button
-            className='flex h-16 items-center space-x-2 px-4'
+            className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent px-4'
             onClick={() => setOpen((prevState) => !prevState)}
           >
             <Profile />

@@ -20,25 +20,10 @@ export const menuItems = [
   {
     id: 4,
     url: '#',
-    element: 'Profile',
-  },
-  {
-    id: 5,
-    url: '#',
     element: 'Vouchers',
   },
   {
-    id: 6,
-    url: '#',
-    element: 'Challenges & rewards',
-  },
-  {
-    id: 7,
-    url: '#',
-    element: 'Help center',
-  },
-  {
-    id: 8,
+    id: 5,
     url: '#',
     element: 'Logout',
   },
