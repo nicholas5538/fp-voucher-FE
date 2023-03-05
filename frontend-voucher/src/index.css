@@ -14,13 +14,13 @@ body {
 
 @layer components {
   .ul-dropdown {
-    @apply absolute shadow-md text-black text-start bg-white border-[0.02em] border-gray-200 top-[65px] w-[273px] lg:right-0 transition duration-300;
+    @apply absolute top-[65px] w-[273px] border-[0.02em] border-gray-200 bg-white text-start text-black shadow-md transition duration-300 lg:right-0;
   }
   .li-dropdown {
-    @apply grid items-center px-6 text-gray-500 text-[.875rem] cursor-pointer w-[100%] h-[50px] transition ease-linear duration-200 hover:text-pink-700 hover:bg-gray-100;
+    @apply grid h-[50px] w-[100%] cursor-pointer items-center px-6 text-[.875rem] text-gray-500 transition duration-200 ease-linear hover:bg-gray-100 hover:text-pink-700;
   }
 
   .navbar-icon-centered {
-    @apply grid items-center px-4 h-full lg:border-r lg:border-gray-200;
+    @apply grid h-full items-center px-4 lg:border-r lg:border-gray-200;
   }
 }

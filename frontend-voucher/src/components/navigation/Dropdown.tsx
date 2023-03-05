@@ -12,14 +12,14 @@ function Dropdown({ open }: dropdownProps) {
         {item.id === 2 ? (
           <Link
             key={item.id}
-            className='grid gap-x-1 grid-cols-3 items-center'
+            className='grid grid-cols-3 items-center gap-x-1 text-black no-underline'
             to={item.url}
           >
             <p className='col-span-2'>Become a pandapro</p>
             <span className='col-span-1'>{item.element}</span>
           </Link>
         ) : (
-          <Link key={item.id} to={item.url}>
+          <Link key={item.id} to={item.url} className='no-underline'>
             {item.element}
           </Link>
         )}
@@ -31,8 +31,8 @@ function Dropdown({ open }: dropdownProps) {
     <ul
       className={`ul-dropdown ${
         open
-          ? 'ease-out opacity-100 translate-x-0 pointer-events-auto lg:translate-y-0'
-          : 'ease-in opacity-0 -translate-x-28 pointer-events-none lg:translate-x-0 lg:-translate-y-28'
+          ? 'pointer-events-auto translate-x-0 opacity-100 ease-out lg:translate-y-0'
+          : 'pointer-events-none -translate-x-28 opacity-0 ease-in lg:translate-x-0 lg:-translate-y-28'
       }`}
     >
       {liElements}

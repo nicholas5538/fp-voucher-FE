@@ -1,3 +1,4 @@
+import { StyledEngineProvider } from '@mui/material';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import ErrorPage from './pages/ErrorPage';
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <StyledEngineProvider injectFirst>
+      <RouterProvider router={router} />
+    </StyledEngineProvider>
+  );
 }
 
 export default App;
