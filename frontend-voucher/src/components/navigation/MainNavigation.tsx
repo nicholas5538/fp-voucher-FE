@@ -16,19 +16,19 @@ const MainNavigation = () => {
   useOutsideAlerter(dropdownRef, setOpen);
 
   return (
-    <nav className='shadow-lg w-full sticky top-0 bg-white z-50	'>
-      <div className='flex justify-between items-center mx-auto w-full max-w-7xl h-16'>
+    <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
+      <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-between border-none'>
         <div
-          className='relative lg:order-2 lg:border-x lg:border-gray-200'
+          className='relative lg:order-2 lg:border-x lg:border-y-0 lg:border-solid lg:border-gray-300'
           ref={dropdownRef}
         >
           <button
-            className='flex items-center space-x-2 px-4 h-16'
+            className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent px-4'
             onClick={() => setOpen((prevState) => !prevState)}
           >
             <Profile />
             {/* Replace hardcoded name with Authentication */}
-            <span className='hidden text-black text-xs text-ellipsis text-center font-bold font-sans lg:block'>
+            <span className='hidden text-ellipsis text-center font-sans text-xs font-bold text-black lg:block'>
               NICK
             </span>
             <IconContext.Provider
@@ -44,7 +44,7 @@ const MainNavigation = () => {
           </button>
           <Dropdown open={open} />
         </div>
-        <div className='px-6 w-5/6 h-16 lg:order-1'>
+        <div className='h-16 w-5/6 px-6 lg:order-1'>
           <div className='mx-auto my-5 min-w-[8.3125rem] lg:ml-0'>
             <NavLink
               to='/'

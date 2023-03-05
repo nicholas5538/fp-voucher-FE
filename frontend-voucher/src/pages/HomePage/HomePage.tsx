@@ -10,25 +10,25 @@ const HomePage = () => {
     <>
       <section className='mt-5 font-light'>
         <div className='flex'>
-          <div className='relative -z-negative-10 ml-6 bg-transparent md:mx-10 lg:mx-12'>
+          <div className='-z-negative-10 relative ml-6 bg-transparent md:mx-10 lg:mx-12'>
             <ul>
-              <li className='flex items-end w-28'>
-                <button className='flex border-b border-pink-500 w-full '>
+              <li className='flex w-28 items-end'>
+                <button className='flex w-full border-b border-pink-500 '>
                   <PersonalIcon />
-                  <h3 className='font-medium font-open-sans cursor-pointer mb-0 ml-2'>
+                  <h3 className='font-open-sans mb-0 ml-2 cursor-pointer font-medium'>
                     Personal
                   </h3>
                 </button>
               </li>
             </ul>
-            <div className='text-center text-l my-12 break-words w-full md:text-2xl md:my-24 lg:my-32 lg:text-4xl'>
+            <div className='text-l my-12 w-full break-words text-center md:my-24 md:text-2xl lg:my-32 lg:text-4xl'>
               <h1>It's the food and groceries you love, delivered</h1>
             </div>
           </div>
           <img
             src='https://images.deliveryhero.io/image/foodpanda/hero-home-sg.jpg?width=2000&height=1280'
             alt='banner home'
-            className='ml-auto object-cover -z-negative-100 overflow-x-hidden w-40 h-40 md:h-80 md:w-56 lg:h-96 lg:w-64'
+            className='-z-negative-100 ml-auto h-40 w-40 overflow-x-hidden object-cover md:h-80 md:w-56 lg:h-96 lg:w-64'
             style={{
               objectPosition: '30% 0',
             }}
