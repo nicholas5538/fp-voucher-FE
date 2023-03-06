@@ -1,12 +1,16 @@
-import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Paper from '@mui/material/Paper';
+import { useForm } from 'react-hook-form';
 import RadioInputs from '../components/radio-inputs';
+import { actionLabels } from '../constants/form-labels';
+import { voucherFormSchema } from '../constants/form-schema';
 
 const VoucherPage = () => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
-      action: 'Create',
+      action: actionLabels['Create'],
     },
+    resolver: yupResolver(voucherFormSchema),
   });
   const watchAction = watch('action');
 
@@ -24,7 +28,7 @@ const VoucherPage = () => {
           <RadioInputs
             control={control}
             label='Select an action'
-            labelsObject={['Create', 'Update', 'Delete']}
+            labelsObject={actionLabels}
             name='action'
           />
         </form>

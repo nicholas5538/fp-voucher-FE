@@ -1,23 +1,24 @@
-import { Controller } from 'react-hook-form';
-import FormLabel from '@mui/material/FormLabel';
-import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
+import { Controller } from 'react-hook-form';
+import { TradioLabels } from '../constants/form-labels';
 
 type Props<RadioGroupProps> = RadioGroupProps & {
   control: any;
   label: string;
-  labelsObject: string[];
+  labelsObject: TradioLabels;
   name: string;
 };
 
 const createRadioInputs = (
   labelsObject: Props<RadioGroupProps>['labelsObject']
 ) => {
-  return labelsObject.map((label, index) => (
+  return Object.entries(labelsObject).map(([label, value], index) => (
     <FormControlLabel
       key={index}
-      value={label}
+      value={value}
       control={<Radio size='medium' className='text-pink-500' />}
       label={label}
     />
@@ -25,9 +26,9 @@ const createRadioInputs = (
 };
 
 const RadioInputs = ({
-  labelsObject,
   control,
   label,
+  labelsObject,
   name,
 }: Props<RadioGroupProps>) => {
   return (
