@@ -8,7 +8,7 @@ import { ReactComponent as Favourite } from '../../assets/favourite.svg';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as Profile } from '../../assets/profile.svg';
 import Dropdown from './Dropdown';
-import useOutsideAlerter from '../../hooks/useOutSideAlerter';
+import useOutsideAlerter from '../../hooks/useOutsideAlert';
 
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
