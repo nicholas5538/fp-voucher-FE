@@ -1,14 +1,10 @@
 import { useMemo, useState } from 'react';
-import {
-  MobileDatePicker,
-  MobileDatePickerProps,
-} from '@mui/x-date-pickers/MobileDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
 import { Controller } from 'react-hook-form';
 import type { DateValidationError } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-type MobileDateProps = MobileDatePickerProps<Date> & {
+type MobileDateProps = DatePickerProps<Date> & {
   control: any;
   disabled: boolean;
   disablePast?: boolean;
@@ -42,24 +38,7 @@ const DateSelector = ({ control, disabled, title, name }: MobileDateProps) => {
       control={control}
       render={({ field: { onChange, value } }) => (
         <div className='flex w-full flex-col'>
-          <DesktopDatePicker
-            className='hidden md:block'
-            label={title}
-            minDate={minDate}
-            onChange={onChange}
-            onError={(newError) => setError(newError)}
-            openTo='day'
-            slotProps={{
-              textField: {
-                helperText: errorMessage,
-              },
-            }}
-            value={value}
-            views={['year', 'month', 'day']}
-            disabled={disabled}
-          />
-          <MobileDatePicker
-            className='md:hidden'
+          <DatePicker
             label={title}
             minDate={minDate}
             onChange={onChange}
