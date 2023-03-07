@@ -3,7 +3,15 @@ export type TradioLabels = {
 };
 
 export const actionLabels: TradioLabels = {
-  Create: 'Create',
-  Update: 'Update',
-  Delete: 'Delete',
+  create: 'Create',
+  update: 'Update',
+  delete: 'Delete',
+};
+
+export const categoryLabels: TradioLabels = {
+  delivery: 'Delivery',
+  'dine-in': 'Dine-in',
+  pandago: 'Pandago',
+  pandamart: 'Pandamart',
+  'pick-up': 'Pick-up',
 };

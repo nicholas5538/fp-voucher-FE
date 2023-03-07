@@ -19,8 +19,8 @@ const createRadioInputs = (
     <FormControlLabel
       key={index}
       value={value}
-      control={<Radio size='medium' className='text-pink-500' />}
-      label={label}
+      control={<Radio size='small' className='text-pink-500' />}
+      label={label[0].toUpperCase() + label.substring(1)}
     />
   ));
 };
@@ -32,13 +32,13 @@ const RadioInputs = ({
   name,
 }: Props<RadioGroupProps>) => {
   return (
-    <div className='flex flex-col'>
+    <div className='mb-4 flex flex-col'>
       <Controller
         name={name}
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            <FormLabel id={name} required className='text-lg'>
+            <FormLabel id={name} required className='text-base'>
               {label}
             </FormLabel>
             <RadioGroup
