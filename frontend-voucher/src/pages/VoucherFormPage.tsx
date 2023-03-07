@@ -6,7 +6,7 @@ import RadioInputs from '../components/radio-inputs';
 import { actionLabels, categoryLabels } from '../constants/form-labels';
 import { voucherFormSchema, voucherFormValues } from '../constants/form-schema';
 
-const VoucherPage = () => {
+const VoucherFormPage = () => {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       action: actionLabels['create'],
@@ -54,4 +54,4 @@ const VoucherPage = () => {
   );
 };
 
-export default VoucherPage;
+export default VoucherFormPage;
