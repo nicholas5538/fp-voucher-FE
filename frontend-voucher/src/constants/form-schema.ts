@@ -19,12 +19,6 @@ export const voucherFormSchema = yup.object().shape({
   startDate: yup.date().required(),
   expiryDate: yup
     .date()
-    .when('startDate', (startDate: any, schema) => {
-      if (startDate) {
-        const dayAfter = new Date(startDate.getTime() + 86400000);
-        return schema.min(dayAfter, 'End date has to be later than start date');
-      }
-      return schema;
-    })
+    .min(yup.ref('startDate'), "Expiry Date can't be before the starting date")
     .required(),
 });
