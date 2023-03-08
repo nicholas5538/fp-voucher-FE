@@ -7,17 +7,20 @@ import { TradioLabels } from '../constants/form-labels';
 
 type Props<RadioGroupProps> = RadioGroupProps & {
   control: any;
+  disabled?: boolean;
   label: string;
   labelsObject: TradioLabels;
   name: string;
 };
 
 const createRadioInputs = (
+  disabled: boolean,
   labelsObject: Props<RadioGroupProps>['labelsObject']
 ) => {
   return Object.entries(labelsObject).map(([label, value], index) => (
     <FormControlLabel
       key={index}
+      disabled={disabled}
       value={value}
       control={<Radio size='small' className='text-pink-500' />}
       label={label[0].toUpperCase() + label.substring(1)}
@@ -27,6 +30,7 @@ const createRadioInputs = (
 
 const RadioInputs = ({
   control,
+  disabled,
   label,
   labelsObject,
   name,
@@ -48,7 +52,7 @@ const RadioInputs = ({
               value={value}
               onChange={onChange}
             >
-              {createRadioInputs(labelsObject)}
+              {createRadioInputs(disabled ?? false, labelsObject)}
             </RadioGroup>
           </>
         )}
