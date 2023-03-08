@@ -1,8 +1,13 @@
+import { Dayjs } from 'dayjs';
 import * as yup from 'yup';
 
 export type voucherFormValues = {
   action: string;
   category: string;
+  description: string;
+  minSpending: number;
+  startDate: Dayjs;
+  expiryDate: Dayjs;
 };
 
 export const voucherFormSchema = yup.object().shape({
@@ -16,6 +21,15 @@ export const voucherFormSchema = yup.object().shape({
     .matches(/(Delivery|Dine-in|Pandago|Pandamart|Pick-up)/, {
       excludeEmptyString: false,
     }),
+  description: yup
+    .string()
+    .min(4, 'Description must contain at least 4 letters')
+    .required('Please provide a description'),
+  minSpending: yup
+    .number()
+    .min(0, 'Minimum spending must be positive')
+    .required()
+    .typeError('Please type in a number'),
   startDate: yup.date().required(),
   expiryDate: yup
     .date()
