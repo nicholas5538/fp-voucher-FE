@@ -1,15 +1,31 @@
-import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SendIcon from '@mui/icons-material/Send';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import ButtonComponent from '../components/button';
+import DateSelector from '../components/date-picker';
 import RadioInputs from '../components/radio-inputs';
 import { actionLabels, categoryLabels } from '../constants/form-labels';
 import { voucherFormSchema, voucherFormValues } from '../constants/form-schema';
-import dayjs from 'dayjs';
-import DateSelector from '../components/date-picker';
+import ModalComponent from '../components/modal';
 
 const VoucherFormPage = () => {
-  const { control, handleSubmit, watch } = useForm({
+  const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { isDirty, isValid, isSubmitting },
+  } = useForm({
     defaultValues: {
       action: actionLabels['create'],
       category: categoryLabels['delivery'],
@@ -18,7 +34,6 @@ const VoucherFormPage = () => {
     },
     resolver: yupResolver(voucherFormSchema),
   });
-  const watchAction = watch('action');
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -27,6 +42,8 @@ const VoucherFormPage = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  const watchAction = watch('action');
+  const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
   const onSubmit: SubmitHandler<voucherFormValues> = (data) =>
     console.log(data);
@@ -42,32 +59,80 @@ const VoucherFormPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
           <RadioInputs
             control={control}
+            disabled={disabledWatchAction}
             label='Select an action'
             labelsObject={actionLabels}
             name='action'
           />
           <RadioInputs
             control={control}
+            disabled={disabledWatchAction}
             label='Select a category'
             labelsObject={categoryLabels}
             name='category'
           />
-          <div className='flex flex-col items-start space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-8'>
+          <div className='mb-4 flex flex-col items-start space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-8'>
             <DateSelector
+              action={watchAction}
               control={control}
-              disabled={false}
+              disabled={disabledWatchAction}
               disablePast={false}
               title='Select start date'
               name='startDate'
             />
             <DateSelector
+              action={watchAction}
               control={control}
-              disabled={false}
+              disabled={disabledWatchAction}
               disablePast={true}
               title='Select expiry date'
               name='expiryDate'
             />
           </div>
+          <ButtonGroup
+            color='secondary'
+            aria-label='contained secondary button group'
+          >
+            {disabledWatchAction ? (
+              <ButtonComponent
+                endIcon={<DeleteForeverIcon />}
+                isLoadingButton={true}
+                isSubmitting={isSubmitting}
+                label='Delete'
+              />
+            ) : (
+              <>
+                <ButtonComponent
+                  disabled={!isDirty || !isValid}
+                  endIcon={<SendIcon />}
+                  isLoadingButton={true}
+                  isSubmitting={isSubmitting}
+                  label='Looks Good'
+                />
+                <ButtonComponent
+                  disabled={!isDirty}
+                  endIcon={<RestartAltIcon />}
+                  isLoadingButton={false}
+                  label='Reset'
+                  onClick={() => reset()}
+                />
+              </>
+            )}
+            <ButtonComponent
+              endIcon={<CancelIcon />}
+              isLoadingButton={false}
+              label='Cancel'
+              onClick={() => setOpenModal(true)}
+            />
+          </ButtonGroup>
+          <ModalComponent
+            modalTitle='Are you sure you want to cancel?'
+            modalDesc='Warning, all changes are not saved upon clicking on Yes.'
+            // Note to myself: Need to change line 130 to handle DELETE API
+            clickHandler={() => navigate('/')}
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
         </form>
       </Paper>
     </section>
