@@ -1,16 +1,6 @@
-import { Dayjs } from 'dayjs';
 import * as yup from 'yup';
 
-export type voucherFormValues = {
-  action: string;
-  category: string;
-  description: string;
-  minSpending: number;
-  startDate: Dayjs;
-  expiryDate: Dayjs;
-};
-
-export const voucherFormSchema = yup.object().shape({
+const voucherFormSchema = yup.object().shape({
   action: yup
     .string()
     .required()
@@ -36,3 +26,5 @@ export const voucherFormSchema = yup.object().shape({
     .min(yup.ref('startDate'), "Expiry Date can't be before the starting date")
     .required(),
 });
+
+export default voucherFormSchema;

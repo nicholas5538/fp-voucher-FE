@@ -1,14 +1,15 @@
-import { useMemo, useState } from 'react';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
-import { Controller } from 'react-hook-form';
 import type { DateValidationError } from '@mui/x-date-pickers';
+import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { useMemo, useState } from 'react';
+import { Control, Controller } from 'react-hook-form';
+import { voucherFormValues } from '../../constants/globalTypes';
 
 type DateSelectorProps = DatePickerProps<Date> & {
   action: string;
-  control: any;
+  control: Control<voucherFormValues>;
   title: string;
-  name: string;
+  name: keyof voucherFormValues;
 };
 
 const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {

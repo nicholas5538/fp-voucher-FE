@@ -1,12 +1,13 @@
-import TextField, { TextFieldProps } from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Controller } from 'react-hook-form';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { Control, Controller } from 'react-hook-form';
+import { voucherFormValues } from '../../constants/globalTypes';
 
 type Props<TextFieldProps> = TextFieldProps & {
-  control: any;
+  control: Control<voucherFormValues>;
   icon: JSX.Element;
   label: string;
-  name: string;
+  name: keyof voucherFormValues;
 };
 
 const TextFieldComponent = ({
@@ -35,7 +36,7 @@ const TextFieldComponent = ({
           label={label}
           value={
             props.type === 'number'
-              ? (Math.round(value * 100) / 100).toFixed(2)
+              ? (Math.round(Number(value) * 100) / 100).toFixed(2)
               : value
           }
           onChange={onChange}

@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -10,15 +12,13 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ButtonComponent from '../components/button';
-import DateSelector from '../components/date-picker';
-import RadioInputs from '../components/radio-inputs';
-import { actionLabels, categoryLabels } from '../constants/form-labels';
-import { voucherFormSchema, voucherFormValues } from '../constants/form-schema';
+import DateSelector from '../components/form-inputs/date-picker';
+import RadioInputs from '../components/form-inputs/radio-inputs';
+import TextFieldComponent from '../components/form-inputs/text-field';
 import ModalComponent from '../components/modal';
-import TextFieldComponent from '../components/text-field';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
-import { DateValidationError } from '@mui/x-date-pickers';
+import { actionLabels, categoryLabels } from '../constants/form-labels';
+import voucherFormSchema from '../constants/form-schema';
+import { voucherFormValues } from '../constants/globalTypes';
 
 const VoucherFormPage = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const VoucherFormPage = () => {
     reset,
     watch,
     formState: { isDirty, isValid, isSubmitting, errors },
-  } = useForm({
+  } = useForm<voucherFormValues>({
     defaultValues: {
       action: actionLabels['create'],
       category: categoryLabels['delivery'],
@@ -49,7 +49,7 @@ const VoucherFormPage = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  const watchAction = watch('action');
+  const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
   const onSubmit: SubmitHandler<voucherFormValues> = (data) =>

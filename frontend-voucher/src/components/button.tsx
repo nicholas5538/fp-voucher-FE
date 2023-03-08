@@ -1,10 +1,10 @@
 import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import Button, { ButtonProps } from '@mui/material/Button';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 type Props<ButtonProps> = (ButtonProps | LoadingButtonProps) & {
   disabled?: boolean;
-  endIcon: React.ReactNode;
+  endIcon: ReactNode;
   isLoadingButton: boolean;
   isSubmitting?: boolean;
   label: string;
