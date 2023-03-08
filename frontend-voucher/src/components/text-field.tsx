@@ -39,6 +39,13 @@ const TextFieldComponent = ({
               : value
           }
           onChange={onChange}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '&:hover fieldset': {
+                borderColor: 'hsl(334, 79%, 58%)',
+              },
+            },
+          }}
           required
           {...props}
         />

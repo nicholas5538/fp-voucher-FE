@@ -7,19 +7,11 @@ import dayjs from 'dayjs';
 type DateSelectorProps = DatePickerProps<Date> & {
   action: string;
   control: any;
-  disabled: boolean;
-  disablePast?: boolean;
   title: string;
   name: string;
 };
 
-const DateSelector = ({
-  action,
-  control,
-  disabled,
-  title,
-  name,
-}: DateSelectorProps) => {
+const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
   const [error, setError] = useState<DateValidationError | null>(null);
   const maxDate = action !== 'Delete' ? dayjs().add(5, 'year') : null;
   const minDate = action !== 'Delete' && name === 'expiryDate' ? dayjs() : null;
@@ -56,9 +48,22 @@ const DateSelector = ({
                 helperText: errorMessage,
               },
             }}
+            sx={{
+              '& .Mui-focused': {
+                color: 'hsl(334, 79%, 48%)',
+              },
+              '& .MuiOutlinedInput-root': {
+                '&:hover fieldset': {
+                  borderColor: 'hsl(334, 79%, 58%)',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'hsl(334, 79%, 48%)',
+                },
+              },
+            }}
             value={value}
             views={['year', 'month', 'day']}
-            disabled={disabled}
+            disabled={action === 'Delete'}
           />
         </div>
       )}
