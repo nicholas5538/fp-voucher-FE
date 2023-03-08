@@ -4,7 +4,8 @@ import { Controller } from 'react-hook-form';
 import type { DateValidationError } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
-type MobileDateProps = DatePickerProps<Date> & {
+type DateSelectorProps = DatePickerProps<Date> & {
+  action: string;
   control: any;
   disabled: boolean;
   disablePast?: boolean;
@@ -12,20 +13,25 @@ type MobileDateProps = DatePickerProps<Date> & {
   name: string;
 };
 
-const DateSelector = ({ control, disabled, title, name }: MobileDateProps) => {
+const DateSelector = ({
+  action,
+  control,
+  disabled,
+  title,
+  name,
+}: DateSelectorProps) => {
   const [error, setError] = useState<DateValidationError | null>(null);
-  const minDate = name === 'expiryDate' ? dayjs() : null;
+  const maxDate = action !== 'Delete' ? dayjs().add(5, 'year') : null;
+  const minDate = action !== 'Delete' && name === 'expiryDate' ? dayjs() : null;
 
   const errorMessage = useMemo(() => {
     switch (error) {
+      case 'maxDate': {
+        return 'Date should not be 5 years from now';
+      }
       case 'minDate': {
         return 'Do not select a date earlier than today';
       }
-
-      case 'invalidDate': {
-        return 'Your date is not valid';
-      }
-
       default: {
         return 'DD-MM-YYYY';
       }
@@ -41,6 +47,7 @@ const DateSelector = ({ control, disabled, title, name }: MobileDateProps) => {
           <DatePicker
             label={title}
             minDate={minDate}
+            maxDate={maxDate}
             onChange={onChange}
             onError={(newError) => setError(newError)}
             openTo='day'
