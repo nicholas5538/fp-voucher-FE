@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ButtonComponent from '../components/button';
@@ -21,6 +21,10 @@ import ModalComponent from '../components/modal';
 import { actionLabels, categoryLabels } from '../constants/form-labels';
 import voucherFormSchema from '../constants/form-schema';
 import { voucherFormValues } from '../constants/globalTypes';
+import VoucherCard from '../components/form-inputs/voucher-card';
+import downArrow from '../assets/down-arrow.json';
+
+const Lottie = lazy(() => import('lottie-react'));
 
 const VoucherFormPage = () => {
   const navigate = useNavigate();
@@ -54,6 +58,13 @@ const VoucherFormPage = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  const watchVoucherCard = watch([
+    'description',
+    'discount',
+    'expiryDate',
+    'minSpending',
+    'promoCode',
+  ]);
   const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
@@ -62,10 +73,13 @@ const VoucherFormPage = () => {
     console.log(data);
 
   return (
-    <section className='mx-auto mt-8 max-w-7xl px-4'>
-      <Paper elevation={3} className='mx-auto max-w-2xl rounded-lg py-4'>
+    <section className='mx-auto mt-8 max-w-7xl px-4 lg:flex lg:flex-row lg:items-center lg:justify-between'>
+      <Paper
+        elevation={3}
+        className='mx-auto max-w-2xl rounded-lg py-4 lg:mx-0 xl:max-w-3xl'
+      >
         <div className='mb-4 border-0 border-b border-solid border-gray-700 pb-2'>
-          <h2 className='ml-3 font-sans text-2xl font-semibold tracking-wider text-gray-700'>
+          <h2 className='ml-3 font-sans text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
             {watchAction} voucher
           </h2>
         </div>
@@ -94,7 +108,7 @@ const VoucherFormPage = () => {
                 icon={<DescriptionOutlinedIcon />}
                 label='Description'
                 multiline
-                maxRows={3}
+                maxRows={2}
                 name='description'
                 placeholder='5% off pick-up on Pizza Hut'
                 type='text'
@@ -210,6 +224,13 @@ const VoucherFormPage = () => {
           />
         </form>
       </Paper>
+      <aside className='hidden w-[25%] rounded-lg lg:flex lg:flex-col lg:items-center lg:justify-around xl:w-3/6 xl:max-w-md'>
+        <h1 className='rounded-md bg-pink-400 py-4 px-6 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
+          Voucher
+        </h1>
+        <Lottie className='max-w-[200px]' animationData={downArrow} />
+        <VoucherCard watchVoucherCard={watchVoucherCard} />
+      </aside>
     </section>
   );
 };
