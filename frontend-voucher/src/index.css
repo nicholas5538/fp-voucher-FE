@@ -23,8 +23,4 @@ body {
   .link {
     @apply font-medium tracking-wide text-gray-500 no-underline transition-colors duration-200 ease-linear hover:text-pink-700;
   }
-
-  .navbar-icon-centered {
-    @apply grid h-full items-center px-4 lg:border-r lg:border-gray-200;
-  }
 }
