@@ -27,7 +27,9 @@
     "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.11",
     "@mui/x-date-pickers": "^6.0.0",
+    "add": "^2.0.6",
     "dayjs": "^1.11.7",
+    "lottie-react": "^2.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.4",
@@ -35,6 +37,7 @@
     "react-router-dom": "^6.5.0",
     "styled-components": "^5.3.8",
     "vite-plugin-svgr": "^2.4.0",
+    "yarn": "^1.22.19",
     "yup": "^1.0.2"
   },
   "devDependencies": {
