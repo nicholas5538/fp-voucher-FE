@@ -1,28 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
-import CancelIcon from '@mui/icons-material/Cancel';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
-import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import dayjs from 'dayjs';
 import { lazy, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import ButtonComponent from '../components/button';
-import DateSelector from '../components/form-inputs/date-picker';
-import RadioInputs from '../components/form-inputs/radio-inputs';
-import TextFieldComponent from '../components/form-inputs/text-field';
-import ModalComponent from '../components/modal';
-import { actionLabels, categoryLabels } from '../constants/form-labels';
-import voucherFormSchema from '../constants/form-schema';
-import { voucherFormValues } from '../constants/globalTypes';
-import VoucherCard from '../components/form-inputs/voucher-card';
-import downArrow from '../assets/down-arrow.json';
+import downArrow from '../../assets/down-arrow.json';
+import ButtonComponent from '../../components/button';
+import DateSelector from '../../components/form-inputs/date-picker';
+import RadioInputs from '../../components/form-inputs/radio-inputs';
+import TextFieldComponent from '../../components/form-inputs/text-field';
+import VoucherCard from '../../components/form-inputs/voucher-card';
+import ModalComponent from '../../components/modal';
+import { actionLabels, categoryLabels } from '../../constants/form-labels';
+import voucherFormSchema from '../../constants/form-schema';
+import { voucherFormValues } from '../../constants/globalTypes';
+import icons from './icons';
 
 const Lottie = lazy(() => import('lottie-react'));
 
@@ -105,7 +98,7 @@ const VoucherFormPage = () => {
                 disabled={disabledWatchAction}
                 error={errors.description === undefined ? false : true}
                 helperText={errors.description?.message}
-                icon={<DescriptionOutlinedIcon />}
+                icon={icons.desc}
                 label='Description'
                 multiline
                 maxRows={2}
@@ -119,7 +112,7 @@ const VoucherFormPage = () => {
                 disabled={disabledWatchAction}
                 error={errors.promoCode === undefined ? false : true}
                 helperText={errors.promoCode?.message}
-                icon={<DiscountOutlinedIcon />}
+                icon={icons.discount}
                 label='Promo code'
                 name='promoCode'
                 placeholder='PIZZAHUT5'
@@ -133,7 +126,7 @@ const VoucherFormPage = () => {
                 disabled={disabledWatchAction}
                 error={errors.minSpending === undefined ? false : true}
                 helperText={errors.minSpending?.message}
-                icon={<AttachMoneyOutlinedIcon />}
+                icon={icons.attachMoney}
                 label='Minimum spending'
                 name='minSpending'
                 type='number'
@@ -144,7 +137,7 @@ const VoucherFormPage = () => {
                 disabled={disabledWatchAction}
                 error={errors.discount === undefined ? false : true}
                 helperText={errors.discount?.message}
-                icon={<PercentOutlinedIcon />}
+                icon={icons.percent}
                 label='Discount'
                 name='discount'
                 type='number'
@@ -176,7 +169,7 @@ const VoucherFormPage = () => {
             {disabledWatchAction ? (
               <>
                 <ButtonComponent
-                  endIcon={<DeleteForeverIcon />}
+                  endIcon={icons.delete}
                   isLoadingButton={false}
                   label='Delete'
                   onClick={() => setDeleteModal(true)}
@@ -194,14 +187,14 @@ const VoucherFormPage = () => {
               <>
                 <ButtonComponent
                   disabled={!isDirty || !isValid}
-                  endIcon={<SendIcon />}
+                  endIcon={icons.send}
                   isLoadingButton={true}
                   isSubmitting={isSubmitting}
                   label='Looks Good'
                 />
                 <ButtonComponent
                   disabled={!isDirty}
-                  endIcon={<RestartAltIcon />}
+                  endIcon={icons.reset}
                   isLoadingButton={false}
                   label='Reset'
                   onClick={() => reset()}
@@ -209,7 +202,7 @@ const VoucherFormPage = () => {
               </>
             )}
             <ButtonComponent
-              endIcon={<CancelIcon />}
+              endIcon={icons.cancel}
               isLoadingButton={false}
               label='Cancel'
               onClick={() => setOpenModal(true)}

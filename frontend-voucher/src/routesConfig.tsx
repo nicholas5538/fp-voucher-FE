@@ -3,7 +3,7 @@ import CartPage from './pages/CartPage';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
 import RootLayout from './pages/RootLayout';
-import VoucherFormPage from './pages/VoucherFormPage';
+import VoucherFormPage from './pages/VoucherForm/VoucherFormPage';
 
 const routesConfig = createRoutesFromElements(
   <Route path='/' element={<RootLayout />} errorElement={<ErrorPage />}>

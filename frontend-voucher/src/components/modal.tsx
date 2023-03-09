@@ -1,5 +1,4 @@
-import CancelIcon from '@mui/icons-material/Cancel';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import icons from '../pages/VoucherForm/icons';
 import DoneIcon from '@mui/icons-material/Done';
 import { ButtonGroup } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -44,7 +43,7 @@ const ModalComponent = ({
   const firstButtonProps =
     modalTitle === 'Are you sure you want to delete the voucher?'
       ? {
-          endIcon: <DeleteForeverIcon />,
+          endIcon: icons.delete,
           isLoadingButton: true,
           isSubmitting: isSubmitting,
           label: 'Delete',
@@ -75,7 +74,7 @@ const ModalComponent = ({
         <ButtonGroup color='secondary' aria-label='secondary button group'>
           <ButtonComponent {...firstButtonProps} />
           <ButtonComponent
-            endIcon={<CancelIcon />}
+            endIcon={icons.cancel}
             isLoadingButton={false}
             label='No'
             onClick={() => setOpenModal((prevState) => !prevState)}
