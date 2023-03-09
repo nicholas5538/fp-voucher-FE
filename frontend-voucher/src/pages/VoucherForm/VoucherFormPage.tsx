@@ -16,13 +16,14 @@ import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
 import icons from './icons';
+import { v4 as uuidv4 } from 'uuid';
 
 const Lottie = lazy(() => import('lottie-react'));
 
 const VoucherFormPage = () => {
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(false);
-  const [openDeleteModal, setDeleteModal] = useState(false);
+  const [openModal, setOpenModal] = useState(() => false);
+  const [openDeleteModal, setDeleteModal] = useState(() => false);
   const {
     control,
     handleSubmit,
@@ -61,9 +62,11 @@ const VoucherFormPage = () => {
   const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
-  const onSubmit: SubmitHandler<voucherFormValues> = (data) =>
-    // Convert minSpending to number before sending data
-    console.log(data);
+  const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
+    const modifiedData = { ...data, id: uuidv4() };
+    console.log(modifiedData);
+  };
+  // Convert minSpending to number before sending data
 
   return (
     <section className='mx-auto mt-8 max-w-7xl px-4 lg:flex lg:flex-row lg:items-center lg:justify-between'>
