@@ -42,6 +42,8 @@ const TextFieldComponent = ({
           value={
             props.type === 'number' && name === 'minSpending'
               ? (Math.round(Number(value) * 100) / 100).toFixed(2)
+              : typeof value === 'string' && name === 'promoCode'
+              ? value.toUpperCase()
               : value
           }
           onChange={onChange}

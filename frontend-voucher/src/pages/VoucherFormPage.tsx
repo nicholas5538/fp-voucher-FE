@@ -5,6 +5,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PercentOutlinedIcon from '@mui/icons-material/PercentOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
@@ -37,6 +38,7 @@ const VoucherFormPage = () => {
       description: '',
       discount: 5,
       minSpending: 0,
+      promoCode: '',
       startDate: dayjs(),
       expiryDate: dayjs().add(1, 'day'),
     },
@@ -81,19 +83,34 @@ const VoucherFormPage = () => {
             name='category'
           />
           <div className='mb-6 flex w-full flex-col space-y-6'>
-            <TextFieldComponent
-              control={control}
-              disabled={disabledWatchAction}
-              error={errors.description === undefined ? false : true}
-              helperText={errors.description?.message}
-              icon={<DescriptionOutlinedIcon />}
-              label='Description'
-              multiline
-              maxRows={3}
-              name='description'
-              placeholder='5% off pick-up on Pizza Hut'
-              type='text'
-            />
+            <div className='grid grid-cols-1 space-y-6 md:grid-cols-3 md:space-y-0 md:space-x-4'>
+              <TextFieldComponent
+                className='md:col-span-2'
+                control={control}
+                disabled={disabledWatchAction}
+                error={errors.description === undefined ? false : true}
+                helperText={errors.description?.message}
+                icon={<DescriptionOutlinedIcon />}
+                label='Description'
+                multiline
+                maxRows={3}
+                name='description'
+                placeholder='5% off pick-up on Pizza Hut'
+                type='text'
+              />
+              <TextFieldComponent
+                className='col-span-1'
+                control={control}
+                disabled={disabledWatchAction}
+                error={errors.promoCode === undefined ? false : true}
+                helperText={errors.promoCode?.message}
+                icon={<DiscountOutlinedIcon />}
+                label='Promo code'
+                name='promoCode'
+                placeholder='PIZZAHUT5'
+                type='text'
+              />
+            </div>
             <div className='grid grid-cols-1 space-y-6 md:grid-cols-2 md:space-y-0 md:space-x-4'>
               <TextFieldComponent
                 className='col-span-1'
@@ -112,8 +129,8 @@ const VoucherFormPage = () => {
                 disabled={disabledWatchAction}
                 error={errors.discount === undefined ? false : true}
                 helperText={errors.discount?.message}
-                icon={<DiscountOutlinedIcon />}
-                label='Discount (%)'
+                icon={<PercentOutlinedIcon />}
+                label='Discount'
                 name='discount'
                 type='number'
               />

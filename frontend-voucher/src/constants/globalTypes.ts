@@ -7,6 +7,7 @@ export type voucherFormValues = {
   description: string;
   discount: number;
   minSpending: number;
+  promoCode: string;
   startDate: Dayjs;
   expiryDate: Dayjs;
 };
