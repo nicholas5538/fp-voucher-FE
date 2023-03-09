@@ -13,13 +13,28 @@ const voucherFormSchema = yup.object().shape({
     }),
   description: yup
     .string()
-    .min(4, 'Description must contain at least 4 letters')
-    .required('Please provide a description'),
+    .min(4, 'Description must contain at least 4 characters')
+    .required(),
+  discount: yup
+    .number()
+    .min(5, 'Discount must be 5% and above')
+    .required('Please enter a number')
+    .typeError('Please type in a number'),
   minSpending: yup
     .number()
-    .min(0, 'Minimum spending must be positive')
-    .required()
+    .min(0, 'Minimum spending must be $0 and above')
+    .required('Please enter a number')
     .typeError('Please type in a number'),
+  promoCode: yup
+    .string()
+    .matches(
+      /^[A-z0-9\b]+$/,
+      'Promo code should not be empty or contain special characters'
+    )
+    .min(4, 'Enter at least 4 characters')
+    .max(10, 'Promo code should not exceed 10 characters')
+    .uppercase()
+    .required(),
   startDate: yup.date().required(),
   expiryDate: yup
     .date()

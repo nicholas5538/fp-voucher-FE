@@ -51,9 +51,14 @@ const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
             }}
             sx={{
               '& .Mui-focused': {
+                borderColor: 'hsl(334, 79%, 48%)',
                 color: 'hsl(334, 79%, 48%)',
+                '&.MuiInputLabel-root': {
+                  color: 'hsl(334, 79%, 48%)',
+                },
               },
               '& .MuiOutlinedInput-root': {
+                color: 'hsl(0, 0%, 20%)',
                 '&:hover fieldset': {
                   borderColor: 'hsl(334, 79%, 58%)',
                 },

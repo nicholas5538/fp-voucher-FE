@@ -4,7 +4,6 @@ import { FaAngleDown } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Brand } from '../../assets/brand.svg';
 import { ReactComponent as Cart } from '../../assets/cart.svg';
-import { ReactComponent as Favourite } from '../../assets/favourite.svg';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as Profile } from '../../assets/profile.svg';
 import Dropdown from './Dropdown';
@@ -56,12 +55,7 @@ const MainNavigation = () => {
             </NavLink>
           </div>
         </div>
-        <div className='navbar-icon-centered lg:order-3'>
-          <NavLink to='/favourites' end>
-            <Favourite className='hover:fill-pink-800' />
-          </NavLink>
-        </div>
-        <div className='navbar-icon-centered lg:order-last'>
+        <div className='grid h-full items-center pr-4 lg:order-last'>
           <NavLink to='/cart' end>
             <Cart className='hover:fill-pink-800' />
           </NavLink>
