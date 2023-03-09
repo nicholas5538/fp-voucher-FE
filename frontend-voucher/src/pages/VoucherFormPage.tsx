@@ -25,6 +25,7 @@ import { voucherFormValues } from '../constants/globalTypes';
 const VoucherFormPage = () => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setDeleteModal] = useState(false);
   const {
     control,
     handleSubmit,
@@ -62,7 +63,7 @@ const VoucherFormPage = () => {
 
   return (
     <section className='mx-auto mt-8 max-w-7xl px-4'>
-      <Paper elevation={2} className='mx-auto max-w-3xl rounded-lg py-4'>
+      <Paper elevation={3} className='mx-auto max-w-2xl rounded-lg py-4'>
         <div className='mb-4 border-0 border-b border-solid border-gray-700 pb-2'>
           <h2 className='ml-3 font-sans text-2xl font-semibold tracking-wider text-gray-700'>
             {watchAction} voucher
@@ -159,12 +160,22 @@ const VoucherFormPage = () => {
             aria-label='contained secondary button group'
           >
             {disabledWatchAction ? (
-              <ButtonComponent
-                endIcon={<DeleteForeverIcon />}
-                isLoadingButton={true}
-                isSubmitting={isSubmitting}
-                label='Delete'
-              />
+              <>
+                <ButtonComponent
+                  endIcon={<DeleteForeverIcon />}
+                  isLoadingButton={false}
+                  label='Delete'
+                  onClick={() => setDeleteModal(true)}
+                />
+                <ModalComponent
+                  modalTitle='Are you sure you want to delete the voucher?'
+                  modalDesc='Warning, all actions are irreversible.'
+                  // Note to myself: Need to change the line below to handle DELETE API
+                  clickHandler={() => console.log('Deleted')}
+                  openModal={openDeleteModal}
+                  setOpenModal={setDeleteModal}
+                />
+              </>
             ) : (
               <>
                 <ButtonComponent
@@ -193,7 +204,6 @@ const VoucherFormPage = () => {
           <ModalComponent
             modalTitle='Are you sure you want to cancel?'
             modalDesc='Warning, all changes are not saved upon clicking on Yes.'
-            // Note to myself: Need to change the line below to handle DELETE API
             clickHandler={() => navigate('/')}
             openModal={openModal}
             setOpenModal={setOpenModal}

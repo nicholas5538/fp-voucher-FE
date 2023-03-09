@@ -1,4 +1,5 @@
 import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DoneIcon from '@mui/icons-material/Done';
 import { ButtonGroup } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -8,6 +9,7 @@ import ButtonComponent from './button';
 
 type ModalProps = {
   clickHandler: () => void;
+  isSubmitting?: boolean;
   modalTitle: string;
   modalDesc: string;
   openModal: boolean;
@@ -33,11 +35,28 @@ const boxStyle = {
 
 const ModalComponent = ({
   clickHandler,
+  isSubmitting,
   modalTitle,
   modalDesc,
   openModal,
   setOpenModal,
 }: ModalProps) => {
+  const firstButtonProps =
+    modalTitle === 'Are you sure you want to delete the voucher?'
+      ? {
+          endIcon: <DeleteForeverIcon />,
+          isLoadingButton: true,
+          isSubmitting: isSubmitting,
+          label: 'Delete',
+          onClick: clickHandler,
+        }
+      : {
+          endIcon: <DoneIcon />,
+          isLoadingButton: false,
+          label: 'Yes',
+          onClick: clickHandler,
+        };
+
   return (
     <Modal
       open={openModal}
@@ -54,12 +73,7 @@ const ModalComponent = ({
           {modalDesc}
         </Typography>
         <ButtonGroup color='secondary' aria-label='secondary button group'>
-          <ButtonComponent
-            endIcon={<DoneIcon />}
-            isLoadingButton={false}
-            label='Yes'
-            onClick={clickHandler}
-          />
+          <ButtonComponent {...firstButtonProps} />
           <ButtonComponent
             endIcon={<CancelIcon />}
             isLoadingButton={false}
