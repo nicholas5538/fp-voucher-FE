@@ -17,7 +17,12 @@ const TextFieldComponent = ({
   name,
   ...props
 }: Props<TextFieldProps>) => {
-  const iProps = props.type === 'number' ? { step: 0.5 } : {};
+  const iProps =
+    props.type === 'number'
+      ? { step: 0.5 }
+      : name !== 'minSpending'
+      ? { step: 1 }
+      : {};
 
   return (
     <Controller
@@ -35,7 +40,7 @@ const TextFieldComponent = ({
           }}
           label={label}
           value={
-            props.type === 'number'
+            props.type === 'number' && name === 'minSpending'
               ? (Math.round(Number(value) * 100) / 100).toFixed(2)
               : value
           }

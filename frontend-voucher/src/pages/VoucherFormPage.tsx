@@ -3,6 +3,7 @@ import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import DiscountOutlinedIcon from '@mui/icons-material/DiscountOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -34,6 +35,7 @@ const VoucherFormPage = () => {
       action: actionLabels['create'],
       category: categoryLabels['delivery'],
       description: '',
+      discount: 5,
       minSpending: 0,
       startDate: dayjs(),
       expiryDate: dayjs().add(1, 'day'),
@@ -92,18 +94,32 @@ const VoucherFormPage = () => {
               placeholder='5% off pick-up on Pizza Hut'
               type='text'
             />
-            <TextFieldComponent
-              control={control}
-              disabled={disabledWatchAction}
-              error={errors.minSpending === undefined ? false : true}
-              helperText={errors.minSpending?.message}
-              icon={<AttachMoneyOutlinedIcon />}
-              label='Minimum spending'
-              name='minSpending'
-              type='number'
-            />
+            <div className='grid grid-cols-1 space-y-6 md:grid-cols-2 md:space-y-0 md:space-x-4'>
+              <TextFieldComponent
+                className='col-span-1'
+                control={control}
+                disabled={disabledWatchAction}
+                error={errors.minSpending === undefined ? false : true}
+                helperText={errors.minSpending?.message}
+                icon={<AttachMoneyOutlinedIcon />}
+                label='Minimum spending'
+                name='minSpending'
+                type='number'
+              />
+              <TextFieldComponent
+                className='col-span-1'
+                control={control}
+                disabled={disabledWatchAction}
+                error={errors.discount === undefined ? false : true}
+                helperText={errors.discount?.message}
+                icon={<DiscountOutlinedIcon />}
+                label='Discount (%)'
+                name='discount'
+                type='number'
+              />
+            </div>
           </div>
-          <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-8'>
+          <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-5'>
             <DateSelector
               action={watchAction}
               control={control}
