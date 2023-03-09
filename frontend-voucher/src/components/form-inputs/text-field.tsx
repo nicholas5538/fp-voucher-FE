@@ -18,7 +18,7 @@ const TextFieldComponent = ({
   ...props
 }: Props<TextFieldProps>) => {
   const iProps =
-    props.type === 'number'
+    props.type === 'number' && name === 'minSpending'
       ? { step: 0.5 }
       : name !== 'minSpending'
       ? { step: 1 }

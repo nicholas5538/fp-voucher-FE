@@ -34,7 +34,7 @@ const VoucherCard = ({ watchVoucherCard }: VoucherCardProps) => {
             </div>
           </div>
           <div className='col-span-4 row-start-5 row-end-6'>
-            <div className='flex flex-row items-center justify-between px-4'>
+            <div className='flex flex-row items-center justify-between space-x-4 px-4'>
               <h4 className='font-mont text-sm font-light text-neutral-500'>
                 Use by {expiryDate}
               </h4>
