@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SendIcon from '@mui/icons-material/Send';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -10,11 +12,13 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import ButtonComponent from '../components/button';
-import DateSelector from '../components/date-picker';
-import RadioInputs from '../components/radio-inputs';
-import { actionLabels, categoryLabels } from '../constants/form-labels';
-import { voucherFormSchema, voucherFormValues } from '../constants/form-schema';
+import DateSelector from '../components/form-inputs/date-picker';
+import RadioInputs from '../components/form-inputs/radio-inputs';
+import TextFieldComponent from '../components/form-inputs/text-field';
 import ModalComponent from '../components/modal';
+import { actionLabels, categoryLabels } from '../constants/form-labels';
+import voucherFormSchema from '../constants/form-schema';
+import { voucherFormValues } from '../constants/globalTypes';
 
 const VoucherFormPage = () => {
   const navigate = useNavigate();
@@ -24,14 +28,17 @@ const VoucherFormPage = () => {
     handleSubmit,
     reset,
     watch,
-    formState: { isDirty, isValid, isSubmitting },
-  } = useForm({
+    formState: { isDirty, isValid, isSubmitting, errors },
+  } = useForm<voucherFormValues>({
     defaultValues: {
       action: actionLabels['create'],
       category: categoryLabels['delivery'],
+      description: '',
+      minSpending: 0,
       startDate: dayjs(),
       expiryDate: dayjs().add(1, 'day'),
     },
+    mode: 'all',
     resolver: yupResolver(voucherFormSchema),
   });
 
@@ -42,10 +49,11 @@ const VoucherFormPage = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  const watchAction = watch('action');
+  const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
   const onSubmit: SubmitHandler<voucherFormValues> = (data) =>
+    // Convert minSpending to number before sending data
     console.log(data);
 
   return (
@@ -59,7 +67,6 @@ const VoucherFormPage = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
           <RadioInputs
             control={control}
-            disabled={disabledWatchAction}
             label='Select an action'
             labelsObject={actionLabels}
             name='action'
@@ -71,7 +78,32 @@ const VoucherFormPage = () => {
             labelsObject={categoryLabels}
             name='category'
           />
-          <div className='mb-4 flex flex-col items-start space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-8'>
+          <div className='mb-6 flex w-full flex-col space-y-6'>
+            <TextFieldComponent
+              control={control}
+              disabled={disabledWatchAction}
+              error={errors.description === undefined ? false : true}
+              helperText={errors.description?.message}
+              icon={<DescriptionOutlinedIcon />}
+              label='Description'
+              multiline
+              maxRows={3}
+              name='description'
+              placeholder='5% off pick-up on Pizza Hut'
+              type='text'
+            />
+            <TextFieldComponent
+              control={control}
+              disabled={disabledWatchAction}
+              error={errors.minSpending === undefined ? false : true}
+              helperText={errors.minSpending?.message}
+              icon={<AttachMoneyOutlinedIcon />}
+              label='Minimum spending'
+              name='minSpending'
+              type='number'
+            />
+          </div>
+          <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-8'>
             <DateSelector
               action={watchAction}
               control={control}
@@ -128,7 +160,7 @@ const VoucherFormPage = () => {
           <ModalComponent
             modalTitle='Are you sure you want to cancel?'
             modalDesc='Warning, all changes are not saved upon clicking on Yes.'
-            // Note to myself: Need to change line 130 to handle DELETE API
+            // Note to myself: Need to change the line below to handle DELETE API
             clickHandler={() => navigate('/')}
             openModal={openModal}
             setOpenModal={setOpenModal}

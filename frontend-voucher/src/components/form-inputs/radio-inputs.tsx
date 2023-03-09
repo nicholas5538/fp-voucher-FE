@@ -2,15 +2,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
-import { Controller } from 'react-hook-form';
-import { TradioLabels } from '../constants/form-labels';
+import { Control, Controller } from 'react-hook-form';
+import { TradioLabels } from '../../constants/form-labels';
+import { voucherFormValues } from '../../constants/globalTypes';
 
 type Props<RadioGroupProps> = RadioGroupProps & {
-  control: any;
+  control: Control<voucherFormValues>;
   disabled?: boolean;
   label: string;
   labelsObject: TradioLabels;
-  name: string;
+  name: keyof voucherFormValues;
 };
 
 const createRadioInputs = (
