@@ -63,11 +63,11 @@ const VoucherFormPage = () => {
   const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
-  const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
+  const onSubmit: SubmitHandler<Partial<voucherFormValues>> = (data) => {
+    delete data.action;
     const modifiedData = { ...data, id: uuidv4() };
     console.log(modifiedData);
   };
-  // Convert minSpending to number before sending data
 
   return (
     <section className='mx-auto mt-8 flex max-w-7xl flex-col items-center px-4 xl:flex-row xl:justify-between'>
