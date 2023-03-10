@@ -22,6 +22,7 @@ import SkeletonForm from './SkeletonForm';
 const Lottie = lazy(() => import('lottie-react'));
 
 const VoucherFormPage = () => {
+  document.title = 'Foodpanda Voucher Form';
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
