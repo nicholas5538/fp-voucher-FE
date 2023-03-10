@@ -18,6 +18,9 @@ module.exports = {
       sans: 'Open Sans, Arial, sans-serif',
     },
     extend: {
+      fontFamily: {
+        mont: ['Montserrat'],
+      },
       colors: {
         white: '#fff',
         black: 'hsl(0, 0%, 20%)',

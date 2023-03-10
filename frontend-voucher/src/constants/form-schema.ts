@@ -14,6 +14,7 @@ const voucherFormSchema = yup.object().shape({
   description: yup
     .string()
     .min(4, 'Description must contain at least 4 characters')
+    .max(30, 'Description must be less than 30 characters')
     .required(),
   discount: yup
     .number()

@@ -12,17 +12,17 @@ function Dropdown({ open }: dropdownProps) {
         {item.id === 2 ? (
           <Link
             key={item.id}
-            className='link grid h-full w-full grid-cols-3 items-center gap-x-1'
+            className='link grid h-full w-full grid-cols-2 items-center gap-x-1 font-mont text-sm'
             to={item.url}
           >
-            <p className='col-span-2'>Become a pandapro</p>
+            <p className='col-span-1'>Pandapro</p>
             <span className='col-span-1 mt-2'>{item.element}</span>
           </Link>
         ) : (
           <Link
             key={item.id}
             to={item.url}
-            className='link grid h-full w-full grid-cols-1 items-center justify-start'
+            className='link grid h-full w-full grid-cols-1 items-center justify-start font-mont text-sm'
           >
             {item.element}
           </Link>
