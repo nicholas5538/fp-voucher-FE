@@ -69,7 +69,7 @@ const VoucherFormPage = () => {
   // Convert minSpending to number before sending data
 
   return (
-    <section className='mx-auto mt-8 max-w-7xl px-4 lg:flex lg:flex-row lg:items-center lg:justify-between'>
+    <section className='mx-auto mt-8 flex max-w-7xl flex-col items-center px-4 xl:flex-row xl:justify-between'>
       <Paper
         elevation={3}
         className='mx-auto max-w-2xl rounded-lg py-4 lg:mx-0 xl:max-w-3xl'
@@ -220,12 +220,12 @@ const VoucherFormPage = () => {
           />
         </form>
       </Paper>
-      <aside className='hidden w-[25%] rounded-lg lg:flex lg:flex-col lg:items-center lg:justify-around xl:w-3/6 xl:max-w-md'>
+      <aside className='hidden w-[25%] rounded-lg xl:flex xl:w-3/6 xl:max-w-md xl:flex-col xl:items-center xl:justify-around'>
         <h1 className='rounded-md bg-pink-400 py-4 px-6 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
           Voucher
         </h1>
         <Lottie className='max-w-[200px]' animationData={downArrow} />
-        <VoucherCard watchVoucherCard={watchVoucherCard} />
+        <VoucherCard voucherParticulars={watchVoucherCard} />
       </aside>
     </section>
   );
