@@ -41,7 +41,7 @@ const MainNavigation = () => {
               <FaAngleDown />
             </IconContext.Provider>
           </button>
-          <Dropdown open={open} />
+          <Dropdown open={open} setOpen={setOpen} />
         </div>
         <div className='h-16 w-5/6 px-6 lg:order-1'>
           <div className='mx-auto my-5 min-w-[8.3125rem] lg:ml-0'>
