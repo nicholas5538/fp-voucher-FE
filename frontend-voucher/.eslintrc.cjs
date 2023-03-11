@@ -4,7 +4,11 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['plugin:react/recommended', 'standard-with-typescript'],
+  extends: [
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+    'plugin:react/recommended',
+    'standard-with-typescript',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
