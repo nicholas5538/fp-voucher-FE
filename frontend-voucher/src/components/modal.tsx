@@ -1,10 +1,10 @@
-import icons from '../pages/VoucherForm/icons';
 import DoneIcon from '@mui/icons-material/Done';
 import { ButtonGroup } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import ButtonComponent from './button';
+import icons from './voucher-form/icons';
 
 type ModalProps = {
   clickHandler: () => void;
