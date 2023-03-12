@@ -21,21 +21,16 @@ const SkeletonForm = () => {
             sx={{ fontSize: '1rem', width: '150px' }}
           />
           <div className='flex flex-row items-center justify-start space-x-6'>
-            <Skeleton
-              animation='wave'
-              className='h-[38px] w-[38px]'
-              variant='circular'
-            />
-            <Skeleton
-              animation='wave'
-              className='h-[38px] w-[38px]'
-              variant='circular'
-            />
-            <Skeleton
-              animation='wave'
-              className='h-[38px] w-[38px]'
-              variant='circular'
-            />
+            {Array(3)
+              .fill(true)
+              .map((_, i) => (
+                <Skeleton
+                  key={i}
+                  animation='wave'
+                  className='h-[38px] w-[38px]'
+                  variant='circular'
+                />
+              ))}
           </div>
           <Skeleton
             animation='wave'

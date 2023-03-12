@@ -6,6 +6,7 @@ import { getVouchers } from '../../utils/api';
 import ActionButtons from './ActionButtons';
 import CustomToolBar from './CustomToolbar';
 import NoRows from './NoRows';
+import SkeletonTable from './SkeletonTable';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
@@ -28,7 +29,6 @@ const VoucherTable = () => {
     );
   }, [data?.total, setRowCountState]);
 
-  if (isLoading) return <h1>Loading....</h1>;
   if (isError) return <h1>{JSON.stringify(error)}</h1>;
 
   const tableColumns: GridColDef[] = [
@@ -57,39 +57,42 @@ const VoucherTable = () => {
   return (
     <section className='mx-auto mt-8 flex max-w-7xl items-center px-4'>
       <div className='w-full'>
-        <DataGrid
-          autoHeight
-          columns={tableColumns}
-          rows={data.vouchers}
-          slots={{
-            loadingOverlay: LinearProgress,
-            noRowsOverlay: NoRows,
-            toolbar: CustomToolBar,
-          }}
-          slotProps={{
-            columnsPanel: {
-              disableHideAllButton: true,
-            },
-          }}
-          sx={{
-            width: '100%',
-            boxShadow: 4,
-            border: 2,
-            borderColor: 'hsl(334, 79%, 50%)',
-            '& .MuiDataGrid-cell:hover': {
-              color: 'hsl(334, 79%, 60%)',
-              backgroundColor: 'transparent',
-            },
-            overflowX: 'scroll',
-          }}
-          disableRowSelectionOnClick={true}
-          rowCount={rowCountState}
-          loading={isLoading}
-          pageSizeOptions={[5, 10, 25, 50]}
-          paginationModel={paginationModel}
-          paginationMode='server'
-          onPaginationModelChange={setPaginationModel}
-        />
+        {isLoading ? (
+          <SkeletonTable />
+        ) : (
+          <DataGrid
+            autoHeight
+            columns={tableColumns}
+            rows={data.vouchers}
+            slots={{
+              loadingOverlay: LinearProgress,
+              noRowsOverlay: NoRows,
+              toolbar: CustomToolBar,
+            }}
+            slotProps={{
+              columnsPanel: {
+                disableHideAllButton: true,
+              },
+            }}
+            sx={{
+              boxShadow: 4,
+              border: 2,
+              borderColor: 'hsl(334, 79%, 50%)',
+              '& .MuiDataGrid-cell:hover': {
+                color: 'hsl(334, 79%, 60%)',
+                backgroundColor: 'transparent',
+              },
+              overflowX: 'scroll',
+            }}
+            disableRowSelectionOnClick={true}
+            rowCount={rowCountState}
+            loading={isLoading}
+            pageSizeOptions={[5, 10, 25, 50]}
+            paginationModel={paginationModel}
+            paginationMode='server'
+            onPaginationModelChange={setPaginationModel}
+          />
+        )}
       </div>
     </section>
   );
