@@ -26,7 +26,7 @@ const VoucherTable = () => {
 
   useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      data?.total !== undefined ? data?.total : prevRowCountState
+      data?.total !== undefined ? data?.total : prevRowCountState,
     );
   }, [data?.total, setRowCountState]);
 

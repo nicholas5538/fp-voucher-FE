@@ -1,4 +1,4 @@
-import { createRoutesFromElements, Params, Route } from 'react-router-dom';
+import { createRoutesFromElements, Route } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import CreateVoucherForm from './pages/CreateVoucherForm';
 import EditVoucherForm from './pages/EditVoucherForm';
@@ -29,7 +29,7 @@ const routesConfig = createRoutesFromElements(
       }}
       element={<EditVoucherForm />}
     />
-  </Route>
+  </Route>,
 );
 
 export default routesConfig;

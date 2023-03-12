@@ -6,7 +6,7 @@ import { Control, Controller } from 'react-hook-form';
 import { TradioLabels } from '../../constants/form-labels';
 import { voucherFormValues } from '../../constants/globalTypes';
 
-type Props<RadioGroupProps> = RadioGroupProps & {
+type RadioInputsProps = RadioGroupProps & {
   control: Control<voucherFormValues>;
   disabled?: boolean;
   label: string;
@@ -16,7 +16,7 @@ type Props<RadioGroupProps> = RadioGroupProps & {
 
 const createRadioInputs = (
   disabled: boolean,
-  labelsObject: Props<RadioGroupProps>['labelsObject']
+  labelsObject: RadioInputsProps['labelsObject'],
 ) => {
   return Object.entries(labelsObject).map(([label, value], index) => (
     <FormControlLabel
@@ -35,7 +35,7 @@ const RadioInputs = ({
   label,
   labelsObject,
   name,
-}: Props<RadioGroupProps>) => {
+}: RadioInputsProps) => {
   return (
     <div className='mb-4 flex flex-col'>
       <Controller

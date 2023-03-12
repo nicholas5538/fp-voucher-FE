@@ -1,4 +1,7 @@
-import { GridColDef, GridValueFormatterParams } from '@mui/x-data-grid';
+import {
+  type GridColDef,
+  type GridValueFormatterParams,
+} from '@mui/x-data-grid';
 import { Dayjs } from 'dayjs';
 import { formatDate } from '../../utils/date';
 import ActionButtons from './ActionButtons';

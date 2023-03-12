@@ -3,6 +3,7 @@ import { ButtonGroup } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import { Dispatch, SetStateAction } from 'react';
 import ButtonComponent from './button';
 import icons from './voucher-form/icons';
 
@@ -12,7 +13,7 @@ type ModalProps = {
   modalTitle: string;
   modalDesc: string;
   openModal: boolean;
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
 };
 
 const modalStyle = {

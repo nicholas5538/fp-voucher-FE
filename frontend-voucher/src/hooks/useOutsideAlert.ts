@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect } from 'react';
 
 function useOutsideAlerter(
-  ref: React.RefObject<HTMLDivElement>,
-  setState: React.Dispatch<React.SetStateAction<boolean>>
+  ref: RefObject<HTMLDivElement>,
+  setState: Dispatch<SetStateAction<boolean>>,
 ) {
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

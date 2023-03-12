@@ -16,6 +16,6 @@ export type voucherFormValues = {
 export type dataType = {
   page: number;
   total: number;
-  total_pages: number;
+  totalPages: number;
   vouchers: voucherFormValues[];
 };

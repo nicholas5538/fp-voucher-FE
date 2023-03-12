@@ -30,7 +30,7 @@ const voucherFormSchema = yup.object().shape({
     .string()
     .matches(
       /^[A-z0-9\b]+$/,
-      'Promo code should not be empty or contain special characters'
+      'Promo code should not be empty or contain special characters',
     )
     .min(4, 'Enter at least 4 characters')
     .max(10, 'Promo code should not exceed 10 characters')
@@ -39,7 +39,7 @@ const voucherFormSchema = yup.object().shape({
   startDate: yup.date().required(),
   expiryDate: yup
     .date()
-    .min(yup.ref('startDate'), "Expiry Date can't be before the starting date")
+    .min(yup.ref('startDate'), 'Expiry date must be after the start date')
     .required(),
 });
 

@@ -8,14 +8,14 @@ export const getVouchers = async (
     pageSize: number;
     signal: AbortSignal | undefined;
   },
-  voucherId?: string
+  voucherId?: string,
 ) => {
   const url = '/mock_vouchers.json';
   const startIndex = options.page * options.pageSize;
   let results: dataType = {
     page: 0,
     total: 0,
-    total_pages: 0,
+    totalPages: 0,
     vouchers: [],
   };
   let endIndex = (options.page + 1) * options.pageSize;
@@ -23,17 +23,17 @@ export const getVouchers = async (
   const { data } = await axios
     .get(url, { signal: options.signal })
     .catch((reason: AxiosError) => {
-      if (reason.response!.status === 400) {
+      if (reason.response?.status === 400) {
         throw new Error('Bad request');
       } else {
-        throw new Error(`Request failed. Status: ${reason.response!.status}`);
+        throw new Error(`Request failed. Status: ${reason.response?.status}`);
       }
     });
 
   if (voucherId)
-    return data.vouchers.find(
-      ({ id }: Pick<voucherFormValues, 'id'>) => id === voucherId
-    );
+    return data.vouchers.find(({ id }: Pick<voucherFormValues, 'id'>) => {
+      return id === voucherId;
+    });
 
   const total = data.vouchers.length;
   const total_pages = Math.floor(data.vouchers.length / options.pageSize);
@@ -46,8 +46,8 @@ export const getVouchers = async (
   const dataObject = {
     page: options.page + 1,
     total: total,
-    total_pages: total_pages,
-    per_page: per_page === Infinity ? data.vouchers.length : per_page,
+    totalPages: total_pages,
+    perPage: per_page === Infinity ? data.vouchers.length : per_page,
   };
   results = {
     ...dataObject,

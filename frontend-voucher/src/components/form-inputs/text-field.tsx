@@ -3,7 +3,7 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 import { Control, Controller } from 'react-hook-form';
 import { voucherFormValues } from '../../constants/globalTypes';
 
-type Props<TextFieldProps> = TextFieldProps & {
+type TextFieldComponentProps = TextFieldProps & {
   control: Control<voucherFormValues>;
   icon: JSX.Element;
   label: string;
@@ -16,7 +16,7 @@ const TextFieldComponent = ({
   label,
   name,
   ...props
-}: Props<TextFieldProps>) => {
+}: TextFieldComponentProps) => {
   const iProps =
     props.type === 'number' && name === 'minSpending'
       ? { step: 0.5 }
