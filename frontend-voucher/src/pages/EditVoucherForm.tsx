@@ -6,11 +6,17 @@ import { getVouchers } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
 
 const EditVoucherForm = () => {
-  const params = useParams();
+  const { action, id } = useParams();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['vouchers', { page: 0, pageSize: 10 }, params.id],
-    queryFn: () => getVouchers({ page: 0, pageSize: 10 }, params.id),
+  const { data: voucher, isLoading } = useQuery({
+    queryKey: ['vouchers', id],
+    queryFn: ({ signal }) => {
+      const fetchVoucher = getVouchers({ page: 0, pageSize: 1, signal }, id);
+      if (!fetchVoucher) {
+        throw new Error('No data found');
+      }
+      return fetchVoucher;
+    },
     keepPreviousData: true,
   });
 
@@ -22,12 +28,10 @@ const EditVoucherForm = () => {
     <section className='form-container'>
       <MemoVoucherForm
         defaultValues={{
-          ...data,
-          action:
-            (params.action as string)[0].toUpperCase() +
-            params.action?.substring(1),
-          startDate: convertToDayjs(data.startDate),
-          expiryDate: convertToDayjs(data.expiryDate),
+          ...voucher,
+          action: (action as string)[0].toUpperCase() + action?.substring(1),
+          startDate: convertToDayjs(voucher.startDate),
+          expiryDate: convertToDayjs(voucher.expiryDate),
         }}
       />
     </section>

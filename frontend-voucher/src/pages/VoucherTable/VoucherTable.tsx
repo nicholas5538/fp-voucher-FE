@@ -1,3 +1,4 @@
+import TableViewTwoToneIcon from '@mui/icons-material/TableViewTwoTone';
 import { LinearProgress } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
@@ -15,9 +16,9 @@ const VoucherTable = () => {
     pageSize: 10,
   });
 
-  const { data, error, isError, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['vouchers', paginationModel],
-    queryFn: () => getVouchers(paginationModel),
+    queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
     keepPreviousData: true,
   });
 
@@ -29,10 +30,12 @@ const VoucherTable = () => {
     );
   }, [data?.total, setRowCountState]);
 
-  if (isError) return <h1>{JSON.stringify(error)}</h1>;
-
   return (
-    <section className='mx-auto mt-8 flex max-w-7xl items-center px-4'>
+    <section className='mx-auto mt-8 flex max-w-7xl flex-col items-start space-y-6 px-6'>
+      <div className='flex flex-row items-center'>
+        <TableViewTwoToneIcon className='w-[40px]' />
+        <h1>Voucher Data Table</h1>
+      </div>
       <div className='w-full'>
         {isLoading ? (
           <SkeletonTable />
