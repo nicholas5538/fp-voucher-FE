@@ -1,12 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { useLoaderData } from 'react-router';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import { getVouchers } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
 
 const EditVoucherForm = () => {
-  const { action, id } = useParams();
+  const { action, id } = useLoaderData() as {
+    action: string;
+    id: string | undefined;
+  };
 
   const { data: voucher, isLoading } = useQuery({
     queryKey: ['vouchers', id],
@@ -29,7 +32,7 @@ const EditVoucherForm = () => {
       <MemoVoucherForm
         defaultValues={{
           ...voucher,
-          action: (action as string)[0].toUpperCase() + action?.substring(1),
+          action: action,
           startDate: convertToDayjs(voucher.startDate),
           expiryDate: convertToDayjs(voucher.expiryDate),
         }}

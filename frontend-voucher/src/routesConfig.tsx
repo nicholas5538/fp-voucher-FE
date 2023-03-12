@@ -1,4 +1,4 @@
-import { createRoutesFromElements, Route } from 'react-router-dom';
+import { createRoutesFromElements, Params, Route } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import CreateVoucherForm from './pages/CreateVoucherForm';
 import EditVoucherForm from './pages/EditVoucherForm';
@@ -13,7 +13,22 @@ const routesConfig = createRoutesFromElements(
     <Route path='carts' element={<CartPage />} />
     <Route path='vouchers' element={<VoucherTable />} />
     <Route path='vouchers/create' element={<CreateVoucherForm />} />
-    <Route path='vouchers/:id/:action' element={<EditVoucherForm />} />
+    <Route
+      caseSensitive
+      path='vouchers/:id/update'
+      loader={({ params }) => {
+        return { action: 'Update', id: params.id };
+      }}
+      element={<EditVoucherForm />}
+    />
+    <Route
+      caseSensitive
+      path='vouchers/:id/delete'
+      loader={({ params }) => {
+        return { action: 'Delete', id: params.id };
+      }}
+      element={<EditVoucherForm />}
+    />
   </Route>
 );
 
