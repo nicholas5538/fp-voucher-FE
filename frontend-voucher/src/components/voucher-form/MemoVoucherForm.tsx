@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
-import dayjs from 'dayjs';
 import Lottie from 'lottie-react';
 import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -10,6 +9,7 @@ import downArrow from '../../assets/down-arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
+import { formatDate } from '../../utils/date';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
 import RadioInputs from '../form-inputs/radio-inputs';
@@ -63,8 +63,14 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     // DD-MM-YYYY
     const modifiedData = {
       ...data,
-      startDate: dayjs(data.startDate).format('YYYY-MM-DD'),
-      expiryDate: dayjs(data.expiryDate).format('YYYY-MM-DD'),
+      startDate: formatDate({
+        date: data.startDate,
+        dateFormat: 'YYYY-MM-DD',
+      }),
+      expiryDate: formatDate({
+        date: data.expiryDate,
+        dateFormat: 'YYYY-MM-DD',
+      }),
     };
     console.log(modifiedData);
   };

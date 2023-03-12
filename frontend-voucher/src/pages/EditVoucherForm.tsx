@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { useParams } from 'react-router';
-import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
+import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import { getVouchers } from '../utils/api';
+import { convertToDayjs } from '../utils/date';
 
 const EditVoucherForm = () => {
   const params = useParams();
@@ -26,8 +26,8 @@ const EditVoucherForm = () => {
           action:
             (params.action as string)[0].toUpperCase() +
             params.action?.substring(1),
-          startDate: dayjs(data.startDate),
-          expiryDate: dayjs(data.expiryDate),
+          startDate: convertToDayjs(data.startDate),
+          expiryDate: convertToDayjs(data.expiryDate),
         }}
       />
     </section>
