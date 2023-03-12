@@ -55,8 +55,9 @@ const VoucherTable = () => {
               boxShadow: 4,
               border: 2,
               borderColor: 'hsl(334, 79%, 50%)',
+              fontFamily: 'Montserrat',
               '& .MuiDataGrid-cell:hover': {
-                color: 'hsl(334, 79%, 60%)',
+                color: 'hsl(334, 79%, 43%)',
                 backgroundColor: 'transparent',
               },
               overflowX: 'scroll',

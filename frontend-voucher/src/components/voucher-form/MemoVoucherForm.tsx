@@ -82,7 +82,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         className='mx-auto max-w-2xl rounded-lg py-4 lg:mx-0 xl:max-w-3xl'
       >
         <div className='mb-4 border-0 border-b border-solid border-gray-700 pb-2'>
-          <h2 className='ml-3 font-sans text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
+          <h2 className='ml-3 font-mont text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
             {watchAction} voucher
           </h2>
         </div>

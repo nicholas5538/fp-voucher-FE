@@ -3,7 +3,7 @@ import { Dayjs } from 'dayjs';
 import { formatDate } from '../../utils/date';
 import ActionButtons from './ActionButtons';
 
-const headerClassName = 'text-pink-400 tracking-widest';
+const headerClassName = 'font-mont text-pink-400';
 
 const tableColumns: GridColDef[] = [
   {

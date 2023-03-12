@@ -27,7 +27,7 @@ const MainNavigation = () => {
           >
             <Profile />
             {/* Replace hardcoded name with Authentication */}
-            <span className='hidden text-ellipsis text-center font-sans text-xs font-bold text-black lg:block'>
+            <span className='hidden text-ellipsis text-center font-mont text-xs font-bold text-black lg:block'>
               NICK
             </span>
             <IconContext.Provider
