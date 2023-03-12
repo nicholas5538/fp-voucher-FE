@@ -19,11 +19,16 @@ export const menuItems = [
   },
   {
     id: 4,
-    url: '/voucher',
+    url: '/vouchers',
     element: 'Vouchers',
   },
   {
     id: 5,
+    url: '/vouchers/create',
+    element: 'Create voucher',
+  },
+  {
+    id: 6,
     url: '#',
     element: 'Logout',
   },

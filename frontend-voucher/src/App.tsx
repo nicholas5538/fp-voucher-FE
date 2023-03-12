@@ -1,10 +1,11 @@
 import { StyledEngineProvider } from '@mui/material';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import routesConfig from './routesConfig';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/en-gb';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import routesConfig from './routesConfig';
 
 const router = createBrowserRouter(routesConfig);
 const theme = createTheme({
@@ -18,15 +19,18 @@ const theme = createTheme({
     },
   },
 });
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <StyledEngineProvider injectFirst>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
-        <ThemeProvider theme={theme}>
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </LocalizationProvider>
+      <QueryClientProvider client={queryClient}>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
+          <ThemeProvider theme={theme}>
+            <RouterProvider router={router} />
+          </ThemeProvider>
+        </LocalizationProvider>
+      </QueryClientProvider>
     </StyledEngineProvider>
   );
 }

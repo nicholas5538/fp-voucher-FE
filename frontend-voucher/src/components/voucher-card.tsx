@@ -1,12 +1,12 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
-import dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 import clsx from 'clsx';
-import { calculateDateDifference, formatVoucherDate } from '../utils/date';
+import { calculateDateDifference, formatDate } from '../utils/date';
 
 type VoucherCardProps = {
-  voucherParticulars: [string, number, dayjs.Dayjs, number, string];
+  voucherParticulars: [string, number, Dayjs, number, string];
 };
 
 const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
@@ -15,7 +15,10 @@ const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
   ).toFixed(2);
   const promoCode = voucherParticulars[4].toUpperCase();
   const moreThanThree = calculateDateDifference(voucherParticulars[2]);
-  const expiryDate = formatVoucherDate(voucherParticulars[2]);
+  const expiryDate = formatDate({
+    date: voucherParticulars[2],
+    dateFormat: 'DD MMM YYYY',
+  });
 
   return (
     <Card>
