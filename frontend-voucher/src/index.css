@@ -10,6 +10,7 @@
 
 body {
   @apply bg-[#f8f8f8] font-mont;
+  overflow-x: hidden;
 }
 
 @layer components {
