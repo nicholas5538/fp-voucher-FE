@@ -12,13 +12,14 @@ const theme = createTheme({
   typography: {
     fontFamily: 'Montserrat',
   },
+  spacing: 4,
   palette: {
+    primary: {
+      main: '#e21b70',
+    },
     action: {
       disabledBackground: 'hsl(334, 79%, 48%)',
       disabled: 'hsl(0, 4%, 50%)',
-    },
-    primary: {
-      main: 'hsl(334, 79%, 55%)',
     },
     secondary: {
       main: 'hsl(334, 79%, 48%)',
