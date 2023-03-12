@@ -25,6 +25,6 @@ body {
   }
 
   .form-container {
-    @apply mx-auto mt-8 flex max-w-7xl flex-col items-center px-4 xl:flex-row xl:justify-between;
+    @apply mx-auto mt-8 flex max-w-7xl flex-col items-center px-6 xl:flex-row xl:justify-between;
   }
 }
