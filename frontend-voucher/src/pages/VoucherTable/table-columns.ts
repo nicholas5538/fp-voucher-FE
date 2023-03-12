@@ -4,12 +4,14 @@ import { formatDate } from '../../utils/date';
 import ActionButtons from './ActionButtons';
 
 const headerClassName = 'font-mont text-pink-400';
+const valueFormatterDate = (date: Dayjs) =>
+  formatDate({ date: date, dateFormat: 'DD MMM YYYY' });
 
 const tableColumns: GridColDef[] = [
   {
     field: 'category',
     headerName: 'Category',
-    width: 100,
+    minWidth: 100,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
@@ -17,7 +19,7 @@ const tableColumns: GridColDef[] = [
   {
     field: 'description',
     headerName: 'Description',
-    width: 200,
+    flex: 1,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
@@ -25,7 +27,7 @@ const tableColumns: GridColDef[] = [
   {
     field: 'discount',
     headerName: 'Discount',
-    width: 130,
+    minWidth: 120,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
@@ -35,7 +37,7 @@ const tableColumns: GridColDef[] = [
   {
     field: 'minSpending',
     headerName: 'Min. Spending',
-    width: 130,
+    minWidth: 120,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
@@ -45,7 +47,7 @@ const tableColumns: GridColDef[] = [
   {
     field: 'promoCode',
     headerName: 'Promo Code',
-    width: 140,
+    minWidth: 140,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
@@ -53,22 +55,22 @@ const tableColumns: GridColDef[] = [
   {
     field: 'startDate',
     headerName: 'Start Date',
-    width: 160,
+    minWidth: 160,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
     valueFormatter: (params: GridValueFormatterParams<Dayjs>) =>
-      formatDate({ date: params.value, dateFormat: 'DD MMM YYYY' }),
+      valueFormatterDate(params.value),
   },
   {
     field: 'expiryDate',
     headerName: 'Expiry Date',
-    width: 160,
+    minWidth: 160,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
     valueFormatter: (params: GridValueFormatterParams<Dayjs>) =>
-      formatDate({ date: params.value, dateFormat: 'DD MMM YYYY' }),
+      valueFormatterDate(params.value),
   },
   {
     field: 'actions',
@@ -76,7 +78,7 @@ const tableColumns: GridColDef[] = [
     disableExport: true,
     sortable: false,
     hideable: false,
-    width: 200,
+    minWidth: 220,
     align: 'center',
     headerAlign: 'center',
     headerClassName: headerClassName,
