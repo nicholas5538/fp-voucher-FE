@@ -1,35 +1,24 @@
-import { ReactComponent as PandaPay } from '../../assets/pandapay.svg';
-import { ReactComponent as PandaPro } from '../../assets/pandapro.svg';
+import DiscountIcon from '@mui/icons-material/Discount';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
 export const menuItems = [
   {
+    Icon: DiscountIcon,
     id: 1,
-    url: '#',
-    element: <PandaPay />,
+    url: '/vouchers',
+    text: 'Vouchers',
   },
   {
+    Icon: NoteAddIcon,
     id: 2,
-    url: '#',
-    element: <PandaPro />,
+    url: '/vouchers/create',
+    text: 'Create voucher',
   },
   {
+    Icon: LogoutRoundedIcon,
     id: 3,
     url: '#',
-    element: 'Orders & reordering',
-  },
-  {
-    id: 4,
-    url: '/vouchers',
-    element: 'Vouchers',
-  },
-  {
-    id: 5,
-    url: '/vouchers/create',
-    element: 'Create voucher',
-  },
-  {
-    id: 6,
-    url: '#',
-    element: 'Logout',
+    text: 'Logout',
   },
 ];

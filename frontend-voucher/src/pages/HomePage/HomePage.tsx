@@ -1,6 +1,4 @@
 import classes from './HomePage.module.css';
-import { ReactComponent as PersonalIcon } from '../../assets/personal-icon.svg';
-import { ReactComponent as LocationIcon } from '../../assets/location-icon.svg';
 import { Link } from 'react-router-dom';
 // import { useAuth } from '../../context/auth';
 
@@ -14,7 +12,6 @@ const HomePage = () => {
             <ul>
               <li className='flex w-28 items-end'>
                 <button className='flex w-full border-b border-pink-500 '>
-                  <PersonalIcon />
                   <h3 className='font-open-sans mb-0 ml-2 cursor-pointer font-medium'>
                     Personal
                   </h3>
@@ -37,9 +34,7 @@ const HomePage = () => {
         <div className={classes['form']}>
           <div className={classes['location-form']}>
             <label htmlFor='address'>Enter your street or postal code</label>
-            <button className={classes['location-icon']}>
-              <LocationIcon />
-            </button>
+            <button className={classes['location-icon']}></button>
             <input
               id='address'
               placeholder='Enter your street or postal code'

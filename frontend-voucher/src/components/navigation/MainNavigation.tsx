@@ -1,13 +1,13 @@
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import clsx from 'clsx';
 import { useRef, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { FaAngleDown } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Brand } from '../../assets/brand.svg';
-import { ReactComponent as Cart } from '../../assets/cart.svg';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as Profile } from '../../assets/profile.svg';
-import Dropdown from './Dropdown';
 import useOutsideAlerter from '../../hooks/useOutsideAlert';
+import Dropdown from './Dropdown';
 
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
@@ -26,20 +26,15 @@ const MainNavigation = () => {
             onClick={() => setOpen((prevState) => !prevState)}
           >
             <Profile />
-            {/* Replace hardcoded name with Authentication */}
             <span className='hidden text-ellipsis text-center font-mont text-xs font-bold text-black lg:block'>
               NICK
             </span>
-            <IconContext.Provider
-              value={{
-                color: 'rgb(226, 27, 112)',
-                className: `hidden lg:block lg:transition-rotate duration-300 ${
-                  open ? 'lg:rotate-180' : 'rotate-0'
-                }`,
-              }}
-            >
-              <FaAngleDown />
-            </IconContext.Provider>
+            <ExpandMoreRoundedIcon
+              className={clsx(
+                'hidden fill-pink-500 duration-300 ease-out lg:block lg:transition-transform',
+                { 'lg:rotate-180': open, 'rotate-0': !open },
+              )}
+            />
           </button>
           <Dropdown open={open} setOpen={setOpen} />
         </div>
@@ -56,8 +51,8 @@ const MainNavigation = () => {
           </div>
         </div>
         <div className='grid h-full items-center pr-4 lg:order-last'>
-          <NavLink to='/cart' end>
-            <Cart className='hover:fill-pink-800' />
+          <NavLink to='carts' end>
+            <ShoppingBagOutlinedIcon className='fill-pink-500 hover:fill-pink-700' />
           </NavLink>
         </div>
       </div>

@@ -9,29 +9,19 @@ type dropdownProps = {
 };
 
 const Dropdown = ({ open, setOpen }: dropdownProps) => {
-  const liElements = menuItems.map((item) => {
+  const liElements = menuItems.map(({ Icon, id, url, text }) => {
     return (
-      <li key={item.id} className='li-dropdown'>
+      <li key={id} className='li-dropdown'>
         <Link
-          key={item.id}
-          to={item.url}
+          key={id}
+          to={url}
           onClick={() => setOpen((prevState) => !prevState)}
-          className={clsx(
-            'link grid h-full w-full grid-cols-1 items-center font-mont text-sm',
-            {
-              'grid-cols-2 gap-x-1': item.id === 2,
-              'justify-start': item.id !== 2,
-            },
-          )}
+          className='link grid h-full w-full grid-cols-1 items-center justify-start font-mont text-sm'
         >
-          {item.id === 2 ? (
-            <>
-              <p className='col-span-1'>Pandapro</p>
-              <span className='col-span-1 mt-2'>{item.element}</span>
-            </>
-          ) : (
-            item.element
-          )}
+          <div className='flex flex-row items-center space-x-2 px-4 lg:px-6'>
+            <Icon className='fill-pink-500' />
+            <p>{text}</p>
+          </div>
         </Link>
       </li>
     );
@@ -40,7 +30,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
   return (
     <ul
       className={clsx(
-        'ul-dropdown pointer-events-none -translate-x-28 opacity-0 ease-in lg:translate-x-0 lg:-translate-y-28',
+        'ul-dropdown pointer-events-none w-[190px] -translate-x-28 opacity-0 ease-in lg:w-[200px] lg:translate-x-0 lg:-translate-y-28',
         {
           'pointer-events-auto translate-x-0 opacity-100 ease-out lg:translate-y-0':
             open,
