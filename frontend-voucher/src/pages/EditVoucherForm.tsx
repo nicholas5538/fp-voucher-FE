@@ -4,6 +4,7 @@ import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import { getVouchers } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
+import AnimatedLayout from '../components/animated-layout';
 
 const EditVoucherForm = () => {
   const { action, id } = useLoaderData() as {
@@ -23,21 +24,21 @@ const EditVoucherForm = () => {
     keepPreviousData: true,
   });
 
-  return isLoading ? (
-    <div className='form-container'>
-      <SkeletonForm />
-    </div>
-  ) : (
-    <section className='form-container'>
-      <MemoVoucherForm
-        defaultValues={{
-          ...voucher,
-          action: action,
-          startDate: convertToDayjs(voucher.startDate),
-          expiryDate: convertToDayjs(voucher.expiryDate),
-        }}
-      />
-    </section>
+  return (
+    <AnimatedLayout className='form-container'>
+      {isLoading ? (
+        <SkeletonForm />
+      ) : (
+        <MemoVoucherForm
+          defaultValues={{
+            ...voucher,
+            action: action,
+            startDate: convertToDayjs(voucher.startDate),
+            expiryDate: convertToDayjs(voucher.expiryDate),
+          }}
+        />
+      )}
+    </AnimatedLayout>
   );
 };
 
