@@ -75,7 +75,7 @@ const ModalComponent = ({
         <ButtonGroup color='secondary' aria-label='secondary button group'>
           <ButtonComponent {...firstButtonProps} />
           <ButtonComponent
-            endIcon={icons.cancel}
+            startIcon={icons.cancel}
             isLoadingButton={false}
             label='No'
             onClick={() => setOpenModal((prevState) => !prevState)}

@@ -179,10 +179,10 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
             {disabledWatchAction ? (
               <>
                 <ButtonComponent
-                  endIcon={icons.delete}
                   isLoadingButton={false}
                   label='Delete'
                   onClick={() => setDeleteModal(true)}
+                  startIcon={icons.delete}
                 />
                 <ModalComponent
                   modalTitle='Are you sure you want to delete the voucher?'
@@ -197,25 +197,25 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
               <>
                 <ButtonComponent
                   disabled={!isDirty || !isValid}
-                  endIcon={icons.send}
                   isLoadingButton={true}
                   isSubmitting={isSubmitting}
                   label='Looks Good'
+                  startIcon={icons.send}
                 />
                 <ButtonComponent
                   disabled={!isDirty}
-                  endIcon={icons.reset}
                   isLoadingButton={false}
                   label='Reset'
                   onClick={() => reset()}
+                  startIcon={icons.reset}
                 />
               </>
             )}
             <ButtonComponent
-              endIcon={icons.cancel}
               isLoadingButton={false}
               label='Cancel'
               onClick={() => setOpenModal(true)}
+              startIcon={icons.cancel}
             />
           </ButtonGroup>
           <ModalComponent

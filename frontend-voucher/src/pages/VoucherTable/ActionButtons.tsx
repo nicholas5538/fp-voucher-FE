@@ -19,17 +19,12 @@ const ActionButtons = ({ id }: ActionButtonsParams) => {
     actions.map(({ label, icon }, index) => (
       <ButtonComponent
         key={index + 1}
-        endIcon={icon}
         isLoadingButton={false}
         label={label}
         onClick={() => {
-          navigate(`${id}/${label.toLowerCase()}`, {
-            state: {
-              action: label,
-              id: id,
-            },
-          });
+          navigate(`${id}/${label.toLowerCase()}`);
         }}
+        startIcon={icon}
       />
     ));
 
