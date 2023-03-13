@@ -7,6 +7,7 @@ import errorAnimation from '../assets/error.json';
 import errorNotFound from '../assets/error_not_found.json';
 import ButtonComponent from '../components/button';
 import MainNavigation from '../components/navigation/MainNavigation';
+import AnimatedLayout from '../components/animated-layout';
 
 function ErrorPage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function ErrorPage() {
   console.error(error);
 
   return (
-    <>
+    <AnimatedLayout className=''>
       <MainNavigation />
       <section className='mx-auto mt-8 flex max-w-7xl px-6'>
         <Box className='flex w-full flex-col items-center space-y-2 lg:space-y-4'>
@@ -41,7 +42,7 @@ function ErrorPage() {
           </div>
         </Box>
       </section>
-    </>
+    </AnimatedLayout>
   );
 }
 

@@ -8,6 +8,7 @@ import CustomToolBar from './CustomToolbar';
 import NoRows from './NoRows';
 import SkeletonTable from './SkeletonTable';
 import tableColumns from './table-columns';
+import AnimatedLayout from '../../components/animated-layout';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
@@ -31,7 +32,7 @@ const VoucherTable = () => {
   }, [data?.total, setRowCountState]);
 
   return (
-    <section className='mx-auto mt-8 flex max-w-7xl flex-col items-start space-y-6 px-6'>
+    <AnimatedLayout className='mx-auto mt-8 flex max-w-7xl flex-col items-start space-y-6 px-6'>
       <div className='flex flex-row items-center'>
         <TableViewTwoToneIcon className='w-[40px]' />
         <h1>Voucher Data Table</h1>
@@ -75,7 +76,7 @@ const VoucherTable = () => {
           />
         )}
       </div>
-    </section>
+    </AnimatedLayout>
   );
 };
 
