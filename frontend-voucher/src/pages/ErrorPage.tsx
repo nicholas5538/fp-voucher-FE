@@ -33,10 +33,10 @@ function ErrorPage() {
           <div className='flex flex-row items-center space-x-4'>
             <h4 className='text-sm lg:text-lg'>Please redirect to</h4>
             <ButtonComponent
-              endIcon={<HomeIcon />}
               isLoadingButton={false}
               label='Home page'
               onClick={() => navigate('/')}
+              startIcon={<HomeIcon />}
             />
           </div>
         </Box>
