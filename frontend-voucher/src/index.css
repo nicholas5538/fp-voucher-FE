@@ -17,7 +17,7 @@ body {
     @apply absolute top-[65px] w-[273px] border-[0.02em] border-gray-200 bg-white text-start text-black shadow-md transition duration-300 lg:right-0;
   }
   .li-dropdown {
-    @apply grid h-[50px] w-[100%] cursor-pointer items-center px-6 text-[.875rem] transition-colors duration-200 ease-linear hover:bg-gray-100 hover:text-pink-700;
+    @apply grid h-[50px] w-[100%] cursor-pointer items-center text-[.875rem] transition-colors duration-200 ease-linear hover:bg-gray-100 hover:text-pink-700;
   }
 
   .link {
