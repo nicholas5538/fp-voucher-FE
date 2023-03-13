@@ -1,10 +1,11 @@
+import clsx from 'clsx';
+import { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import { menuItems } from './MenuItems';
-import clsx from 'clsx';
 
 type dropdownProps = {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const Dropdown = ({ open, setOpen }: dropdownProps) => {
@@ -20,7 +21,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
             {
               'grid-cols-2 gap-x-1': item.id === 2,
               'justify-start': item.id !== 2,
-            }
+            },
           )}
         >
           {item.id === 2 ? (
@@ -43,7 +44,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
         {
           'pointer-events-auto translate-x-0 opacity-100 ease-out lg:translate-y-0':
             open,
-        }
+        },
       )}
     >
       {liElements}

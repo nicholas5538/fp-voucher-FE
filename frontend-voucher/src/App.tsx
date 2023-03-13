@@ -9,10 +9,16 @@ import routesConfig from './routesConfig';
 
 const router = createBrowserRouter(routesConfig);
 const theme = createTheme({
+  typography: {
+    fontFamily: 'Montserrat',
+  },
   palette: {
     action: {
       disabledBackground: 'hsl(334, 79%, 48%)',
       disabled: 'hsl(0, 4%, 50%)',
+    },
+    primary: {
+      main: 'hsl(334, 79%, 55%)',
     },
     secondary: {
       main: 'hsl(334, 79%, 48%)',

@@ -7,7 +7,6 @@ import {
 } from '@mui/x-data-grid';
 
 const CustomToolBar = () => {
-  const style = { color: 'hsl(334, 79%, 48%)' };
   const components = [
     GridToolbarColumnsButton,
     GridToolbarFilterButton,
@@ -18,7 +17,10 @@ const CustomToolBar = () => {
   return (
     <GridToolbarContainer>
       {components.map((Component, index) => (
-        <Component key={index} style={style} />
+        <Component
+          key={index}
+          className='font-mont font-semibold tracking-wider text-gray-700 hover:bg-pink-100'
+        />
       ))}
     </GridToolbarContainer>
   );

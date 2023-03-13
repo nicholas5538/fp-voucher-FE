@@ -13,8 +13,23 @@ const routesConfig = createRoutesFromElements(
     <Route path='carts' element={<CartPage />} />
     <Route path='vouchers' element={<VoucherTable />} />
     <Route path='vouchers/create' element={<CreateVoucherForm />} />
-    <Route path='vouchers/:id/:action' element={<EditVoucherForm />} />
-  </Route>
+    <Route
+      caseSensitive
+      path='vouchers/:id/update'
+      loader={({ params }) => {
+        return { action: 'Update', id: params.id };
+      }}
+      element={<EditVoucherForm />}
+    />
+    <Route
+      caseSensitive
+      path='vouchers/:id/delete'
+      loader={({ params }) => {
+        return { action: 'Delete', id: params.id };
+      }}
+      element={<EditVoucherForm />}
+    />
+  </Route>,
 );
 
 export default routesConfig;

@@ -5,16 +5,18 @@ module.exports = {
     node: true,
   },
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
-    'plugin:react/recommended',
-    'standard-with-typescript',
   ],
   overrides: [],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['@typescript-eslint', '@tanstack/query'],
   rules: {
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
