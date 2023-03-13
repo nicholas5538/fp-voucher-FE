@@ -2,7 +2,7 @@ import LoadingButton, { LoadingButtonProps } from '@mui/lab/LoadingButton';
 import Button, { ButtonProps } from '@mui/material/Button';
 import { type MouseEventHandler } from 'react';
 
-type Props<ButtonProps> = (ButtonProps | LoadingButtonProps) & {
+type ButtonComponentProps = (ButtonProps | LoadingButtonProps) & {
   isLoadingButton: boolean;
   isSubmitting?: boolean;
   label: string;
@@ -15,12 +15,12 @@ const ButtonComponent = ({
   label,
   onClick,
   ...props
-}: Props<ButtonProps>) => {
+}: ButtonComponentProps) => {
   return isLoadingButton ? (
     <LoadingButton
       color='secondary'
       loading={isSubmitting}
-      loadingPosition='end'
+      loadingPosition='start'
       onClick={onClick}
       size='small'
       type='submit'
