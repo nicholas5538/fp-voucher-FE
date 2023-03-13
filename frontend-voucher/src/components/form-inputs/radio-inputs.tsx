@@ -1,8 +1,9 @@
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
-import RadioGroup, { RadioGroupProps } from '@mui/material/RadioGroup';
+import RadioGroup, { type RadioGroupProps } from '@mui/material/RadioGroup';
 import { Control, Controller } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TradioLabels } from '../../constants/form-labels';
 import { voucherFormValues } from '../../constants/globalTypes';
 
@@ -14,19 +15,39 @@ type RadioInputsProps = RadioGroupProps & {
   name: keyof voucherFormValues;
 };
 
-const createRadioInputs = (
-  disabled: boolean,
-  labelsObject: RadioInputsProps['labelsObject'],
-) => {
-  return Object.entries(labelsObject).map(([label, value], index) => (
-    <FormControlLabel
-      key={index}
-      disabled={disabled}
-      value={value}
-      control={<Radio size='small' className='text-pink-500' />}
-      label={label[0].toUpperCase() + label.substring(1)}
-    />
-  ));
+type createRadioFn = ({
+  disabled,
+  labelsObject,
+}: {
+  disabled: boolean;
+  labelsObject: TradioLabels;
+}) => JSX.Element[];
+
+const createRadioInputs: createRadioFn = ({ disabled, labelsObject }) => {
+  return Object.entries(labelsObject).map(([label, value], index) => {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const clickHandler =
+      label === 'update' || label === 'delete' || !id
+        ? () => navigate(`/vouchers/${id}/${label}`, { replace: true })
+        : undefined;
+
+    return (
+      <FormControlLabel
+        key={index}
+        disabled={disabled}
+        value={value}
+        control={
+          <Radio
+            size='small'
+            className='text-pink-500'
+            onClick={clickHandler}
+          />
+        }
+        label={label[0].toUpperCase() + label.substring(1)}
+      />
+    );
+  });
 };
 
 const RadioInputs = ({
@@ -53,7 +74,7 @@ const RadioInputs = ({
               value={value}
               onChange={onChange}
             >
-              {createRadioInputs(disabled ?? false, labelsObject)}
+              {createRadioInputs({ disabled: disabled ?? false, labelsObject })}
             </RadioGroup>
           </>
         )}
