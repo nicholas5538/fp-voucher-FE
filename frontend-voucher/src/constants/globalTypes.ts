@@ -1,5 +1,5 @@
 // Place any reuseable types in this file
-import { Dayjs } from 'dayjs';
+import { type Dayjs } from 'dayjs';
 
 export type voucherFormValues = {
   action: string;
@@ -18,4 +18,8 @@ export type dataType = {
   total: number;
   totalPages: number;
   vouchers: voucherFormValues[];
+};
+
+export type childrenNode = {
+  children: JSX.Element | JSX.Element[] | React.ReactNode;
 };
