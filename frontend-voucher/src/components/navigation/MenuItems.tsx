@@ -18,7 +18,7 @@ export const menuItems = [
   {
     Icon: LogoutRoundedIcon,
     id: 3,
-    url: '#',
+    url: '/',
     text: 'Logout',
   },
 ];
