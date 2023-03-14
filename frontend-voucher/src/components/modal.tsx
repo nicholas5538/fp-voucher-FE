@@ -44,14 +44,14 @@ const ModalComponent = ({
   const firstButtonProps =
     modalTitle === 'Are you sure you want to delete the voucher?'
       ? {
-          endIcon: icons.delete,
+          startIcon: icons.delete,
           isLoadingButton: true,
           isSubmitting: isSubmitting,
           label: 'Delete',
           onClick: clickHandler,
         }
       : {
-          endIcon: <DoneIcon />,
+          startIcon: <DoneIcon />,
           isLoadingButton: false,
           label: 'Yes',
           onClick: clickHandler,
