@@ -9,6 +9,7 @@ import downArrow from '../../assets/down-arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
+import { useUserContext } from '../../hooks/useUserContext';
 import { formatDate } from '../../utils/date';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
@@ -27,6 +28,8 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
   const navigate = useNavigate();
+  const { user } = useUserContext();
+  console.log(user);
 
   const {
     control,
@@ -188,7 +191,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   modalTitle='Are you sure you want to delete the voucher?'
                   modalDesc='Warning, all actions are irreversible.'
                   // Note to myself: Need to change the line below to handle DELETE API
-                  clickHandler={() => console.log('Deleted')}
+                  clickHandler={() => setDeleteModal((prevState) => !prevState)}
                   openModal={openDeleteModal}
                   setOpenModal={setDeleteModal}
                 />
