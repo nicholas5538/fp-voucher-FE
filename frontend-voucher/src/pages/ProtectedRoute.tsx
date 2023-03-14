@@ -1,14 +1,15 @@
 import { Navigate } from 'react-router-dom';
-import { useUserContext } from '../hooks/useUserContext';
+import { getLocalStorageItem } from '../utils/localStorage';
 
 const ProtectedRoute = ({
   children,
 }: {
   children: JSX.Element;
 }): JSX.Element => {
-  const { user } = useUserContext();
+  const loggedInUser = getLocalStorageItem('user');
+  const name = getLocalStorageItem('name');
 
-  if (!user) return <Navigate to='/' replace={true} />;
+  if (!loggedInUser && !name) return <Navigate to='/' replace={true} />;
 
   return children;
 };
