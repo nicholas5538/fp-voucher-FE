@@ -28,7 +28,7 @@ const createRadioInputs: createRadioFn = ({ disabled, labelsObject }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     const clickHandler =
-      label === 'update' || label === 'delete' || !id
+      (label === 'update' || label === 'delete') && id
         ? () => navigate(`/vouchers/${id}/${label}`, { replace: true })
         : undefined;
 
