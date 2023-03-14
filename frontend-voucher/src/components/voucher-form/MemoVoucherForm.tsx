@@ -9,7 +9,6 @@ import downArrow from '../../assets/down-arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
-import { useUserContext } from '../../hooks/useUserContext';
 import { formatDate } from '../../utils/date';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
@@ -24,12 +23,10 @@ type VoucherFormProps = {
 };
 
 const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
-  document.title = 'Foodpanda Voucher Form';
+  document.title = `${defaultValues.action} Foodpanda Voucher`;
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
   const navigate = useNavigate();
-  const { user } = useUserContext();
-  console.log(user);
 
   const {
     control,

@@ -13,11 +13,11 @@ import Dropdown from './Dropdown';
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user, givenName, login } = useUserContext();
+  const { token, givenName, login } = useUserContext();
   const navigate = useNavigate();
   useOutsideAlerter(dropdownRef, setOpen);
 
-  const cartClick = user ? () => navigate('carts') : () => login();
+  const cartClick = token ? () => navigate('carts') : () => login();
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
@@ -29,14 +29,14 @@ const MainNavigation = () => {
           <button
             className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent px-4'
             onClick={
-              user ? () => setOpen((prevState) => !prevState) : () => login()
+              token ? () => setOpen((prevState) => !prevState) : () => login()
             }
           >
             <Profile />
             <span className='hidden text-ellipsis text-center font-mont text-xs font-bold text-black lg:block'>
-              {user ? `${givenName.toUpperCase()}` : 'SIGN IN'}
+              {token ? `${givenName.toUpperCase()}` : 'SIGN IN'}
             </span>
-            {user && (
+            {token && (
               <ExpandMoreRoundedIcon
                 className={clsx(
                   'hidden fill-pink-500 duration-300 ease-out lg:block lg:transition-transform',
@@ -45,7 +45,7 @@ const MainNavigation = () => {
               />
             )}
           </button>
-          {user && <Dropdown open={open} setOpen={setOpen} />}
+          {token && <Dropdown open={open} setOpen={setOpen} />}
         </div>
         <div className='h-16 w-5/6 px-6 lg:order-1'>
           <div className='mx-auto my-5 min-w-[8.3125rem] lg:ml-0'>

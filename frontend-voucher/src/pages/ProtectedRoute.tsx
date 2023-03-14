@@ -6,10 +6,9 @@ const ProtectedRoute = ({
 }: {
   children: JSX.Element;
 }): JSX.Element => {
-  const loggedInUser = getLocalStorageItem('user');
-  const name = getLocalStorageItem('name');
+  const accessToken = getLocalStorageItem('token');
 
-  if (!loggedInUser && !name) return <Navigate to='/' replace={true} />;
+  if (!accessToken) return <Navigate to='/' replace={true} />;
 
   return children;
 };

@@ -2,7 +2,6 @@ import {
   googleLogout,
   useGoogleLogin,
   type OverridableTokenClientConfig,
-  type TokenResponse,
 } from '@react-oauth/google';
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -14,9 +13,7 @@ import {
 } from '../utils/localStorage';
 
 type TuserContext = {
-  user:
-    | Omit<TokenResponse, 'error' | 'error_description' | 'error_uri'>
-    | undefined;
+  token: string | undefined;
   givenName: string;
   login: (overrideConfig?: OverridableTokenClientConfig | undefined) => void;
   logout: () => void;
@@ -29,14 +26,12 @@ export const useUserContext = () => {
 };
 
 const UserProvider = ({ children }: childrenNode) => {
-  const [user, setUser] = useState<
-    Omit<TokenResponse, 'error' | 'error_description' | 'error_uri'> | undefined
-  >(undefined);
+  const [token, setToken] = useState<string | undefined>(undefined);
   const [givenName, setGivenName] = useState('');
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    onSuccess: (tokenResponse) => {
       const controller = new AbortController();
       axios
         .get('https://people.googleapis.com/v1/people/me?personFields=names', {
@@ -51,38 +46,35 @@ const UserProvider = ({ children }: childrenNode) => {
           setLocalStorageItem('name', res.data.names[0].givenName);
         })
         .catch((err) => console.error(err));
-      setUser(tokenResponse);
-      setLocalStorageItem('user', JSON.stringify(tokenResponse));
+      setToken(tokenResponse.access_token);
+      setLocalStorageItem('token', tokenResponse.access_token);
       return () => controller.abort();
     },
     onError: (error) => {
-      console.log('Login Failed:', error);
+      console.error('Login Failed:', error);
     },
   });
 
   const logout = () => {
     setGivenName('');
-    setUser(undefined);
-    localStorage.clear();
+    setToken(undefined);
     googleLogout();
-    navigate('/', { replace: true });
+    localStorage.clear();
+    navigate('/');
   };
 
-  console.log(user);
-
   useEffect(() => {
-    const loggedInUser = getLocalStorageItem('user');
+    const accessToken = getLocalStorageItem('token');
     const name = getLocalStorageItem('name');
 
-    if (loggedInUser && name) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
+    if (accessToken && name) {
+      setToken(accessToken);
       setGivenName(name);
     }
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, givenName, login, logout }}>
+    <UserContext.Provider value={{ token, givenName, login, logout }}>
       {children}
     </UserContext.Provider>
   );
