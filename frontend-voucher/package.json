@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "dev": "vite",
+    "dev": "vite --port 5173",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint .. --ext .tsx --ext .ts",
