@@ -199,7 +199,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   disabled={!isDirty || !isValid}
                   isLoadingButton={true}
                   isSubmitting={isSubmitting}
-                  label='Looks Good'
+                  label='Confirm'
                   startIcon={icons.send}
                 />
                 <ButtonComponent
