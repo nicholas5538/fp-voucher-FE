@@ -1,10 +1,12 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
-import { Whatshot, AddBox } from '@mui/icons-material';
+import { AddBox } from '@mui/icons-material';
 import StyledTypography from '../styled-typography';
 
-const StyledBox = styled(Box)`
+const StyledBox = styled(Box)<{ notlastitem?: string }>`
   background-color: white;
+
+  ${({ notlastitem }) => notlastitem && 'border-bottom: 1px solid #e6e6e6;'}
 `;
 
 const ButtonBox = styled(Box)`
@@ -25,21 +27,27 @@ const ImageContainer = styled(Box)`
   height: 88px;
 `;
 
-const VendorMenu = () => {
-  return (
-    <StyledBox marginTop={2} paddingX={6} paddingTop={4}>
-      <Box display='flex' alignItems='center'>
-        <Whatshot color='primary' />
-        <Typography variant='h5' fontWeight={600} marginLeft={1}>
-          Popular
-        </Typography>
-      </Box>
-      <Box>
-        <StyledTypography variant='body2'>
-          Most ordered right now.
-        </StyledTypography>
-      </Box>
+type Props = {
+  itemName: string;
+  itemNameDescription?: string;
+  itemDescription: string;
+  itemPrice: string;
+  itemDiscountedPrice: string;
+  imageUrl: string;
+  notlastitem?: string;
+};
 
+const VendorMenu = ({
+  itemName,
+  itemNameDescription,
+  itemDescription,
+  itemPrice,
+  itemDiscountedPrice,
+  imageUrl,
+  notlastitem,
+}: Props) => {
+  return (
+    <StyledBox paddingX={8} paddingY={6} notlastitem={notlastitem}>
       <ButtonBox
         display='flex'
         textAlign='start'
@@ -47,31 +55,24 @@ const VendorMenu = () => {
       >
         <Box>
           <Typography variant='subtitle1' color='black'>
-            My Box (U.P. $21.80)
+            {itemName} {itemNameDescription && `(${itemNameDescription})`}
           </Typography>
-          <StyledTypography variant='body2'>
-            1 Personal Pizza + Choice of 2 Sides
-          </StyledTypography>
+          <StyledTypography variant='body2'>{itemDescription}</StyledTypography>
           <Box display='flex'>
             <Typography variant='subtitle1' color='black' marginRight={2}>
-              from S$ 7.57
+              {itemDiscountedPrice}
             </Typography>
             <StyledTypography
               variant='subtitle1'
               sx={{ textDecoration: 'line-through' }}
             >
-              S$ 8.90
+              {itemPrice}
             </StyledTypography>
           </Box>
         </Box>
         <Box width='88px' height='88px'>
           <ImageContainer>
-            <img
-              src='https://images.deliveryhero.io/image/menu-import-gateway-prd/regions/AS/chains/cd3iw/2835bebfeeb0d295a69ba787593c2708.jpg?width=200'
-              alt='Pizza'
-              width='88'
-              height='88'
-            />
+            <img src={imageUrl} width='88' height='88' />
             <IconContainer>
               <AddBox color='primary' />
             </IconContainer>
