@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Vendor from '../vendor/vendor';
 import CartButton from './cart-button';

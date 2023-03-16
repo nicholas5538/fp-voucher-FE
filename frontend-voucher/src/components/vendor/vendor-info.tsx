@@ -69,7 +69,7 @@ export const VendorInfo = ({
           color: yellow[800],
           marginRight: '-5',
         }}
-      />
+      />,
     );
   }
   return (

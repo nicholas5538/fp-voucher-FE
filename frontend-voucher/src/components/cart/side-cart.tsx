@@ -1,4 +1,4 @@
-import { Box, Button, Switch, Typography } from '@mui/material';
+import { Box, Switch, Typography } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 import ToggleSwitch from './toggle-switch';
@@ -21,11 +21,6 @@ const StyledSideCart = styled(Box)`
   width: 250px;
   padding: 4rem 10px 0px 10px;
   box-shadow: 0 0.3rem 2rem rgb(0 0 0 / 10%);
-`;
-
-const StyledButton = styled(Button)`
-  width: 320px;
-  height: 48px;
 `;
 
 const SideCart = () => {

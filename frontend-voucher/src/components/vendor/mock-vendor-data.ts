@@ -60,7 +60,7 @@ export const mockData = {
           name: 'Family Bundle',
           name_description: '5-6pax',
           description:
-            "2 Large Pizza, 1 Spaghetti Bolognese, 6 pcs Sweet 'N' Spicy Drumlets & 6 pcs Honey Roasted Wings",
+            '2 Large Pizza, 1 Spaghetti Bolognese, 6 pcs Sweet "N" Spicy Drumlets & 6 pcs Honey Roasted Wings',
           discountedPrice: 'S$ 47.85',
           price: 'S$ 56.30',
           imageUrl:
