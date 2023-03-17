@@ -1,8 +1,7 @@
 import { ReactComponent as InfoIcon } from '../../assets/info-icon.svg';
 import styled from 'styled-components';
 import { Box, Button, Chip, Typography } from '@mui/material';
-import { GroupAddOutlined, AttachMoney } from '@mui/icons-material';
-import { FaStar } from 'react-icons/fa';
+import { GroupAddOutlined, AttachMoney, Star } from '@mui/icons-material';
 import { yellow } from '@mui/material/colors';
 import StyledTypography from '../styled-typography';
 import React from 'react';
@@ -105,7 +104,7 @@ export const VendorInfo = ({
             color='primary'
             sx={{ marginRight: 1 }}
           />
-          <FaStar style={{ color: yellow[900] }} />
+          <Star sx={{ color: yellow[800] }} />
           <Typography variant='body2' color='black' marginRight={1}>
             {vendorRatings}
           </Typography>
