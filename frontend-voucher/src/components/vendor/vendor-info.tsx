@@ -104,7 +104,7 @@ export const VendorInfo = ({
             color='primary'
             sx={{ marginRight: 1 }}
           />
-          <Star sx={{ color: yellow[800] }} />
+          <Star sx={{ color: yellow[800], marginRight: 1 }} />
           <Typography variant='body2' color='black' marginRight={1}>
             {vendorRatings}
           </Typography>
