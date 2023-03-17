@@ -42,7 +42,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 type Props = {
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: () => void;
 };
 
 const ToggleSwitch = ({ onChange }: Props) => {
