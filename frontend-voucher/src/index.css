@@ -9,7 +9,7 @@
 }
 
 body {
-  @apply bg-[#f8f8f8] font-mont;
+  @apply overflow-x-hidden bg-[#f8f8f8] font-mont;
 }
 
 @layer components {

@@ -21,5 +21,6 @@ module.exports = {
     semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'always-multiline'],
+    'no-unused-vars': ['error'],
   },
 };
