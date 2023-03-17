@@ -3,7 +3,7 @@ import { useLoaderData } from 'react-router';
 import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
-import { getVouchers } from '../utils/api';
+import { getVoucher } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
 
 const EditVoucherForm = () => {
@@ -13,14 +13,8 @@ const EditVoucherForm = () => {
   };
 
   const { data: voucher, isLoading } = useQuery({
-    queryKey: ['vouchers', id],
-    queryFn: ({ signal }) => {
-      const fetchVoucher = getVouchers({ page: 0, pageSize: 1, signal }, id);
-      if (!fetchVoucher) {
-        throw new Error('No data found');
-      }
-      return fetchVoucher;
-    },
+    queryKey: ['voucher', id],
+    queryFn: ({ signal }) => getVoucher({ id, signal }),
     keepPreviousData: true,
   });
 

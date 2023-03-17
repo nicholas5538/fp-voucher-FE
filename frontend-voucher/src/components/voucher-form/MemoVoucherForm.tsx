@@ -13,7 +13,7 @@ import downArrow from '../../assets/down_arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
-import { formatDate } from '../../utils/date';
+import { apiSubmitHandler } from '../../utils/api';
 import AlertComponent from '../alert';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
@@ -67,23 +67,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const disabledWatchAction = watchAction === 'Delete';
   // Need to change this onSubmit function in the future
   const onSubmit: SubmitHandler<Partial<voucherFormValues>> = (data) => {
-    delete data.action;
-    // DD-MM-YYYY
-    const modifiedData = {
-      ...data,
-      startDate: formatDate({
-        date: data.startDate,
-        dateFormat: 'YYYY-MM-DD',
-      }),
-      expiryDate: formatDate({
-        date: data.expiryDate,
-        dateFormat: 'YYYY-MM-DD',
-      }),
-    };
-    console.log(modifiedData);
-    // After showing alert for 4 seconds,
-    // user will be redirected to voucher page
-    // setTimeout(() => navigate('/vouchers'), 4000);
+    return apiSubmitHandler({ data, navigate });
   };
 
   return (
