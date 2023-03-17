@@ -30,10 +30,8 @@ const GroupAddButton = styled(Button)(() => ({
 
 const StyledInfoBox = styled(Box)`
   background-color: white;
-
-  @media (min-width: 960px) {
-    flex-grow: 1;
-  }
+  width: 100%;
+  overflow-wrap: break-word;
 `;
 
 const StyledUl = styled.ul`
@@ -41,6 +39,7 @@ const StyledUl = styled.ul`
   color: #767676;
   font-weight: 100;
   font-size: 0.9rem;
+  flex-wrap: wrap;
 `;
 
 const StyledLi = styled.li`
@@ -82,8 +81,12 @@ export const VendorInfo = ({
         alt='Pizza Hut (West Mall) hero banner'
       />
       <StyledInfoBox paddingTop={5} paddingBottom={6} paddingX={6}>
-        <Box display='flex' justifyContent='space-between'>
-          <h2>{vendorName}</h2>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          sx={{ flexWrap: 'wrap' }}
+        >
+          <Typography variant='h6'>{vendorName}</Typography>
           <Box display='flex'>
             <GroupAddButton
               variant='contained'

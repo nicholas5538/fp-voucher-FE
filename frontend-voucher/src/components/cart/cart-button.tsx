@@ -10,7 +10,7 @@ const StyledBox = styled(Box)`
   background-color: white;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100vw;
   padding: 1rem;
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
   height: 6rem;
