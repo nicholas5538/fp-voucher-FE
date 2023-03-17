@@ -1,8 +1,4 @@
-import {
-  googleLogout,
-  useGoogleLogin,
-  type OverridableTokenClientConfig,
-} from '@react-oauth/google';
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +11,7 @@ import {
 type TuserContext = {
   token: string | undefined;
   givenName: string;
-  login: (overrideConfig?: OverridableTokenClientConfig | undefined) => void;
+  login: () => void;
   logout: () => void;
 };
 
