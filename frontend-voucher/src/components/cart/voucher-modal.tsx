@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as VoucherIcon } from '/Users/r.chua/Desktop/react/fp-capstone/frontend-voucher/src/assets/voucher.svg';
+import { ReactComponent as VoucherIcon } from '../../assets/voucher.svg';
 import { Close } from '@mui/icons-material';
 
 const StyledButton = styled(Button)`
