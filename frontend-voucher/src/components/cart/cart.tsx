@@ -6,6 +6,18 @@ import CartButton from './cart-button';
 import CartModal from './cart-modal';
 import SideCart from './side-cart';
 
+const StyledBox = styled(Box)`
+  @media (max-width: 959.95px) {
+    display: none;
+  }
+`;
+
+const StyledModalBox = styled(Box)`
+  @media (min-width: 960px) {
+    display: none;
+  }
+`;
+
 const Cart = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -16,18 +28,6 @@ const Cart = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const StyledBox = styled(Box)`
-    @media (max-width: 959.95px) {
-      display: none;
-    }
-  `;
-
-  const StyledModalBox = styled(Box)`
-    @media (min-width: 960px) {
-      display: none;
-    }
-  `;
 
   return (
     <>

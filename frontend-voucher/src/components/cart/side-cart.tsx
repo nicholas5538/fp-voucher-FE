@@ -23,6 +23,11 @@ const StyledSideCart = styled(Box)`
   box-shadow: 0 0.3rem 2rem rgb(0 0 0 / 10%);
 `;
 
+const Separator = styled(Box)(() => ({
+  borderBottom: '1px solid #e6e6e6',
+  margin: '1rem 0',
+}));
+
 const SideCart = () => {
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
@@ -34,11 +39,6 @@ const SideCart = () => {
   const handleCutlerySwitchChange = () => {
     setIncludeCutlery((prevIncludeCutlery) => !prevIncludeCutlery);
   };
-
-  const Separator = styled(Box)(() => ({
-    borderBottom: '1px solid #e6e6e6',
-    margin: '1rem 0',
-  }));
 
   return (
     <StyledSideCart
