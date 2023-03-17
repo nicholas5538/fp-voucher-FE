@@ -15,15 +15,13 @@ type RadioInputsProps = RadioGroupProps & {
   name: keyof voucherFormValues;
 };
 
-type createRadioFn = ({
+const createRadioInputs = ({
   disabled,
   labelsObject,
 }: {
   disabled: boolean;
   labelsObject: TradioLabels;
-}) => JSX.Element[];
-
-const createRadioInputs: createRadioFn = ({ disabled, labelsObject }) => {
+}): JSX.Element[] => {
   return Object.entries(labelsObject).map(([label, value], index) => {
     const navigate = useNavigate();
     const { id } = useParams();
