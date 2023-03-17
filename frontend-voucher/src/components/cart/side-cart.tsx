@@ -108,7 +108,7 @@ const SideCart = () => {
 
       <VoucherModal />
       <CartAmount subTotal={44.17} platformFee={0.4} />
-      <Box width='300px' paddingTop={20}>
+      <Box width='300px' paddingTop={10}>
         <CheckoutButton
           onClick={() => {
             console.log('Checkout');
