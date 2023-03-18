@@ -3,7 +3,7 @@ import CartPage from './pages/CartPage';
 import CreateVoucherForm from './pages/CreateVoucherForm';
 import EditVoucherForm from './pages/EditVoucherForm';
 import ErrorPage from './pages/ErrorPage';
-import HomePage from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage';
 import ProtectedRoute from './pages/ProtectedRoute';
 import RootLayout from './pages/RootLayout';
 import VoucherTable from './pages/VoucherTable/VoucherTable';

@@ -1,10 +1,10 @@
-import AnimatedLayout from '../../components/animated-layout';
+import AnimatedLayout from '../components/animated-layout';
 import Lottie from 'lottie-react';
-import homeAnimation from '../../assets/home_page.json';
+import homeAnimation from '../assets/home_page.json';
 import Chip from '@mui/material/Chip';
 import { useNavigate } from 'react-router-dom';
-import { useUserContext } from '../../hooks/useUserContext';
-import ButtonComponent from '../../components/button';
+import { useUserContext } from '../hooks/useUserContext';
+import ButtonComponent from '../components/button';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
 const HomePage = () => {
