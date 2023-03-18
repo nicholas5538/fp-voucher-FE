@@ -21,7 +21,7 @@ const MainNavigation = () => {
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
-      <div className='mx-auto flex h-16 w-full max-w-7xl items-center justify-around border-none'>
+      <div className='mx-auto flex h-16 max-w-7xl items-center justify-around border-none'>
         <div
           className='relative lg:order-2 lg:border-x lg:border-y-0 lg:border-solid lg:border-gray-300'
           ref={dropdownRef}
