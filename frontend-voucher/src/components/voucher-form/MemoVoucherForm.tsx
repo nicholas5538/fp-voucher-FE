@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
+import clsx from 'clsx';
 import Lottie from 'lottie-react';
 import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -10,6 +12,7 @@ import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
 import { formatDate } from '../../utils/date';
+import AlertComponent from '../alert';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
 import RadioInputs from '../form-inputs/radio-inputs';
@@ -33,7 +36,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     handleSubmit,
     reset,
     watch,
-    formState: { isDirty, isValid, isSubmitting, errors },
+    formState: { errors, isDirty, isSubmitting, isSubmitSuccessful, isValid },
   } = useForm<voucherFormValues>({
     defaultValues: defaultValues,
     mode: 'all',
@@ -73,6 +76,9 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
       }),
     };
     console.log(modifiedData);
+    // After showing alert for 4 seconds,
+    // user will be redirected to voucher page
+    // setTimeout(() => navigate('/vouchers'), 4000);
   };
 
   return (
@@ -81,11 +87,25 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         elevation={3}
         className='mx-auto max-w-2xl rounded-lg py-4 lg:mx-0 xl:max-w-3xl'
       >
-        <div className='mb-4 border-0 border-b border-solid border-gray-700 pb-2'>
+        <div
+          className={clsx(
+            'mb-4 border-0 border-b border-solid border-gray-700 pb-2',
+            { 'mb-0': isSubmitSuccessful },
+          )}
+        >
           <h2 className='ml-3 font-mont text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
             {watchAction} voucher
           </h2>
         </div>
+        {isSubmitSuccessful && (
+          <AlertComponent
+            className='mb-4 px-2'
+            iconMapping={{
+              success: <CheckCircleOutlineIcon fontSize='inherit' />,
+            }}
+            text={`The voucher has been successfully ${watchAction.toLowerCase()}d! You'll be redirected shortly.`}
+          />
+        )}
         <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
           {watchAction !== 'Create' && (
             <RadioInputs
