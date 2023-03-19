@@ -22,7 +22,7 @@ const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
 
   return (
     <Card>
-      <CardContent className='px-0 py-0'>
+      <CardContent className='cursor-default px-0 py-0'>
         <div className='grid grid-cols-5 grid-rows-5'>
           <div className='col-span-1 row-start-1 row-end-6 h-full w-full border-y-0 border-l-0 border-r border-dashed border-gray-300 py-4'>
             <div className='grid h-full place-items-center'>
