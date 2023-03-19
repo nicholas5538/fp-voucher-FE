@@ -1,6 +1,10 @@
 import type { DateValidationError } from '@mui/x-date-pickers';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
+import {
+  DatePicker,
+  type DatePickerProps,
+  type PickersShortcutsItem,
+} from '@mui/x-date-pickers';
+import dayjs, { type Dayjs } from 'dayjs';
 import { useMemo, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { voucherFormValues } from '../../constants/globalTypes';
@@ -11,6 +15,52 @@ type DateSelectorProps = DatePickerProps<Date> & {
   title: string;
   name: keyof voucherFormValues;
 };
+
+const shortcutsItems: PickersShortcutsItem<Dayjs | null>[] = [
+  {
+    // eslint-disable-next-line quotes
+    label: "New Year's Day",
+    getValue: () => {
+      return dayjs().month(0).date(1);
+    },
+  },
+  {
+    label: 'Chinese New Year',
+    getValue: () => {
+      return dayjs().month(0).date(22);
+    },
+  },
+  {
+    label: 'Hari Raya Puasa',
+    getValue: () => {
+      return dayjs().month(3).date(22);
+    },
+  },
+  {
+    label: 'Labour Day',
+    getValue: () => {
+      return dayjs().month(4).date(1);
+    },
+  },
+  {
+    label: 'Vesak Day',
+    getValue: () => {
+      return dayjs().month(5).date(2);
+    },
+  },
+  {
+    label: 'Deepavali',
+    getValue: () => {
+      return dayjs().month(10).date(12);
+    },
+  },
+  {
+    label: 'Christmas Day',
+    getValue: () => {
+      return dayjs().month(11).date(25);
+    },
+  },
+];
 
 const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
   const [error, setError] = useState<DateValidationError | null>(null);
@@ -47,6 +97,9 @@ const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
             slotProps={{
               textField: {
                 helperText: errorMessage,
+              },
+              shortcuts: {
+                items: shortcutsItems,
               },
             }}
             sx={{
