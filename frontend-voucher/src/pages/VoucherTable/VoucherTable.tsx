@@ -9,9 +9,12 @@ import NoRows from './NoRows';
 import SkeletonTable from './SkeletonTable';
 import tableColumns from './table-columns';
 import AnimatedLayout from '../../components/animated-layout';
+import useMeasure from 'react-use-measure';
+import { motion } from 'framer-motion';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
+  const [ref, { height }] = useMeasure();
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
@@ -37,45 +40,51 @@ const VoucherTable = () => {
         <TableViewTwoToneIcon className='w-[40px]' />
         <h1>Voucher Data Table</h1>
       </div>
-      <div className='w-full'>
-        {isLoading ? (
-          <SkeletonTable />
-        ) : (
-          <DataGrid
-            autoHeight
-            columns={tableColumns}
-            rows={data.vouchers}
-            slots={{
-              loadingOverlay: LinearProgress,
-              noRowsOverlay: NoRows,
-              toolbar: CustomToolBar,
-            }}
-            slotProps={{
-              columnsPanel: {
-                disableHideAllButton: true,
-              },
-            }}
-            sx={{
-              boxShadow: 4,
-              border: 2,
-              borderColor: 'hsl(334, 79%, 50%)',
-              fontFamily: 'Montserrat',
-              '& .MuiDataGrid-cell:hover': {
-                color: 'hsl(334, 79%, 43%)',
-                backgroundColor: 'transparent',
-              },
-              overflowX: 'scroll',
-            }}
-            disableRowSelectionOnClick={true}
-            rowCount={rowCountState}
-            loading={isLoading}
-            pageSizeOptions={[5, 10, 25, 50]}
-            paginationModel={paginationModel}
-            paginationMode='server'
-            onPaginationModelChange={setPaginationModel}
-          />
-        )}
-      </div>
+      <motion.div
+        animate={{ height }}
+        transition={{ duration: 0.15 }}
+        className='w-full'
+      >
+        <div ref={ref}>
+          {isLoading ? (
+            <SkeletonTable />
+          ) : (
+            <DataGrid
+              autoHeight
+              columns={tableColumns}
+              rows={data.vouchers}
+              slots={{
+                loadingOverlay: LinearProgress,
+                noRowsOverlay: NoRows,
+                toolbar: CustomToolBar,
+              }}
+              slotProps={{
+                columnsPanel: {
+                  disableHideAllButton: true,
+                },
+              }}
+              sx={{
+                boxShadow: 4,
+                border: 2,
+                borderColor: 'hsl(334, 79%, 50%)',
+                fontFamily: 'Montserrat',
+                '& .MuiDataGrid-cell:hover': {
+                  color: 'hsl(334, 79%, 43%)',
+                  backgroundColor: 'transparent',
+                },
+                overflowX: 'scroll',
+              }}
+              disableRowSelectionOnClick={true}
+              rowCount={rowCountState}
+              loading={isLoading}
+              pageSizeOptions={[5, 10, 25, 50]}
+              paginationModel={paginationModel}
+              paginationMode='server'
+              onPaginationModelChange={setPaginationModel}
+            />
+          )}
+        </div>
+      </motion.div>
     </AnimatedLayout>
   );
 };

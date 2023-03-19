@@ -42,6 +42,7 @@
     "react-hook-form": "7.43.5",
     "react-is": "18.2.0",
     "react-router-dom": "6.8.2",
+    "react-use-measure": "2.1.1",
     "styled-components": "5.3.8",
     "uuid": "9.0.0",
     "vite-plugin-svgr": "2.4.0",
