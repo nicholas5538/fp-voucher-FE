@@ -46,8 +46,8 @@ const Footer = () => {
   });
 
   return (
-    <footer className='border-0 border-t-2 border-solid border-pink-500 py-8 px-4'>
-      <div className='mx-auto flex max-w-7xl flex-col md:items-start xl:px-4'>
+    <footer className='border-0 border-t-2 border-solid border-pink-500 py-8 px-6'>
+      <div className='mx-auto flex max-w-7xl flex-col md:items-start xl:px-6'>
         {token ? (
           <>
             <h3 className='mb-4 text-center text-lg'>Overview</h3>
