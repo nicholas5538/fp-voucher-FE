@@ -3,12 +3,12 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
-import { memo, useEffect, useState } from 'react';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
-import downArrow from '../../assets/down-arrow.json';
+import downArrow from '../../assets/down_arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
@@ -32,6 +32,8 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
   const [ref, { height }] = useMeasure();
+  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
+  lottieRef.current?.setSpeed(0.6);
 
   const {
     control,
@@ -253,7 +255,11 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         <h1 className='cursor-default rounded-md bg-pink-400 py-4 px-6 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
           Voucher
         </h1>
-        <Lottie className='max-w-[200px]' animationData={downArrow} />
+        <Lottie
+          lottieRef={lottieRef}
+          className='max-w-[200px]'
+          animationData={downArrow}
+        />
         <VoucherCard voucherParticulars={watchVoucherCard} />
       </aside>
     </>

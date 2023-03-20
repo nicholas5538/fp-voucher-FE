@@ -1,15 +1,19 @@
 import AnimatedLayout from '../components/animated-layout';
-import Lottie from 'lottie-react';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
 import homeAnimation from '../assets/home_page.json';
 import Chip from '@mui/material/Chip';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../hooks/useUserContext';
 import ButtonComponent from '../components/button';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import { useRef } from 'react';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { token, login } = useUserContext();
+  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
+  lottieRef.current?.setSpeed(0.75);
+
   const viewHandler = () => {
     return navigate('/vouchers');
   };
@@ -18,11 +22,10 @@ const HomePage = () => {
   };
 
   return (
-    <AnimatedLayout className='mx-auto mt-16 max-w-7xl px-6 md:grid md:grid-cols-3 md:items-center'>
-      <Lottie
-        animationData={homeAnimation}
-        className='mb-6 md:order-2 md:col-span-2 md:mb-0'
-      />
+    <AnimatedLayout className='mx-auto mt-16 w-full max-w-7xl px-6 md:grid md:grid-cols-2 md:items-center'>
+      <aside className='mx-auto mb-6 w-4/5 max-w-lg md:order-2 md:col-span-1 md:m-0 md:mb-12 md:justify-self-end'>
+        <Lottie lottieRef={lottieRef} animationData={homeAnimation} />
+      </aside>
       <div className='md:order-1 md:col-span-1 md:flex md:flex-col md:space-y-4'>
         <h2 className='mb-6 text-center md:mb-0 md:text-start md:text-xl lg:text-3xl'>
           Welcome to <span className='text-pink-600'>foodpanda</span> voucher
