@@ -22,4 +22,9 @@ export type dataType = {
 
 export type childrenNode = {
   children: JSX.Element | JSX.Element[] | React.ReactNode;
+  className?: string;
+};
+
+export type TradioLabels = {
+  [key: string]: string;
 };
