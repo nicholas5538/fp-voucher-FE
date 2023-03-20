@@ -1,10 +1,6 @@
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
-import { voucherFormValues } from './globalTypes';
-
-export type TradioLabels = {
-  [key: string]: string;
-};
+import { TradioLabels, voucherFormValues } from './globalTypes';
 
 export const actionLabels: TradioLabels = {
   update: 'Update',

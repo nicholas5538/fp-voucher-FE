@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { voucherFormValues, dataType } from '../constants/globalTypes';
-import { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
+import { dataType, voucherFormValues } from '../constants/globalTypes';
 
 export const getVouchers = async (
   options: {

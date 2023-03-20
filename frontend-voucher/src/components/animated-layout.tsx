@@ -1,9 +1,5 @@
-import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion';
-
-type childrenNode = {
-  children: JSX.Element | JSX.Element[];
-  className?: string;
-};
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+import { childrenNode } from '../constants/globalTypes';
 
 const AnimatedLayout = ({ children, className }: childrenNode) => {
   return (
