@@ -41,7 +41,7 @@ const SideCart = () => {
 
   return (
     <StyledSideCart
-      sx={{ backgroundColor: 'white', position: 'sticky', top: '64px' }}
+      sx={{ backgroundColor: 'white', position: 'fixed', top: '64px' }}
       minWidth={350}
       height='100%'
     >

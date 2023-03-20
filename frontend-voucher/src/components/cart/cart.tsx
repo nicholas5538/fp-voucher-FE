@@ -32,7 +32,7 @@ const Cart = () => {
   return (
     <>
       <Box display='flex' width='100vw'>
-        <Box>
+        <Box marginRight='352px'>
           <Vendor />
           <StyledModalBox>
             <CartButton onClick={handleCartButtonClick} />
