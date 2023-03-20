@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import TableViewTwoToneIcon from '@mui/icons-material/TableViewTwoTone';
 import { LinearProgress } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -52,7 +53,7 @@ const VoucherTable = () => {
             <DataGrid
               autoHeight
               columns={tableColumns}
-              rows={data.vouchers}
+              rows={data!.vouchers}
               slots={{
                 loadingOverlay: LinearProgress,
                 noRowsOverlay: NoRows,
