@@ -18,7 +18,7 @@ const AlertComponent = ({
           className='w-full'
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', duration: 0.8, bounce: 0.4 }}
+          transition={{ type: 'spring', duration: 1, bounce: 0.4 }}
         >
           <Alert {...props}>{text}</Alert>
         </motion.aside>

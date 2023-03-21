@@ -7,7 +7,7 @@ function RootLayout() {
   return (
     <UserProvider>
       <MainNavigation />
-      <main className='mb-16'>
+      <main className='mb-16 md:mb-8'>
         <Outlet />
       </main>
       <Footer />

@@ -2,7 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
-import { motion } from 'framer-motion';
+import clsx from 'clsx';
+import { motion, MotionConfig } from 'framer-motion';
 import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
 import { memo, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -86,17 +87,22 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   };
 
   return (
-    <>
+    <MotionConfig transition={{ duration: 0.4 }}>
       <Paper
         elevation={3}
-        className='mx-auto max-w-2xl rounded-lg pt-4 pb-12 lg:mx-0 xl:max-w-3xl'
+        className='mx-auto max-w-2xl rounded-lg pt-4 pb-8 lg:mx-0 xl:max-w-3xl'
       >
-        <div className='border-0 border-b border-solid border-gray-700 pb-2'>
+        <div
+          className={clsx(
+            'border-0 border-b border-solid border-gray-700 pb-2',
+            { 'mb-0': isSubmitSuccessful, 'mb-4': !isSubmitSuccessful },
+          )}
+        >
           <h2 className='ml-3 font-mont text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
             {watchAction} voucher
           </h2>
         </div>
-        <motion.div animate={{ height }} transition={{ duration: 0.3 }}>
+        <motion.div animate={{ height }} className='overflow-y-hidden'>
           <div ref={ref}>
             <AlertComponent
               className='mb-4 px-2'
@@ -106,7 +112,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
               shouldRender={isSubmitSuccessful}
               text={`The voucher has been successfully ${watchAction.toLowerCase()}d! You'll be redirected shortly.`}
             />
-            <form onSubmit={handleSubmit(onSubmit)} className='mt-4 px-3'>
+            <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
               {watchAction !== 'Create' && (
                 <RadioInputs
                   control={control}
@@ -262,7 +268,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         />
         <VoucherCard voucherParticulars={watchVoucherCard} />
       </aside>
-    </>
+    </MotionConfig>
   );
 };
 
