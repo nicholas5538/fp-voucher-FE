@@ -42,8 +42,8 @@ const VoucherTable = () => {
       </div>
       <motion.div
         animate={{ height }}
-        transition={{ duration: 0.15 }}
-        className='w-full'
+        transition={{ duration: 0.4 }}
+        className='w-full overflow-y-hidden'
       >
         <div ref={ref}>
           {isLoading ? (
