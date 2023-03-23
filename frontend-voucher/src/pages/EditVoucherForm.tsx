@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useLoaderData } from 'react-router';
+import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import { getVouchers } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
-import AnimatedLayout from '../components/animated-layout';
 
 const EditVoucherForm = () => {
   const { action, id } = useLoaderData() as {
