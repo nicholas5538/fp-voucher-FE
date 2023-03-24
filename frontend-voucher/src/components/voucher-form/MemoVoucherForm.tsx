@@ -13,7 +13,7 @@ import downArrow from '../../assets/down_arrow.json';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import { voucherFormValues } from '../../constants/globalTypes';
-import { formatDate } from '../../utils/date';
+import { apiSubmitHandler } from '../../utils/api';
 import AlertComponent from '../alert';
 import ButtonComponent from '../button';
 import DateSelector from '../form-inputs/date-picker';
@@ -62,28 +62,11 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     'minSpending',
     'promoCode',
   ]);
-
   const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
-  // Need to change this onSubmit function in the future
+
   const onSubmit: SubmitHandler<Partial<voucherFormValues>> = (data) => {
-    delete data.action;
-    // DD-MM-YYYY
-    const modifiedData = {
-      ...data,
-      startDate: formatDate({
-        date: data.startDate,
-        dateFormat: 'YYYY-MM-DD',
-      }),
-      expiryDate: formatDate({
-        date: data.expiryDate,
-        dateFormat: 'YYYY-MM-DD',
-      }),
-    };
-    console.log(modifiedData);
-    // After showing alert for 4 seconds,
-    // user will be redirected to voucher page
-    // setTimeout(() => navigate('/vouchers'), 4000);
+    return apiSubmitHandler({ data, navigate });
   };
 
   return (
@@ -133,7 +116,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='md:col-span-2'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.description === undefined ? false : true}
+                  error={errors.description ? true : false}
                   helperText={errors.description?.message}
                   icon={icons.desc}
                   label='Description'
@@ -147,7 +130,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.promoCode === undefined ? false : true}
+                  error={errors.promoCode ? true : false}
                   helperText={errors.promoCode?.message}
                   icon={icons.discount}
                   label='Promo code'
@@ -161,7 +144,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.minSpending === undefined ? false : true}
+                  error={errors.minSpending ? true : false}
                   helperText={errors.minSpending?.message}
                   icon={icons.attachMoney}
                   label='Minimum spending'
@@ -172,7 +155,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.discount === undefined ? false : true}
+                  error={errors.discount ? true : false}
                   helperText={errors.discount?.message}
                   icon={icons.percent}
                   label='Discount'
@@ -213,10 +196,10 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                     <ModalComponent
                       modalTitle='Are you sure you want to delete the voucher?'
                       modalDesc='Warning, all actions are irreversible.'
-                      // Note to myself: Need to change the line below to handle DELETE API
-                      clickHandler={() =>
-                        setDeleteModal((prevState) => !prevState)
-                      }
+                      clickHandler={() => {
+                        handleSubmit(onSubmit)();
+                        setDeleteModal((prevState) => !prevState);
+                      }}
                       openModal={openDeleteModal}
                       setOpenModal={setDeleteModal}
                     />

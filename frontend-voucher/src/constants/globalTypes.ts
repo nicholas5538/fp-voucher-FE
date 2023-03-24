@@ -20,6 +20,18 @@ export type dataType = {
   vouchers: voucherFormValues[];
 };
 
+export type createVoucherValues = {
+  action: string;
+  category: string;
+  description: string;
+  discount: number;
+  id: string;
+  minSpending: number;
+  promoCode: string;
+  startDate: string;
+  expiryDate: string;
+};
+
 export type childrenNode = {
   children: JSX.Element | JSX.Element[] | React.ReactNode;
   className?: string;

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '..//assets/logo.svg';
+import { ReactComponent as Logo } from '../assets/logo.svg';
 import { ReactComponent as Brand } from '../assets/brand.svg';
 import { useUserContext } from '../hooks/useUserContext';
 
