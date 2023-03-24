@@ -38,7 +38,6 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
             <ModalComponent
               modalTitle='Are you sure you want to logout?'
               modalDesc='Warning, you will lose all unsaved changes.'
-              // Note to myself: Need to change the line below to handle DELETE API
               clickHandler={clickHandler}
               openModal={openModal}
               setOpenModal={setOpenModal}
