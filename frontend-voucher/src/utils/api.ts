@@ -20,6 +20,7 @@ type apiSubmitArgs = {
 };
 
 const db_id = import.meta.env.VITE_SHEET_DB_ID;
+const archive_id = import.meta.env.VITE_SHEET_ARCHIVE_ID;
 
 const googleSheet = axios.create({
   baseURL: 'https://sheetdb.io/api/v1/',
@@ -145,7 +146,7 @@ export const deleteVoucher = async (id: string) => {
 export const createVoucherArchive = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
   await archiveSheet
-    .post(`${db_id}/`, dataReceived)
+    .post(`${archive_id}/`, dataReceived)
     .then(() => console.log('Deleted voucher has been added to the archive'))
     .catch((reason: AxiosError) => {
       if (reason.response?.status === 400) {
@@ -175,7 +176,7 @@ export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {
       break;
     case 'Delete':
       createVoucherArchive(modifiedData);
-      deleteVoucher(modifiedData.id as string);
+      deleteVoucher(modifiedData.id ?? '');
       break;
     default:
       createVoucher(modifiedData);
