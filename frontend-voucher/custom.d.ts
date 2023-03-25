@@ -1,4 +1,4 @@
-import 'vite/client';
+/// <reference types="vite/client" />
 
 declare module '*.svg' {
   import React = require('react');
