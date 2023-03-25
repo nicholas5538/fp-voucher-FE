@@ -41,7 +41,6 @@ const ModalComponent = ({
   openModal,
   setOpenModal,
 }: ModalProps) => {
-  console.log(clickHandler);
   const firstButtonProps =
     modalTitle === 'Are you sure you want to delete the voucher?'
       ? {

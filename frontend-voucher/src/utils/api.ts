@@ -120,7 +120,6 @@ export const updateVoucher = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
   await googleSheet
     .put(`${db_id}/id/${dataReceived.id}`, dataReceived)
-    .then(() => console.log(`Voucher id ${dataReceived.id} has been updated`))
     .catch((reason: AxiosError) => {
       if (reason.response?.status === 400) {
         throw new Error('Bad request');
@@ -131,23 +130,19 @@ export const updateVoucher = async (dataReceived: dataReceivedType) => {
 };
 
 export const deleteVoucher = async (id: string) => {
-  await googleSheet
-    .delete(`${db_id}/id/${id}`)
-    .then(() => console.log('Voucher has been deleted'))
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  await googleSheet.delete(`${db_id}/id/${id}`).catch((reason: AxiosError) => {
+    if (reason.response?.status === 400) {
+      throw new Error('Bad request');
+    } else {
+      throw new Error(`Request failed. Status: ${reason.response?.status}`);
+    }
+  });
 };
 
 export const createVoucherArchive = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
   await archiveSheet
     .post(`${archive_id}/`, dataReceived)
-    .then(() => console.log('Deleted voucher has been added to the archive'))
     .catch((reason: AxiosError) => {
       if (reason.response?.status === 400) {
         throw new Error('Bad request');
