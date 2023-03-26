@@ -973,7 +973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/private-theming@npm:^5.11.12, @mui/private-theming@npm:^5.11.13":
+"@mui/private-theming@npm:^5.11.13":
   version: 5.11.13
   resolution: "@mui/private-theming@npm:5.11.13"
   dependencies:
@@ -1011,35 +1011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/system@npm:5.11.12":
-  version: 5.11.12
-  resolution: "@mui/system@npm:5.11.12"
-  dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/private-theming": ^5.11.12
-    "@mui/styled-engine": ^5.11.11
-    "@mui/types": ^7.2.3
-    "@mui/utils": ^5.11.12
-    clsx: ^1.2.1
-    csstype: ^3.1.1
-    prop-types: ^15.8.1
-  peerDependencies:
-    "@emotion/react": ^11.5.0
-    "@emotion/styled": ^11.3.0
-    "@types/react": ^17.0.0 || ^18.0.0
-    react: ^17.0.0 || ^18.0.0
-  peerDependenciesMeta:
-    "@emotion/react":
-      optional: true
-    "@emotion/styled":
-      optional: true
-    "@types/react":
-      optional: true
-  checksum: a357b26b34ba3fe9aa6d2e826e94a9e8c6fe4bb4d20ac77b7a8688ff414ac7df77ff537837dd36e20aa9be8b9bb9c1ecab6ad2af057b152e1d0c9ea3234aefbf
-  languageName: node
-  linkType: hard
-
-"@mui/system@npm:^5.11.12":
+"@mui/system@npm:5.11.14, @mui/system@npm:^5.11.12":
   version: 5.11.14
   resolution: "@mui/system@npm:5.11.14"
   dependencies:
@@ -3324,7 +3296,7 @@ __metadata:
     "@mui/icons-material": 5.11.11
     "@mui/lab": 5.0.0-alpha.122
     "@mui/material": 5.11.12
-    "@mui/system": 5.11.12
+    "@mui/system": 5.11.14
     "@mui/x-data-grid": 6.0.1
     "@mui/x-date-pickers": 6.0.1
     "@react-oauth/google": 0.8.0
