@@ -14,7 +14,7 @@ import { FC, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import VoucherIcon from '../../assets/voucher.svg';
 import { Close } from '@mui/icons-material';
-import PromoCodeField from './test';
+import PromoCodeField from './promo-code-field';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { getVouchers } from '../../utils/api';
