@@ -81,8 +81,6 @@ export const getVouchers = async (options: {
     googleSheet.get(`${db_id}/`, { signal: signal }),
   );
 
-  console.log(data);
-
   const total = data.length;
   const total_pages = Math.floor(data.length / pageSize);
   const per_page = Math.floor(total / total_pages);
