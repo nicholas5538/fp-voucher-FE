@@ -1,0 +1,31 @@
+---
+name: Lint Code Base
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4.10.1
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_YAML: false
+          VALIDATE_XML: false
+          IGNORE_GITIGNORED_FILES: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
