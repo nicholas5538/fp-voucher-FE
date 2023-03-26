@@ -1,5 +1,5 @@
 ---
-name: Lint Code Base
+name: Check code base
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Lint Code Base
+    name: Run Lint on code base
     runs-on: ubuntu-latest
 
     steps:

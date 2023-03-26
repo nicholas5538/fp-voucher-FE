@@ -1,5 +1,5 @@
 ---
-name: Test build
+name: Build
 
 on:
   pull_request:
@@ -10,6 +10,7 @@ on:
 
 jobs:
   build:
+    name: Run Node and build
     runs-on: ubuntu-latest
 
     steps:
