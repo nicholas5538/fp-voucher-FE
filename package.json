@@ -17,7 +17,7 @@
     "lint": "eslint .. --ext .tsx --ext .ts",
     "precommit": "pretty-quick --staged",
     "preview": "vite preview",
-    "prepare": "cd .. && husky install frontend-voucher/.husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/cache": "11.10.5",
