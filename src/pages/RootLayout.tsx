@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
+import Footer from '../components/footer';
 import MainNavigation from '../components/navigation/MainNavigation';
 import UserProvider from '../hooks/useUserContext';
-import Footer from '../components/footer';
 
-function RootLayout() {
+const RootLayout = () => {
   return (
     <UserProvider>
       <MainNavigation />
@@ -13,6 +13,6 @@ function RootLayout() {
       <Footer />
     </UserProvider>
   );
-}
+};
 
 export default RootLayout;
