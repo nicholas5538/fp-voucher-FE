@@ -1,4 +1,4 @@
-# 🏷️ FP capstone project
+# 🏷️ [FP capstone project](https://foodpanda-capstone.vercel.app/ 'Production website')
 
 ## Table Of Contents
 
@@ -24,13 +24,13 @@ We decided to create an admin portal that allows user to use the following featu
 
 ### Environment Setup
 
-- Add a new SSH key to your GitHub account. [Instructions to how to generate](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+- Add a new SSH key to your GitHub account. [Instructions to how to generate](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account 'Generate SSH key').
 
-- Install any version of node that is > 10.0.0.
+- Install any version of node that is >= 14.0.0.
 
-  > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm) to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
+  > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
 
-- Install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable) (We're currently using yarn [v3.5.0](https://github.com/nicholas5538/fp-capstone/tree/main/frontend-voucher/.yarn/releases) for this project)
+- Install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable) (We're currently using yarn [v3.5.0](https://github.com/nicholas5538/fp-capstone/blob/main/.yarn/releases/yarn-3.5.0.cjs) for this project)
 
   > 💁 `npm install --global yarn`
 
@@ -40,11 +40,11 @@ Once you have your SSH key added and environment setup, you can clone the reposi
 
 ```zsh
 git clone git@github.com:nicholas5538/fp-capstone.git
-cd frontend-voucher
+cd fp-capstone
 yarn install
 ```
 
-Once the dependencies have been installed. you are required create a `.env` file under `frontend-voucher` folder and insert the following codes.
+Once the dependencies have been installed, you are required create a `.env` file **on the root folder** and insert the following codes.
 **_TAKE NOTE: please request for tokens either from [@nicholas5538](https://github.com/nicholas5538 "nicholas5538 profile") or [@Rychua002](https://github.com/Rychua002 "Rychua002 profile")._**
 
 ```
@@ -79,8 +79,8 @@ In addition to the `dev` command, there are other scripts available in the packa
 - [Vite](https://vitejs.dev/guide/ "Vite documentation")
 - [TanStack Query](https://tanstack.com/query/latest/docs/react/overview "TanStack Query documentation")
 - [Material-UI](https://mui.com/ "MUI documentation")
-- [styled-components](https://styled-components.com/docs "styled-components")
-- [Tailwindcss](https://tailwindcss.com/docs/installation "Tailwindcss styling")
+- [styled-components](https://styled-components.com/docs "styled-components documentation")
+- [Tailwindcss](https://tailwindcss.com/docs/installation "Tailwindcss styling documentation")
 - [Framer Motion](https://www.framer.com/motion/ "Framer Motion animation")
-- [People API](https://developers.google.com/people "People API")
+- [People API](https://developers.google.com/people "People API documentation")
 - [SheetDB API](https://sheetdb.io/ "SheetDB documentation")
