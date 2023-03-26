@@ -5,9 +5,8 @@ import Lottie from 'lottie-react';
 import { useNavigate, useRouteError } from 'react-router-dom';
 import errorAnimation from '../assets/error.json';
 import errorNotFound from '../assets/error_not_found.json';
-import ButtonComponent from '../components/button';
-import MainNavigation from '../components/navigation/MainNavigation';
 import AnimatedLayout from '../components/animated-layout';
+import ButtonComponent from '../components/button';
 
 function ErrorPage() {
   const navigate = useNavigate();
@@ -23,7 +22,6 @@ function ErrorPage() {
 
   return (
     <AnimatedLayout className=''>
-      <MainNavigation />
       <section className='mx-auto mt-8 flex max-w-7xl px-6'>
         <Box className='flex w-full flex-col items-center space-y-2 lg:space-y-4'>
           <Lottie animationData={animationData} className='max-h-80' />
