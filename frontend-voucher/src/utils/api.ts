@@ -1,4 +1,4 @@
-import axios, { type AxiosError } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { type NavigateFunction } from 'react-router-dom';
 import {
   createVoucherValues,
@@ -42,6 +42,26 @@ const archiveSheet = axios.create({
   },
 });
 
+const wrapperFn = async (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  callBack: Promise<AxiosResponse<any, any>>,
+) => {
+  try {
+    const response = await callBack;
+    return response.data;
+  } catch (reason: unknown) {
+    if (reason instanceof AxiosError) {
+      if (reason.response?.status === 400) {
+        throw new Error('Bad request');
+      } else {
+        throw new Error(`Request failed. Status: ${reason.response?.status}`);
+      }
+    } else {
+      console.error(reason);
+    }
+  }
+};
+
 export const getVouchers = async (options: {
   page: number;
   pageSize: number;
@@ -57,15 +77,11 @@ export const getVouchers = async (options: {
   };
   let endIndex = (page + 1) * pageSize;
 
-  const { data } = await googleSheet
-    .get(`${db_id}/`, { signal: signal })
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  const data = await wrapperFn(
+    googleSheet.get(`${db_id}/`, { signal: signal }),
+  );
+
+  console.log(data);
 
   const total = data.length;
   const total_pages = Math.floor(data.length / pageSize);
@@ -83,73 +99,39 @@ export const getVouchers = async (options: {
   };
   results = {
     ...dataObject,
-    vouchers: data.slice(startIndex, endIndex),
+    vouchers: data.slice(startIndex, endIndex + 1),
   };
 
   return results;
 };
 
 export const getVoucher = async ({ id, signal }: getVoucherFn) => {
-  const { data } = await googleSheet
-    .get(`${db_id}/search?id=${id}`, { signal: signal })
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  const data = await wrapperFn(
+    googleSheet.get(`${db_id}/search?id=${id}`, { signal: signal }),
+  );
 
   return data[0];
 };
 
 export const createVoucher = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  await googleSheet
-    .post(`${db_id}/`, dataReceived)
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  await wrapperFn(googleSheet.post(`${db_id}/`, dataReceived));
 };
 
 export const updateVoucher = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  await googleSheet
-    .put(`${db_id}/id/${dataReceived.id}`, dataReceived)
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  await wrapperFn(
+    googleSheet.put(`${db_id}/id/${dataReceived.id}`, dataReceived),
+  );
 };
 
 export const deleteVoucher = async (id: string) => {
-  await googleSheet.delete(`${db_id}/id/${id}`).catch((reason: AxiosError) => {
-    if (reason.response?.status === 400) {
-      throw new Error('Bad request');
-    } else {
-      throw new Error(`Request failed. Status: ${reason.response?.status}`);
-    }
-  });
+  await wrapperFn(googleSheet.delete(`${db_id}/id/${id}`));
 };
 
 export const createVoucherArchive = async (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  await archiveSheet
-    .post(`${archive_id}/`, dataReceived)
-    .catch((reason: AxiosError) => {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    });
+  await wrapperFn(archiveSheet.post(`${archive_id}/`, dataReceived));
 };
 
 export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {

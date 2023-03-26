@@ -25,6 +25,8 @@ const VoucherTable = () => {
     queryKey: ['vouchers', paginationModel],
     queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
     keepPreviousData: true,
+    staleTime: Infinity,
+    cacheTime: 0,
   });
 
   const [rowCountState, setRowCountState] = useState<number>(data?.total || 0);
