@@ -3,6 +3,7 @@
 ## Table Of Contents
 
 - [Context](#context)
+- [Quick Links](#quick-links)
 - [Getting Started](#getting-started)
   - [Environment Setup](#environment-setup)
   - [Repository Setup](#repository-setup)
@@ -19,6 +20,20 @@ We decided to create an admin portal that allows user to use the following featu
 3. **Update** any existing vouchers
 4. **Delete** any existing vouchers
 5. A dummy checkout page to show that the vouchers can be applied
+
+We will be using google sheets as the 'database' and use REST API to perform CRUD operations on it. This is achieved with [SheetDB](https://sheetdb.io/ 'SheetDB documentation').
+
+## Quick Links
+
+- [Preview Deployment](https://foodpanda-capstone-nicholas5538.vercel.app/ 'Preview deployment URL')
+
+  > This deployment will be updated for every pull requests made, **_kindly wait for GitHub Actions to finish deploying to the preview channel._**
+
+  > 💁 **Tip:** You can use this URL to see whether the changes you have made are satisfactory before pushing to production.
+
+- [Production Deployment](https://foodpanda-capstone.vercel.app/ 'Production deployment URL')
+
+  > Any changes that are merged / pushed to the `main` branch, will be deployed to **_Production_**.
 
 ## Getting Started
 
@@ -45,7 +60,7 @@ yarn install
 ```
 
 Once the dependencies have been installed, you are required create a `.env` file **on the root folder** and insert the following codes.
-**_TAKE NOTE: please request for tokens either from [@nicholas5538](https://github.com/nicholas5538 "nicholas5538 profile") or [@Rychua002](https://github.com/Rychua002 "Rychua002 profile")._**
+**_TAKE NOTE: please request for tokens either from [@nicholas5538](https://github.com/nicholas5538 'nicholas5538 profile') or [@Rychua002](https://github.com/Rychua002 'Rychua002 profile')._**
 
 ```
 VITE_SHEET_DB_ID=<insert voucher sheet token here>
@@ -76,11 +91,12 @@ In addition to the `dev` command, there are other scripts available in the packa
 
 ## Additional Documentations
 
-- [Vite](https://vitejs.dev/guide/ "Vite documentation")
-- [TanStack Query](https://tanstack.com/query/latest/docs/react/overview "TanStack Query documentation")
-- [Material-UI](https://mui.com/ "MUI documentation")
-- [styled-components](https://styled-components.com/docs "styled-components documentation")
-- [Tailwindcss](https://tailwindcss.com/docs/installation "Tailwindcss styling documentation")
-- [Framer Motion](https://www.framer.com/motion/ "Framer Motion animation")
-- [People API](https://developers.google.com/people "People API documentation")
-- [SheetDB API](https://sheetdb.io/ "SheetDB documentation")
+- [Vite](https://vitejs.dev/guide/ 'Vite documentation')
+- [TanStack Query](https://tanstack.com/query/latest/docs/react/overview 'TanStack Query documentation')
+- [React Hook Form](https://react-hook-form.com/get-started/ 'React Hook Form documentation')
+- [Material-UI](https://mui.com/ 'MUI documentation')
+- [styled-components](https://styled-components.com/docs 'styled-components documentation')
+- [Tailwindcss](https://tailwindcss.com/docs/installation 'Tailwindcss styling documentation')
+- [Framer Motion](https://www.framer.com/motion/ 'Framer Motion animation')
+- [People API](https://developers.google.com/people 'People API documentation')
+- [SheetDB API](https://sheetdb.io/ 'SheetDB documentation')
