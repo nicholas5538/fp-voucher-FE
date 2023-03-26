@@ -1,5 +1,5 @@
 import { Box, Switch, Typography } from '@mui/material';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import ToggleSwitch from './toggle-switch';
 import { SendTimeExtensionOutlined, LocalDining } from '@mui/icons-material';
@@ -27,9 +27,17 @@ const Separator = styled(Box)(() => ({
   margin: '1rem 0',
 }));
 
-const SideCart = () => {
+const SideCart: FC = () => {
+  const [promoCode, setPromoCode] = useState<string>('');
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
+  const handlePromoCode = (code: string | undefined) => {
+    setPromoCode(code || '');
+  };
+
+  const handleRemoveVoucher = () => {
+    setPromoCode('');
+  };
 
   const handleModeSwitchChange = () => {
     setIsPickUp((prevIsPickUp) => !prevIsPickUp);
@@ -105,8 +113,14 @@ const SideCart = () => {
       </Box>
       <Separator marginBottom={20} />
 
-      <VoucherModal />
-      <CartAmount subTotal={44.17} platformFee={0.4} />
+      <VoucherModal onPromoCode={handlePromoCode} promoCode={promoCode} />
+
+      <CartAmount
+        subTotal={44.17}
+        platformFee={0.4}
+        promoCode={promoCode}
+        onRemoveVoucher={handleRemoveVoucher}
+      />
       <Box width='300px' paddingTop={10}>
         <CheckoutButton
           onClick={() => {

@@ -10,7 +10,7 @@ import {
 import { Close } from '@mui/icons-material';
 import styled from 'styled-components';
 import ToggleSwitch from './toggle-switch';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { SendTimeExtensionOutlined } from '@mui/icons-material';
 
 import CartList from './cart-list';
@@ -45,9 +45,13 @@ const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlined)`
   stroke-width: 0.8px;
 `;
 
-const CartModal = ({ open, onClose }: CartModalProps) => {
+const CartModal: FC<CartModalProps> = ({ open, onClose }) => {
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
+  const [promoCode, setPromoCode] = useState<string>('');
+  const handlePromoCode = (code: string | undefined) => {
+    setPromoCode(code || '');
+  };
 
   const handleModeSwitchChange = () => {
     setIsPickUp((prevIsPickUp) => !prevIsPickUp);
@@ -57,6 +61,9 @@ const CartModal = ({ open, onClose }: CartModalProps) => {
     setIncludeCutlery((prevIncludeCutlery) => !prevIncludeCutlery);
   };
 
+  const handleRemoveVoucher = () => {
+    setPromoCode('');
+  };
   return (
     <Dialog open={open} onClose={onClose} fullScreen sx={{ maxWidth: '100vw' }}>
       <Box textAlign='center'>
@@ -115,8 +122,13 @@ const CartModal = ({ open, onClose }: CartModalProps) => {
           </Box>
         </Box>
         <Separator />
-        <VoucherModal />
-        <CartAmount subTotal={44.17} platformFee={0.4} />
+        <VoucherModal onPromoCode={handlePromoCode} />
+        <CartAmount
+          subTotal={44.17}
+          platformFee={0.4}
+          promoCode={promoCode}
+          onRemoveVoucher={handleRemoveVoucher}
+        />
       </DialogContent>
 
       <DialogActions>

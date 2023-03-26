@@ -9,16 +9,28 @@ import {
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
+import { getVouchers } from '../../utils/api';
 
 type CartAmountProps = {
   subTotal: number;
   platformFee: number;
+  promoCode?: string;
+  onRemoveVoucher?: () => void;
 };
 
 const StyledIcon = styled(InfoOutlinedIcon)`
   cursor: pointer;
   stroke: white;
   stroke-width: 0.8px;
+`;
+
+const StyledTypography = styled(Typography)`
+  margin-top: 2px;
+  cursor: pointer;
+  &:hover {
+    font-weight: 500;
+  }
 `;
 
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -32,7 +44,27 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 });
 
-const CartAmount: FC<CartAmountProps> = ({ subTotal, platformFee }) => {
+const CartAmount: FC<CartAmountProps> = ({
+  subTotal,
+  platformFee,
+  promoCode,
+  onRemoveVoucher,
+}) => {
+  const { data } = useQuery({
+    queryKey: ['vouchers', { page: 0, pageSize: 20, signal: undefined }],
+    queryFn: () => getVouchers({ page: 0, pageSize: 20, signal: undefined }),
+  });
+
+  const getVoucherDiscountByPromoCode = (promoCode: string | undefined) => {
+    const voucher = data?.vouchers.find(
+      (voucher: { promoCode: string }) => voucher.promoCode === promoCode,
+    );
+
+    return voucher ? voucher.discount : undefined;
+  };
+
+  const voucherDiscount = getVoucherDiscountByPromoCode(promoCode);
+
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -47,7 +79,11 @@ const CartAmount: FC<CartAmountProps> = ({ subTotal, platformFee }) => {
     setOpen(!open);
   };
 
-  const total = subTotal + platformFee;
+  let total = subTotal + platformFee;
+  if (voucherDiscount) {
+    const discount = (voucherDiscount / 100) * subTotal;
+    total = subTotal - discount + platformFee;
+  }
 
   return (
     <Box>
@@ -55,6 +91,25 @@ const CartAmount: FC<CartAmountProps> = ({ subTotal, platformFee }) => {
         <Typography fontWeight={100}>Subtotal</Typography>
         <Typography fontWeight={100}>S$ {subTotal.toFixed(2)}</Typography>
       </Box>
+      {voucherDiscount && (
+        <Box display='flex' justifyContent='space-between' marginBottom={1}>
+          <Box display='flex'>
+            <Typography fontWeight={100} marginRight={1}>
+              Discount
+            </Typography>
+            <StyledTypography
+              fontWeight={200}
+              fontSize={10}
+              alignSelf='center'
+              color='primary'
+              onClick={onRemoveVoucher}
+            >
+              Remove Voucher
+            </StyledTypography>
+          </Box>
+          <Typography fontWeight={100}>-{voucherDiscount}%</Typography>
+        </Box>
+      )}
       <Box display='flex' justifyContent='space-between' marginBottom={1}>
         <Box display='flex'>
           <Typography fontWeight={100} marginRight={1}>
@@ -76,7 +131,9 @@ const CartAmount: FC<CartAmountProps> = ({ subTotal, platformFee }) => {
       </Box>
       <Box display='flex' justifyContent='space-between'>
         <Box display='flex'>
-          <Typography marginRight={1}>Total</Typography>
+          <Typography marginRight={1}>
+            {voucherDiscount ? 'Total After Disc' : 'Total'}
+          </Typography>
           <Typography fontWeight={100} fontSize={10} alignSelf='center'>
             (incl. GST where applicable)
           </Typography>
