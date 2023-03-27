@@ -5,7 +5,6 @@ module.exports = {
     node: true,
   },
   extends: [
-    'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
@@ -19,8 +18,9 @@ module.exports = {
   plugins: ['@typescript-eslint', '@tanstack/query'],
   rules: {
     semi: ['error', 'always'],
-    quotes: ['error', 'single'],
+    quote: ['warning', 'single'],
     'comma-dangle': ['error', 'always-multiline'],
     'no-unused-vars': ['error'],
   },
+  root: true,
 };

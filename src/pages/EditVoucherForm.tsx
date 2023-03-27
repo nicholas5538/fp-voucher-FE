@@ -15,7 +15,10 @@ const EditVoucherForm = () => {
   const { data: voucher, isLoading } = useQuery({
     queryKey: ['voucher', id],
     queryFn: ({ signal }) => getVoucher({ id, signal }),
-    keepPreviousData: true,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    staleTime: 15000,
+    cacheTime: 15 * (60 * 1000),
   });
 
   return (
