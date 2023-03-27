@@ -1221,13 +1221,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-oauth/google@npm:0.8.0":
-  version: 0.8.0
-  resolution: "@react-oauth/google@npm:0.8.0"
+"@react-oauth/google@npm:0.9.0":
+  version: 0.9.0
+  resolution: "@react-oauth/google@npm:0.9.0"
   peerDependencies:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
-  checksum: 3474f6af733974ca794a56b10c53e644d17366391433acdeb91ff8e8d9da3124b75e28d9daafe4158f80f16eceac540c60e152bea9e4fb4b4e209db416164ae6
+  checksum: 537be1f4c2b0675a3b90892c1242991677006275581857df92f3bece3e5962473a5693976673cd6b04799b83f54a2a9d0a70de573861973c50606e0eac8e7b63
   languageName: node
   linkType: hard
 
@@ -3327,7 +3327,7 @@ __metadata:
     "@mui/system": 5.11.12
     "@mui/x-data-grid": 6.0.1
     "@mui/x-date-pickers": 6.0.1
-    "@react-oauth/google": 0.8.0
+    "@react-oauth/google": 0.9.0
     "@tanstack/eslint-plugin-query": 4.26.2
     "@tanstack/react-query": 4.26.1
     "@types/node": 18.15.2
