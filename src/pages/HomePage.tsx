@@ -10,6 +10,7 @@ import ButtonComponent from '../components/button';
 import { useUserContext } from '../hooks/useUserContext';
 
 const HomePage = () => {
+  document.title = 'Foodpanda Voucher Admin Home Page';
   const navigate = useNavigate();
   const { token, login } = useUserContext();
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
