@@ -1,10 +1,10 @@
 import HomeIcon from '@mui/icons-material/Home';
 import Box from '@mui/material/Box';
 import { ErrorResponse } from '@remix-run/router';
-import Lottie from 'lottie-react';
+import Lottie from 'lottie-light-react';
 import { useNavigate, useRouteError } from 'react-router-dom';
 import errorAnimation from '../assets/error.json';
-import errorNotFound from '../assets/error_not_found.json';
+import errorNotFound from '../assets/error_404.json';
 import AnimatedLayout from '../components/animated-layout';
 import ButtonComponent from '../components/button';
 
