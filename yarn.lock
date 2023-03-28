@@ -3280,7 +3280,7 @@ __metadata:
     eslint-plugin-react: 7.32.2
     framer-motion: 10.2.4
     husky: 8.0.3
-    lottie-react: 2.4.0
+    lottie-light-react: 2.4.0
     postcss: 8.4.21
     prettier: 2.8.4
     prettier-plugin-tailwindcss: 0.2.5
@@ -4119,15 +4119,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lottie-react@npm:2.4.0":
+"lottie-light-react@npm:2.4.0":
   version: 2.4.0
-  resolution: "lottie-react@npm:2.4.0"
+  resolution: "lottie-light-react@npm:2.4.0"
   dependencies:
     lottie-web: ^5.10.2
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: e9ea4a89be90a29bde4a83956f76a80d1f8031882f18ea38ef5271d2aafd8e68348ae6297f185ed85b149ca4896fe33aee7faf9780b88a1b289b8e146f477448
+  checksum: c65d98fc19460b351c52d1caca949ac1abaf10c39c6bb930609783802acac0a95d44af23ec5b8ac8020bba93af8176f1dbb784fadaeb2c0b086a408936b99706
   languageName: node
   linkType: hard
 
