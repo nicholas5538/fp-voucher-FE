@@ -33,7 +33,7 @@ const MainNavigation = () => {
             }
           >
             <Profile />
-            <span className='hidden text-ellipsis text-center font-mont text-xs font-bold text-black lg:block'>
+            <span className='hidden truncate text-center font-mont text-xs font-bold text-black lg:block'>
               {token ? `${givenName.toUpperCase()}` : 'SIGN IN'}
             </span>
             {token && (

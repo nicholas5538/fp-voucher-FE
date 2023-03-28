@@ -81,7 +81,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
             { 'mb-0': isSubmitSuccessful, 'mb-4': !isSubmitSuccessful },
           )}
         >
-          <h2 className='ml-3 font-mont text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
+          <h2 className='ml-3 text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
             {watchAction} voucher
           </h2>
         </div>
