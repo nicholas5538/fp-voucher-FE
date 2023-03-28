@@ -10,7 +10,19 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
-  overrides: [],
+  overrides: [
+    {
+      files: ['src/utils/*.ts', 'src/constants/*.ts'],
+      rules: {
+        quotes: ['error', 'single'],
+        semi: ['error', 'always'],
+        'no-unused-vars': ['error'],
+      },
+      parserOptions: {
+        project: null,
+      },
+    },
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',

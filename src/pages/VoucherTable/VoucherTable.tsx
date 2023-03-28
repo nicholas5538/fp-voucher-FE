@@ -3,15 +3,16 @@ import TableViewTwoToneIcon from '@mui/icons-material/TableViewTwoTone';
 import { LinearProgress } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import useMeasure from 'react-use-measure';
+import AnimatedLayout from '../../components/animated-layout';
+import { queryFnSignal } from '../../constants/globalTypes';
 import { getVouchers } from '../../utils/api';
 import CustomToolBar from './CustomToolbar';
 import NoRows from './NoRows';
 import SkeletonTable from './SkeletonTable';
 import tableColumns from './table-columns';
-import AnimatedLayout from '../../components/animated-layout';
-import useMeasure from 'react-use-measure';
-import { motion } from 'framer-motion';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
@@ -23,7 +24,8 @@ const VoucherTable = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: ['vouchers', paginationModel],
-    queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
+    queryFn: ({ signal }: queryFnSignal) =>
+      getVouchers({ ...paginationModel, signal }),
     keepPreviousData: true,
   });
 
