@@ -4,13 +4,13 @@ import {
   createVoucherValues,
   dataType,
   voucherFormValues,
+  queryFnSignal,
 } from '../constants/globalTypes';
 import { formatDate } from './date';
 
 type getVoucherFn = {
   id: string | undefined;
-  signal: AbortSignal | undefined;
-};
+} & queryFnSignal;
 
 type dataReceivedType = Partial<createVoucherValues>;
 
@@ -65,7 +65,7 @@ const wrapperFn = async (
 export const getVouchers = async (options: {
   page: number;
   pageSize: number;
-  signal: AbortSignal | undefined;
+  signal: queryFnSignal['signal'];
 }) => {
   const { page, pageSize, signal } = options;
   const startIndex = page * pageSize;

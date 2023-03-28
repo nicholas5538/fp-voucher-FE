@@ -2,7 +2,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { GridRowId } from '@mui/x-data-grid';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import ButtonComponent from '../../components/button';
 
 type ActionButtonsParams = {

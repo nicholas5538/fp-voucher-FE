@@ -4,8 +4,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup, { type RadioGroupProps } from '@mui/material/RadioGroup';
 import { Control, Controller } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TradioLabels } from '../../constants/form-labels';
-import { voucherFormValues } from '../../constants/globalTypes';
+import { TradioLabels, voucherFormValues } from '../../constants/globalTypes';
 
 type RadioInputsProps = RadioGroupProps & {
   control: Control<voucherFormValues>;

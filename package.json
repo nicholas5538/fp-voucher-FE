@@ -1,7 +1,7 @@
 {
-  "name": "frontend-voucher",
+  "name": "fp-capstone",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "license": "UNLICENSED",
   "husky": {

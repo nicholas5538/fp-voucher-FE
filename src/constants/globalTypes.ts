@@ -40,3 +40,7 @@ export type childrenNode = {
 export type TradioLabels = {
   [key: string]: string;
 };
+
+export type queryFnSignal = {
+  signal: AbortSignal | undefined;
+};
