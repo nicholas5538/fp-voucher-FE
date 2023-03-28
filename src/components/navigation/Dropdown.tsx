@@ -47,7 +47,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
           <Link
             to={url}
             onClick={clickHandler}
-            className='link grid h-full w-full grid-cols-1 items-center justify-start font-mont text-sm'
+            className='link grid h-full w-full grid-cols-1 items-center justify-start text-sm'
           >
             <div className='flex flex-row items-center space-x-2 px-4 lg:px-6'>
               <Icon className='fill-pink-500' />

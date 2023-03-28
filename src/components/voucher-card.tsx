@@ -35,11 +35,11 @@ const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
               </div>
             </div>
             <div className='col-span-3 row-start-1 row-end-4'>
-              <div className='flex h-full w-full flex-col items-start justify-between p-4'>
-                <h3 className='font-mont text-base font-semibold text-black'>
+              <div className='flex max-w-[220px] flex-col items-start justify-between p-4'>
+                <h3 className='w-full whitespace-normal break-keep text-base font-semibold text-black'>
                   {voucherParticulars[0]}
                 </h3>
-                <h4 className='font-mont text-sm font-normal text-neutral-600'>
+                <h4 className='text-sm font-normal text-neutral-600'>
                   Min. spend S$ {minSpend}
                 </h4>
               </div>
@@ -47,14 +47,14 @@ const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
             <div className='col-span-4 row-start-5 row-end-6'>
               <div className='flex flex-row items-center justify-between space-x-4 px-4'>
                 <h4
-                  className={clsx('font-mont text-sm font-light', {
+                  className={clsx('text-sm font-light', {
                     'text-neutral-500': moreThanThree,
                     'text-pink-500': !moreThanThree,
                   })}
                 >
                   {`${moreThanThree ? 'Use by' : 'Expires on'} ${expiryDate}`}
                 </h4>
-                <h4 className='font-mont text-sm font-light text-neutral-500'>
+                <h4 className='text-sm font-light text-neutral-500'>
                   {promoCode}
                 </h4>
               </div>
