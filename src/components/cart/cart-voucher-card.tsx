@@ -9,7 +9,8 @@ const StyledCard = styled(Card)<{ $isSelected: boolean; $isDisabled: boolean }>`
   height: fit-content;
   box-shadow: rgba(150, 150, 150, 0.4) 0.2px 0.5px 3px 1px;
   margin-top: 0.6rem;
-  cursor: ${({ $isDisabled }) => ($isDisabled ? 'not-allowed !important' : 'pointer')};
+  cursor: ${({ $isDisabled }) =>
+    $isDisabled ? 'not-allowed !important' : 'pointer'};
   opacity: ${({ $isDisabled }) => ($isDisabled ? '0.5' : '1')};
   border: ${({ $isSelected }) => ($isSelected ? '1px solid #e21b70' : 'none')};
 `;
@@ -49,13 +50,19 @@ const Description = styled(Typography)`
   font-size: 0.9rem;
   margin-right: auto;
   font-weight: 200;
-`;
 
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
 const ExpiryDate = styled(Typography)`
   font-style: italic;
   font-size: 0.6rem;
   align-self: end;
   margin-left: 1rem;
+  @media (max-width: 500px) {
+    text-align:right;
+  }
 `;
 
 const MinSpending = styled(Typography)`
@@ -63,6 +70,21 @@ const MinSpending = styled(Typography)`
   font-size: 0.7rem;
   font-weight: 400;
   align-self: end;
+  text-align:right;
+  @media (max-width: 500px) {
+    text-align:left;
+  }
+`;
+
+const StyledBold = styled.b`
+  font-weight: 600;
+`;
+
+const ExtraInfo = styled(Box)`
+  @media (max-width: 500px) {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 type VoucherCardProps = {
@@ -94,27 +116,32 @@ const VoucherCard: FC<VoucherCardProps> = ({
 
   return (
     <StyledCard
-    onClick={() => {
-      if (!isDisabled) {
-        onSelect();
-      }
-    }}
-    $isSelected={isSelected}
-    $isDisabled={isDisabled}
-  >
-  
+      onClick={() => {
+        if (!isDisabled) {
+          onSelect();
+        }
+      }}
+      $isSelected={isSelected}
+      $isDisabled={isDisabled}
+    >
       <StyledVoucherIcon />
       <StyledCardContent>
         <Box display='flex'>
           <Title $isSelected={isSelected}>{title}</Title>
           <Discount color='primary'>{discount}%</Discount>
         </Box>
-        <Box>
-          <MinSpending textAlign='right'>Min. spend S${minSpending}</MinSpending>
-        </Box>
-        <Box display='flex'>
-          <Description>{description}</Description>
-          <ExpiryDate>Expires on {formattedExpiryDate}</ExpiryDate>
+        <Box display='flex' justifyContent='space-between'>
+          <Box alignSelf='end'>
+            <Description>{description}</Description>
+          </Box>
+          <ExtraInfo>
+            <MinSpending>
+              Min. spend S$<StyledBold>{minSpending}</StyledBold>
+            </MinSpending>
+            <ExpiryDate>
+              Expires on <StyledBold>{formattedExpiryDate}</StyledBold>
+            </ExpiryDate>
+          </ExtraInfo>
         </Box>
       </StyledCardContent>
     </StyledCard>
