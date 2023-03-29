@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import TableViewIcon from '@mui/icons-material/TableView';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-light-react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import homeAnimation from '../assets/home_page.json';
@@ -14,7 +14,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const { token, login } = useUserContext();
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
-  lottieRef.current?.setSpeed(0.75);
+  lottieRef.current?.setSpeed(0.7);
 
   const viewHandler = () => {
     return navigate('/vouchers');
@@ -25,7 +25,7 @@ const HomePage = () => {
 
   return (
     <AnimatedLayout className='mx-auto mt-16 w-full max-w-7xl px-6 md:grid md:grid-cols-2 md:items-center'>
-      <aside className='mx-auto mb-6 w-4/5 max-w-lg md:order-2 md:col-span-1 md:m-0 md:mb-12 md:justify-self-end'>
+      <aside className='mx-auto mb-6 w-9/12 max-w-lg md:order-2 md:col-span-1 md:m-0 md:mb-12 md:justify-self-end'>
         <Lottie lottieRef={lottieRef} animationData={homeAnimation} />
       </aside>
       <div className='md:order-1 md:col-span-1 md:flex md:flex-col md:space-y-8'>
