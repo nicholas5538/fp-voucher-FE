@@ -7,6 +7,11 @@ const StyledBox = styled(Box)<{ notlastitem?: string }>`
   background-color: white;
 
   ${({ notlastitem }) => notlastitem && 'border-bottom: 1px solid #e6e6e6;'}
+  &:hover img {
+    transform: scale(1.1);
+  }
+  img {
+    transition: transform 330ms ease-in-out;
 `;
 
 const ButtonBox = styled(Box)`
