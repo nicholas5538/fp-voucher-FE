@@ -36,9 +36,13 @@ const StyledShoppingBagOutlinedIcon = styled(ShoppingBagOutlinedIcon)`
 const StyledNavLink = styled(NavLink)`
   &:hover ${StyledShoppingBagOutlinedIcon} {
     fill: rgb(243, 168, 200);
+    transform: scale(1.1);
+    transition: transform 330ms ease-in-out;
   }
   &:hover ${StyledCircleBadge} {
     background-color: rgb(243, 168, 200);
+    transform: scale(1.1);
+    transition: transform 330ms ease-in-out;
   }
 `;
 
