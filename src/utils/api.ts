@@ -10,7 +10,8 @@ import { formatDate } from './date';
 
 type getVoucherFn = {
   id: string | undefined;
-} & queryFnSignal;
+  signal: queryFnSignal['signal'];
+};
 
 type dataReceivedType = Partial<createVoucherValues>;
 
@@ -66,10 +67,10 @@ export const getVouchers = async (options: {
   page: number;
   pageSize: number;
   signal: queryFnSignal['signal'];
-}) => {
+}): Promise<dataType> => {
   const { page, pageSize, signal } = options;
   const startIndex = page * pageSize;
-  let results: dataType = {
+  let results = {
     page: 0,
     total: 0,
     totalPages: 0,

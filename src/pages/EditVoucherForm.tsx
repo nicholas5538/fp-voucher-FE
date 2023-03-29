@@ -3,7 +3,6 @@ import { useLoaderData } from 'react-router-dom';
 import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
-import { queryFnSignal } from '../constants/globalTypes';
 import { getVoucher } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
 
@@ -15,7 +14,7 @@ const EditVoucherForm = () => {
 
   const { data: voucher, isLoading } = useQuery({
     queryKey: ['voucher', id],
-    queryFn: ({ signal }: queryFnSignal) => getVoucher({ id, signal }),
+    queryFn: ({ signal }) => getVoucher({ id, signal }),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     staleTime: 15000,
