@@ -50,13 +50,19 @@ const Description = styled(Typography)`
   font-size: 0.9rem;
   margin-right: auto;
   font-weight: 200;
-`;
 
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
 const ExpiryDate = styled(Typography)`
   font-style: italic;
   font-size: 0.6rem;
   align-self: end;
   margin-left: 1rem;
+  @media (max-width: 500px) {
+    text-align:right;
+  }
 `;
 
 const MinSpending = styled(Typography)`
@@ -64,10 +70,21 @@ const MinSpending = styled(Typography)`
   font-size: 0.7rem;
   font-weight: 400;
   align-self: end;
+  text-align:right;
+  @media (max-width: 500px) {
+    text-align:left;
+  }
 `;
 
 const StyledBold = styled.b`
   font-weight: 600;
+`;
+
+const ExtraInfo = styled(Box)`
+  @media (max-width: 500px) {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 type VoucherCardProps = {
@@ -117,14 +134,14 @@ const VoucherCard: FC<VoucherCardProps> = ({
           <Box alignSelf='end'>
             <Description>{description}</Description>
           </Box>
-          <Box>
-            <MinSpending textAlign='right'>
+          <ExtraInfo>
+            <MinSpending>
               Min. spend S$<StyledBold>{minSpending}</StyledBold>
             </MinSpending>
-            <ExpiryDate textAlign='right'>
+            <ExpiryDate>
               Expires on <StyledBold>{formattedExpiryDate}</StyledBold>
             </ExpiryDate>
-          </Box>
+          </ExtraInfo>
         </Box>
       </StyledCardContent>
     </StyledCard>
