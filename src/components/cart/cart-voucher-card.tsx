@@ -9,7 +9,8 @@ const StyledCard = styled(Card)<{ $isSelected: boolean; $isDisabled: boolean }>`
   height: fit-content;
   box-shadow: rgba(150, 150, 150, 0.4) 0.2px 0.5px 3px 1px;
   margin-top: 0.6rem;
-  cursor: ${({ $isDisabled }) => ($isDisabled ? 'not-allowed !important' : 'pointer')};
+  cursor: ${({ $isDisabled }) =>
+    $isDisabled ? 'not-allowed !important' : 'pointer'};
   opacity: ${({ $isDisabled }) => ($isDisabled ? '0.5' : '1')};
   border: ${({ $isSelected }) => ($isSelected ? '1px solid #e21b70' : 'none')};
 `;
@@ -65,6 +66,10 @@ const MinSpending = styled(Typography)`
   align-self: end;
 `;
 
+const StyledBold = styled.b`
+  font-weight: 600;
+`;
+
 type VoucherCardProps = {
   title: string;
   description: string;
@@ -94,27 +99,32 @@ const VoucherCard: FC<VoucherCardProps> = ({
 
   return (
     <StyledCard
-    onClick={() => {
-      if (!isDisabled) {
-        onSelect();
-      }
-    }}
-    $isSelected={isSelected}
-    $isDisabled={isDisabled}
-  >
-  
+      onClick={() => {
+        if (!isDisabled) {
+          onSelect();
+        }
+      }}
+      $isSelected={isSelected}
+      $isDisabled={isDisabled}
+    >
       <StyledVoucherIcon />
       <StyledCardContent>
         <Box display='flex'>
           <Title $isSelected={isSelected}>{title}</Title>
           <Discount color='primary'>{discount}%</Discount>
         </Box>
-        <Box>
-          <MinSpending textAlign='right'>Min. spend S${minSpending}</MinSpending>
-        </Box>
-        <Box display='flex'>
-          <Description>{description}</Description>
-          <ExpiryDate>Expires on {formattedExpiryDate}</ExpiryDate>
+        <Box display='flex' justifyContent='space-between'>
+          <Box alignSelf='end'>
+            <Description>{description}</Description>
+          </Box>
+          <Box>
+            <MinSpending textAlign='right'>
+              Min. spend S$<StyledBold>{minSpending}</StyledBold>
+            </MinSpending>
+            <ExpiryDate textAlign='right'>
+              Expires on <StyledBold>{formattedExpiryDate}</StyledBold>
+            </ExpiryDate>
+          </Box>
         </Box>
       </StyledCardContent>
     </StyledCard>
