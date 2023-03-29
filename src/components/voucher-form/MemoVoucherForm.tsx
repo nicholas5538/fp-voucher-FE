@@ -4,7 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
 import { m, MotionConfig } from 'framer-motion';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-light-react';
 import { memo, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
