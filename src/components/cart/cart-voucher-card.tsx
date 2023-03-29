@@ -4,12 +4,13 @@ import { ReactComponent as VoucherIcon } from '../../assets/voucher.svg';
 import { convertToDayjs, formatDate } from '../../utils/date';
 import { FC } from 'react';
 
-const StyledCard = styled(Card)<{ $isSelected: boolean }>`
+const StyledCard = styled(Card)<{ $isSelected: boolean; $isDisabled: boolean }>`
   display: flex;
   height: fit-content;
   box-shadow: rgba(150, 150, 150, 0.4) 0.2px 0.5px 3px 1px;
   margin-top: 0.6rem;
-  cursor: pointer;
+  cursor: ${({ $isDisabled }) => ($isDisabled ? 'not-allowed !important' : 'pointer')};
+  opacity: ${({ $isDisabled }) => ($isDisabled ? '0.5' : '1')};
   border: ${({ $isSelected }) => ($isSelected ? '1px solid #e21b70' : 'none')};
 `;
 
@@ -57,14 +58,23 @@ const ExpiryDate = styled(Typography)`
   margin-left: 1rem;
 `;
 
+const MinSpending = styled(Typography)`
+  font-style: italic;
+  font-size: 0.7rem;
+  font-weight: 400;
+  align-self: end;
+`;
+
 type VoucherCardProps = {
   title: string;
   description: string;
   expiryDate: string;
   discount: number;
   id: string;
+  minSpending: number;
   onSelect: () => void;
   isSelected: boolean;
+  isDisabled?: boolean;
 };
 
 const VoucherCard: FC<VoucherCardProps> = ({
@@ -72,8 +82,10 @@ const VoucherCard: FC<VoucherCardProps> = ({
   description,
   expiryDate,
   discount,
+  minSpending,
   onSelect,
   isSelected,
+  isDisabled = false,
 }) => {
   const formattedExpiryDate = formatDate({
     date: convertToDayjs(expiryDate),
@@ -81,12 +93,24 @@ const VoucherCard: FC<VoucherCardProps> = ({
   });
 
   return (
-    <StyledCard onClick={onSelect} $isSelected={isSelected}>
+    <StyledCard
+    onClick={() => {
+      if (!isDisabled) {
+        onSelect();
+      }
+    }}
+    $isSelected={isSelected}
+    $isDisabled={isDisabled}
+  >
+  
       <StyledVoucherIcon />
       <StyledCardContent>
         <Box display='flex'>
           <Title $isSelected={isSelected}>{title}</Title>
           <Discount color='primary'>{discount}%</Discount>
+        </Box>
+        <Box>
+          <MinSpending textAlign='right'>Min. spend S${minSpending}</MinSpending>
         </Box>
         <Box display='flex'>
           <Description>{description}</Description>

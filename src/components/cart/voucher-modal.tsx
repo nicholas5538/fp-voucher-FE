@@ -22,10 +22,13 @@ import VoucherCard from './cart-voucher-card';
 import { formatDate } from '../../utils/date';
 import { Dayjs } from 'dayjs';
 
-const StyledButton = styled(Button)`
+const StyledButton = styled(Button)<{ $isDisabled?: boolean }>`
   width: 100%;
   height: 3rem;
   box-shadow: none;
+  background-color: ${({ $isDisabled }) =>
+    $isDisabled ? 'hsl(334deg 62.94% 59.59%) !important' : ''};
+  color: ${({ $isDisabled }) => ($isDisabled ? 'white !important' : '')};
 `;
 
 const StyledDialog = styled(Dialog)`
@@ -53,6 +56,7 @@ type VoucherModalProps = {
   // eslint-disable-next-line no-unused-vars
   onPromoCode: (code: string | undefined) => void;
   promoCode?: string;
+  subTotal: number;
 };
 
 type VoucherType = {
@@ -61,9 +65,14 @@ type VoucherType = {
   promoCode: string;
   discount: number;
   description: string;
+  minSpending: number;
 };
 
-const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
+const VoucherModal: FC<VoucherModalProps> = ({
+  onPromoCode,
+  promoCode,
+  subTotal,
+}) => {
   const methods = useForm<FormValues>();
   const { handleSubmit, setValue, setError, resetField, watch } = methods;
 
@@ -73,7 +82,7 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
     'discount',
   );
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -107,15 +116,17 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
 
   const onSubmit = (data: FormValues) => {
     const { promoCode } = data;
-    const isValid = pickUpVouchers?.find(
+    const isValidVoucher = pickUpVouchers?.find(
       (voucher) => voucher.promoCode === promoCode,
     );
-    if (!isValid) {
+
+    if (!isValidVoucher) {
       setError('promoCode', {
         type: 'invalid',
+        message: 'Voucher Code Not Applicable',
       });
     } else {
-      onPromoCode(promoCode);
+      onPromoCode(promoCode || undefined);
       setOpen(false);
     }
   };
@@ -145,7 +156,15 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
           ).getTime(),
       );
     }
+
     return vouchers;
+  };
+  const isMinSpendingNotHit = () => {
+    const voucher = pickUpVouchers?.find((v) => v.promoCode === typedPromoCode);
+    if (voucher && subTotal < voucher.minSpending) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -161,16 +180,18 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
           Apply a voucher
         </Typography>
       </Box>
-      <FormProvider {...methods}>
-        <form>
-          <StyledDialog open={open} onClose={handleClose}>
+      <StyledDialog open={open} onClose={handleClose}>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <DialogTitle>
               <Box
                 display='flex'
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Typography>Enter or select a voucher code</Typography>
+                <Typography>
+                  Enter or select a voucher code
+                </Typography>
                 <IconButton onClick={handleClose}>
                   <Close />
                 </IconButton>
@@ -178,7 +199,10 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
             </DialogTitle>
             <DialogContent sx={{ height: '30rem' }}>
               <Box padding={4}>
-                <PromoCodeField />
+                <PromoCodeField
+                  subTotal={subTotal}
+                  pickUpVouchers={pickUpVouchers}
+                />
               </Box>
               <Box
                 display='flex'
@@ -236,11 +260,16 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
                         dateFormat: 'YYYY-MM-DD',
                       })}
                       discount={voucher.discount}
+                      minSpending={voucher.minSpending}
                       onSelect={() => {
                         setValue('promoCode', voucher.promoCode);
                         watch('promoCode');
                       }}
-                      isSelected={voucher.promoCode === typedPromoCode}
+                      isSelected={
+                        voucher.promoCode === typedPromoCode &&
+                        !(subTotal < voucher.minSpending)
+                      }
+                      isDisabled={subTotal < voucher.minSpending}
                     />
                   ))
                 )}
@@ -251,13 +280,15 @@ const VoucherModal: FC<VoucherModalProps> = ({ onPromoCode, promoCode }) => {
               <StyledButton
                 variant='contained'
                 onClick={handleSubmit(onSubmit)}
+                disabled={isMinSpendingNotHit()}
+                $isDisabled={isMinSpendingNotHit()}
               >
                 <Typography variant='body2'>Apply</Typography>
               </StyledButton>
             </DialogActions>
-          </StyledDialog>
-        </form>
-      </FormProvider>
+          </form>
+        </FormProvider>
+      </StyledDialog>
     </>
   );
 };

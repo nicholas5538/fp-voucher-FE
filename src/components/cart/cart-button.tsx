@@ -4,6 +4,7 @@ import { ReactComponent as CartLogo } from '../../assets/cart2.svg';
 
 interface Props {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  subTotal:number;
 }
 
 const StyledBox = styled(Box)`
@@ -23,7 +24,7 @@ const StyledButton = styled(Button)`
   justify-content: space-between;
 `;
 
-const CartButton: React.FC<Props> = ({ onClick }) => {
+const CartButton: React.FC<Props> = ({ onClick,subTotal }) => {
   return (
     <>
       <StyledBox>
@@ -38,7 +39,7 @@ const CartButton: React.FC<Props> = ({ onClick }) => {
             Review Pick-Up order
           </Typography>
           <Typography fontWeight={100} variant='body2'>
-            S$ 44.17
+         S${subTotal}
           </Typography>
         </StyledButton>
       </StyledBox>

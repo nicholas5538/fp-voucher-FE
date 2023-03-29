@@ -20,6 +20,7 @@ import CartAmount from './cart-amount';
 import VoucherModal from './voucher-modal';
 
 type CartModalProps = {
+  subTotal:number;
   open: boolean;
   onClose: () => void;
 };
@@ -45,7 +46,7 @@ const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlined)`
   stroke-width: 0.8px;
 `;
 
-const CartModal: FC<CartModalProps> = ({ open, onClose }) => {
+const CartModal: FC<CartModalProps> = ({ open, onClose,subTotal }) => {
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
   const [promoCode, setPromoCode] = useState<string>('');
@@ -122,9 +123,9 @@ const CartModal: FC<CartModalProps> = ({ open, onClose }) => {
           </Box>
         </Box>
         <Separator />
-        <VoucherModal onPromoCode={handlePromoCode} />
+        <VoucherModal onPromoCode={handlePromoCode} subTotal={subTotal}/>
         <CartAmount
-          subTotal={44.17}
+          subTotal={subTotal}
           platformFee={0.4}
           promoCode={promoCode}
           onRemoveVoucher={handleRemoveVoucher}

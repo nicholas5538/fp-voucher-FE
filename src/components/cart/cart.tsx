@@ -29,18 +29,27 @@ const Cart = () => {
     setIsModalOpen(false);
   };
 
+  const subTotalAmount = 44.17;
+
   return (
     <>
       <Box display='flex' width='100vw'>
         <Box marginRight='352px'>
           <Vendor />
           <StyledModalBox>
-            <CartButton onClick={handleCartButtonClick} />
-            <CartModal open={isModalOpen} onClose={handleCloseModal} />
+            <CartButton
+              onClick={handleCartButtonClick}
+              subTotal={subTotalAmount}
+            />
+            <CartModal
+              open={isModalOpen}
+              onClose={handleCloseModal}
+              subTotal={subTotalAmount}
+            />
           </StyledModalBox>
         </Box>
         <StyledBox>
-          <SideCart />
+          <SideCart subTotal={subTotalAmount} />
         </StyledBox>
       </Box>
     </>

@@ -27,7 +27,11 @@ const Separator = styled(Box)(() => ({
   margin: '1rem 0',
 }));
 
-const SideCart: FC = () => {
+type SideCartProps={
+  subTotal:number;
+}
+
+const SideCart: FC<SideCartProps> = ({subTotal}) => {
   const [promoCode, setPromoCode] = useState<string>('');
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
@@ -113,10 +117,10 @@ const SideCart: FC = () => {
       </Box>
       <Separator marginBottom={20} />
 
-      <VoucherModal onPromoCode={handlePromoCode} promoCode={promoCode} />
+      <VoucherModal onPromoCode={handlePromoCode} promoCode={promoCode} subTotal={subTotal}/>
 
       <CartAmount
-        subTotal={44.17}
+        subTotal={subTotal}
         platformFee={0.4}
         promoCode={promoCode}
         onRemoveVoucher={handleRemoveVoucher}
