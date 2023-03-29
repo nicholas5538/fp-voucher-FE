@@ -9,6 +9,38 @@ import { ReactComponent as Profile } from '../../assets/profile.svg';
 import useOutsideAlerter from '../../hooks/useOutsideAlert';
 import { useUserContext } from '../../hooks/useUserContext';
 import Dropdown from './Dropdown';
+import styled from 'styled-components';
+
+const StyledCircleBadge = styled.div`
+  position: absolute;
+  top: 13px;
+  right: -7px;
+  width: 18px;
+  height: 18px;
+  background-color: #d70f64;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+`;
+
+
+const StyledShoppingBagOutlinedIcon = styled(ShoppingBagOutlinedIcon)`
+  fill: #d70f64;
+`;
+const StyledNavLink = styled(NavLink)`
+  &:hover ${StyledShoppingBagOutlinedIcon} {
+    fill: rgb(243, 168, 200);
+  }
+  &:hover ${StyledCircleBadge} {
+    background-color: rgb(243, 168, 200);
+  }
+`;
 
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
@@ -60,12 +92,12 @@ const MainNavigation = () => {
           </div>
         </div>
         <div className='grid h-full items-center px-4 lg:order-last'>
-          <NavLink to='carts' end>
-            <ShoppingBagOutlinedIcon
-              className='fill-pink-500 hover:fill-pink-700'
-              onClick={cartClick}
-            />
-          </NavLink>
+          <div className='relative'>
+            <StyledNavLink to='carts' end>
+              <StyledShoppingBagOutlinedIcon onClick={cartClick} />
+              <StyledCircleBadge>3</StyledCircleBadge>
+            </StyledNavLink>
+          </div>
         </div>
       </div>
     </nav>

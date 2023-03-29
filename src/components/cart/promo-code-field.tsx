@@ -1,14 +1,41 @@
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, FieldError } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import { FC } from 'react';
+import { Dayjs } from 'dayjs';
 
 type FormValues = {
   promoCode?: string; // change to optional
 };
 
-const PromoCodeField: FC = () => {
-  const { control } = useFormContext<FormValues>();
+type VoucherType = {
+  id: string;
+  expiryDate: Dayjs;
+  promoCode: string;
+  discount: number;
+  description: string;
+  minSpending: number;
+};
 
+type PromoCodeFieldProps = {
+  subTotal: number;
+  pickUpVouchers: VoucherType[] | undefined;
+};
+
+const PromoCodeField: FC<PromoCodeFieldProps> = ({ subTotal, pickUpVouchers }) => {
+  const { control } = useFormContext<FormValues>();
+  
+  const getHelperText = (error: FieldError | undefined, promoCode: string | undefined) => {
+    if (error) {
+      return error.message;
+    }
+  
+    const voucher = pickUpVouchers?.find((v) => v.promoCode === promoCode );
+    if (voucher && subTotal < voucher.minSpending) {
+      return 'Min spending not hit. Please add more items to use voucher';
+    }
+  
+    return '';
+  };
   return (
     <Controller
       name='promoCode'
@@ -24,7 +51,7 @@ const PromoCodeField: FC = () => {
             onChange(e.target.value);
           }}
           error={!!error}
-          helperText={error ? 'Invalid promo code' : ''}
+          helperText={getHelperText(error, value)}
         />
       )}
     />
@@ -32,3 +59,4 @@ const PromoCodeField: FC = () => {
 };
 
 export default PromoCodeField;
+
