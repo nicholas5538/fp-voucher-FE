@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
 import AnimatedLayout from '../../components/animated-layout';
-import { queryFnSignal } from '../../constants/globalTypes';
 import { getVouchers } from '../../utils/api';
 import CustomToolBar from './CustomToolbar';
 import NoRows from './NoRows';
@@ -24,8 +23,7 @@ const VoucherTable = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: ['vouchers', paginationModel],
-    queryFn: ({ signal }: queryFnSignal) =>
-      getVouchers({ ...paginationModel, signal }),
+    queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
     keepPreviousData: true,
   });
 
@@ -54,6 +52,7 @@ const VoucherTable = () => {
           ) : (
             <DataGrid
               autoHeight
+              getRowHeight={() => 'auto'}
               columns={tableColumns}
               rows={data!.vouchers}
               slots={{

@@ -12,14 +12,17 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ['src/utils/*.ts', 'src/constants/*.ts'],
+      files: ['*.ts'],
+      extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
         quotes: ['error', 'single'],
         semi: ['error', 'always'],
         'no-unused-vars': ['error'],
       },
       parserOptions: {
-        project: null,
+        sourceType: 'module',
+        tsconfigRootDir: __dirname,
+        project: ['./tsconfig.json'],
       },
     },
   ],
