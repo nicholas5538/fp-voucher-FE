@@ -29,7 +29,6 @@ const StyledCircleBadge = styled.div`
   transition: background-color 0.3s;
 `;
 
-
 const StyledShoppingBagOutlinedIcon = styled(ShoppingBagOutlinedIcon)`
   fill: #d70f64;
 `;
@@ -99,7 +98,7 @@ const MainNavigation = () => {
           <div className='relative'>
             <StyledNavLink to='carts' end>
               <StyledShoppingBagOutlinedIcon onClick={cartClick} />
-              <StyledCircleBadge>3</StyledCircleBadge>
+              {token && <StyledCircleBadge>3</StyledCircleBadge>}
             </StyledNavLink>
           </div>
         </div>
