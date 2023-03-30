@@ -32,8 +32,7 @@ const StyledButton = styled(Button)<{ $isDisabled?: boolean }>`
 `;
 
 const StyledDialog = styled(Dialog)`
-  height: fit-content;
-  width: fit-content;
+
   margin: auto;
 `;
 
@@ -197,7 +196,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
                 </IconButton>
               </Box>
             </DialogTitle>
-            <DialogContent sx={{ height: '30rem' }}>
+            <DialogContent sx={{ height: '28rem', overflowY:'hidden' }}>
               <Box padding={4}>
                 <PromoCodeField
                   subTotal={subTotal}
