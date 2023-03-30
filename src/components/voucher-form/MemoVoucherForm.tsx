@@ -3,7 +3,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
 import clsx from 'clsx';
-import { m, MotionConfig } from 'framer-motion';
+import { motion, MotionConfig } from 'framer-motion';
 import Lottie, { type LottieRefCurrentProps } from 'lottie-light-react';
 import { memo, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -85,7 +85,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
             {watchAction} voucher
           </h2>
         </div>
-        <m.div animate={{ height }} className='overflow-y-hidden'>
+        <motion.div animate={{ height }} className='overflow-y-hidden'>
           <div ref={ref}>
             <AlertComponent
               className='mb-4 px-2'
@@ -238,7 +238,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
               />
             </form>
           </div>
-        </m.div>
+        </motion.div>
       </Paper>
       <aside className='hidden w-[25%] rounded-lg xl:flex xl:w-3/6 xl:max-w-md xl:flex-col xl:items-center xl:justify-around'>
         <h1 className='cursor-default rounded-md bg-pink-400 py-4 px-6 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
