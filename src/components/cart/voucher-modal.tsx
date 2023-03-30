@@ -117,7 +117,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
   const onSubmit = (data: FormValues) => {
     const { promoCode } = data;
     const isValidVoucher = pickUpVouchers?.find(
-      (voucher) => voucher.promoCode === promoCode,
+      (voucher:VoucherType) => voucher.promoCode === promoCode,
     );
 
     if (!isValidVoucher) {
@@ -160,7 +160,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
     return vouchers;
   };
   const isMinSpendingNotHit = () => {
-    const voucher = pickUpVouchers?.find((v) => v.promoCode === typedPromoCode);
+    const voucher = pickUpVouchers?.find((v:VoucherType) => v.promoCode === typedPromoCode);
     if (voucher && subTotal < voucher.minSpending) {
       return true;
     }
