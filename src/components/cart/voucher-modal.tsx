@@ -32,7 +32,6 @@ const StyledButton = styled(Button)<{ $isDisabled?: boolean }>`
 `;
 
 const StyledDialog = styled(Dialog)`
-
   margin: auto;
 `;
 
@@ -75,7 +74,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
   const methods = useForm<FormValues>();
   const { handleSubmit, setValue, setError, resetField, watch } = methods;
 
-  const typedPromoCode = watch('promoCode');
+  const typedPromoCode = watch('promoCode')?.toUpperCase();
 
   const [sortMethod, setSortMethod] = useState<'discount' | 'expiryDate'>(
     'discount',
@@ -116,7 +115,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
   const onSubmit = (data: FormValues) => {
     const { promoCode } = data;
     const isValidVoucher = pickUpVouchers?.find(
-      (voucher:VoucherType) => voucher.promoCode === promoCode,
+      (voucher: VoucherType) => voucher.promoCode === promoCode,
     );
 
     if (!isValidVoucher) {
@@ -159,7 +158,9 @@ const VoucherModal: FC<VoucherModalProps> = ({
     return vouchers;
   };
   const isMinSpendingNotHit = () => {
-    const voucher = pickUpVouchers?.find((v:VoucherType) => v.promoCode === typedPromoCode);
+    const voucher = pickUpVouchers?.find(
+      (v: VoucherType) => v.promoCode === typedPromoCode,
+    );
     if (voucher && subTotal < voucher.minSpending) {
       return true;
     }
@@ -188,15 +189,13 @@ const VoucherModal: FC<VoucherModalProps> = ({
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Typography>
-                  Enter or select a voucher code
-                </Typography>
+                <Typography>Enter or select a voucher code</Typography>
                 <IconButton onClick={handleClose}>
                   <Close />
                 </IconButton>
               </Box>
             </DialogTitle>
-            <DialogContent sx={{ height: '28rem', overflowY:'hidden' }}>
+            <DialogContent sx={{ height: '28rem', overflowY: 'hidden' }}>
               <Box padding={4}>
                 <PromoCodeField
                   subTotal={subTotal}
