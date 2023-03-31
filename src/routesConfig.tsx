@@ -6,7 +6,7 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './pages/ProtectedRoute';
 import RootLayout from './pages/RootLayout';
-import VoucherTable from './pages/VoucherTable/VoucherTable';
+import VoucherTable from './pages/VoucherTable';
 
 const routesConfig = createRoutesFromElements(
   <Route path='/' element={<RootLayout />} errorElement={<ErrorPage />}>

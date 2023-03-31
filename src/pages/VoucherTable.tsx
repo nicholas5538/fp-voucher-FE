@@ -6,12 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
-import AnimatedLayout from '../../components/animated-layout';
-import { getVouchers } from '../../utils/api';
-import CustomToolBar from './CustomToolbar';
-import NoRows from './NoRows';
-import SkeletonTable from './SkeletonTable';
-import tableColumns from './table-columns';
+import AnimatedLayout from '../components/animated-layout';
+import CustomToolBar from '../components/table/CustomToolbar';
+import NoRows from '../components/table/NoRows';
+import SkeletonTable from '../components/table/SkeletonTable';
+import tableColumns from '../components/table/table-columns';
+import { getVouchers } from '../utils/api';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
