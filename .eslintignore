@@ -2,3 +2,4 @@
 .husky/**
 /src/constants/**
 /src/utils/**
+/src/components/table/*.ts
