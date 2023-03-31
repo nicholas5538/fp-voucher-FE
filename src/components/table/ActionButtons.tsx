@@ -3,7 +3,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { GridRowId } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
-import ButtonComponent from '../../components/button';
+import ButtonComponent from '../button';
 
 type ActionButtonsParams = {
   id: GridRowId;
