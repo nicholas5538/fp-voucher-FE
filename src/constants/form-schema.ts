@@ -13,7 +13,7 @@ const voucherFormSchema = yup.object().shape({
     }),
   description: yup
     .string()
-    .matches(/^[a-zA-Z0-9$]*$/, 'Only alphabets, numbers and $ are allowed')
+    .matches(/^[a-zA-Z0-9$%]*$/, 'Only alphabets, numbers, $ and % are allowed')
     .min(4, 'Description must contain at least 4 characters')
     .max(30, 'Description must be less than 30 characters')
     .required(),
