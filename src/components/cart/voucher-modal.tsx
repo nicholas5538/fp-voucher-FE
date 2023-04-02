@@ -64,6 +64,8 @@ type VoucherType = {
   minSpending: number;
 };
 
+type VoucherFilter = 'discount' | 'expiryDate';
+
 const VoucherModal = ({
   onPromoCode,
   promoCode,
@@ -71,14 +73,11 @@ const VoucherModal = ({
 }: VoucherModalProps) => {
   const methods = useForm<FormValues>();
   const { handleSubmit, setValue, setError, resetField, watch } = methods;
+  const [sortMethod, setSortMethod] = useState<VoucherFilter>('discount');
+  const [activeChip, setActiveChip] = useState<VoucherFilter>('discount');
+  const [open, setOpen] = useState(false);
 
   const typedPromoCode = watch('promoCode')?.toUpperCase();
-
-  const [sortMethod, setSortMethod] = useState<'discount' | 'expiryDate'>(
-    'discount',
-  );
-
-  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -88,32 +87,27 @@ const VoucherModal = ({
     setOpen(false);
   };
 
-  const [activeChip, setActiveChip] = useState<'discount' | 'expiryDate'>(
-    'discount',
-  );
-
   useEffect(() => {
     if (!promoCode) {
       resetField('promoCode');
-      // setSelectedVoucher(null); // Reset the selected voucher state
     } else {
       setValue('promoCode', promoCode);
     }
   }, [promoCode, resetField, setValue]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['vouchers', { page: 0, pageSize: 20, signal: undefined }],
-    queryFn: () => getVouchers({ page: 0, pageSize: 20, signal: undefined }),
+    queryKey: ['vouchers', { page: 0, pageSize: 20 }],
+    queryFn: ({ signal }) => getVouchers({ page: 0, pageSize: 20, signal }),
   });
 
   const pickUpVouchers = data?.vouchers.filter(
-    (voucher: { category: string }) => voucher.category === 'Pick-up',
+    ({ category }) => category === 'Pick-up',
   );
 
   const onSubmit = (data: FormValues) => {
     const { promoCode } = data;
     const isValidVoucher = pickUpVouchers?.find(
-      (voucher: VoucherType) => voucher.promoCode === promoCode,
+      ({ promoCode }) => promoCode === promoCode,
     );
 
     if (!isValidVoucher) {
@@ -127,7 +121,7 @@ const VoucherModal = ({
     }
   };
 
-  const handleSortMethodChange = (method: 'discount' | 'expiryDate') => {
+  const handleSortMethodChange = (method: VoucherFilter) => {
     setSortMethod(method);
     setActiveChip(method);
   };
@@ -157,11 +151,9 @@ const VoucherModal = ({
   };
   const isMinSpendingNotHit = () => {
     const voucher = pickUpVouchers?.find(
-      (v: VoucherType) => v.promoCode === typedPromoCode,
+      ({ promoCode }) => promoCode === typedPromoCode,
     );
-    if (voucher && subTotal < voucher.minSpending) {
-      return true;
-    }
+    if (voucher && subTotal < voucher.minSpending) return true;
     return false;
   };
 
@@ -245,33 +237,41 @@ const VoucherModal = ({
                     <CircularProgress color='primary' />
                   </Box>
                 ) : (
-                  sortedPickUpVouchers(pickUpVouchers || []).map((voucher) => (
-                    <VoucherCard
-                      key={voucher.id}
-                      id={voucher.id}
-                      title={voucher.promoCode}
-                      description={voucher.description}
-                      expiryDate={formatDate({
-                        date: voucher.expiryDate,
-                        dateFormat: 'YYYY-MM-DD',
-                      })}
-                      discount={voucher.discount}
-                      minSpending={voucher.minSpending}
-                      onSelect={() => {
-                        setValue('promoCode', voucher.promoCode);
-                        watch('promoCode');
-                      }}
-                      isSelected={
-                        voucher.promoCode === typedPromoCode &&
-                        !(subTotal < voucher.minSpending)
-                      }
-                      isDisabled={subTotal < voucher.minSpending}
-                    />
-                  ))
+                  sortedPickUpVouchers(pickUpVouchers ?? []).map(
+                    ({
+                      id,
+                      discount,
+                      description,
+                      expiryDate,
+                      minSpending,
+                      promoCode,
+                    }) => (
+                      <VoucherCard
+                        key={id}
+                        id={id}
+                        title={promoCode}
+                        description={description}
+                        expiryDate={formatDate({
+                          date: expiryDate,
+                          dateFormat: 'YYYY-MM-DD',
+                        })}
+                        discount={discount}
+                        minSpending={minSpending}
+                        onSelect={() => {
+                          setValue('promoCode', promoCode);
+                          watch('promoCode');
+                        }}
+                        isSelected={
+                          promoCode === typedPromoCode &&
+                          !(subTotal < minSpending)
+                        }
+                        isDisabled={subTotal < minSpending}
+                      />
+                    ),
+                  )
                 )}
               </Box>
             </DialogContent>
-
             <DialogActions>
               <StyledButton
                 variant='contained'
