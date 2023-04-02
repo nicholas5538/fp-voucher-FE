@@ -1,15 +1,13 @@
-import { FC } from 'react';
-import {
-  Box,
-  Typography,
-  Tooltip,
-  tooltipClasses,
-  TooltipProps,
-} from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Box from '@mui/material/Box';
+import Tooltip, {
+  tooltipClasses,
+  type TooltipProps,
+} from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
 import { getVouchers } from '../../utils/api';
 
 type CartAmountProps = {
@@ -44,12 +42,12 @@ const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 });
 
-const CartAmount: FC<CartAmountProps> = ({
+const CartAmount = ({
   subTotal,
   platformFee,
   promoCode,
   onRemoveVoucher,
-}) => {
+}: CartAmountProps) => {
   const { data } = useQuery({
     queryKey: ['vouchers', { page: 0, pageSize: 20, signal: undefined }],
     queryFn: () => getVouchers({ page: 0, pageSize: 20, signal: undefined }),
@@ -76,7 +74,7 @@ const CartAmount: FC<CartAmountProps> = ({
   };
 
   const handleOnClick = () => {
-    setOpen(!open);
+    setOpen((prevState) => !prevState);
   };
 
   let total = subTotal + platformFee;

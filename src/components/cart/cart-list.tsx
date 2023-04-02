@@ -9,7 +9,7 @@ type CartItemType = {
   quantity: number;
 };
 
-const CartList = (): JSX.Element => {
+const CartList = () => {
   return (
     <>
       {mockCartData.map((item: CartItemType) => (

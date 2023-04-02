@@ -1,14 +1,17 @@
-import { Box, Switch, Typography } from '@mui/material';
-import { FC, useState } from 'react';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import SendTimeExtensionOutlinedIcon from '@mui/icons-material/SendTimeExtensionOutlined';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import styled from 'styled-components';
-import ToggleSwitch from './toggle-switch';
-import { SendTimeExtensionOutlined, LocalDining } from '@mui/icons-material';
-import CartList from './cart-list';
 import CartAmount from './cart-amount';
-import VoucherModal from './voucher-modal';
+import CartList from './cart-list';
 import CheckoutButton from './checkout-button';
+import ToggleSwitch from './toggle-switch';
+import VoucherModal from './voucher-modal';
 
-const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlined)`
+const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlinedIcon)`
   stroke: white;
   stroke-width: 0.8px;
 `;
@@ -27,11 +30,11 @@ const Separator = styled(Box)(() => ({
   margin: '1rem 0',
 }));
 
-type SideCartProps={
-  subTotal:number;
-}
+type SideCartProps = {
+  subTotal: number;
+};
 
-const SideCart: FC<SideCartProps> = ({subTotal}) => {
+const SideCart = ({ subTotal }: SideCartProps) => {
   const [promoCode, setPromoCode] = useState<string>('');
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
@@ -96,7 +99,7 @@ const SideCart: FC<SideCartProps> = ({subTotal}) => {
         <Box display='flex' justifyContent='space-between'>
           <Box>
             <Box display='flex'>
-              <LocalDining color='primary' />
+              <LocalDiningIcon color='primary' />
               <Typography fontWeight={500} marginLeft={2}>
                 Do you really need cutlery?
               </Typography>
@@ -117,7 +120,11 @@ const SideCart: FC<SideCartProps> = ({subTotal}) => {
       </Box>
       <Separator marginBottom={20} />
 
-      <VoucherModal onPromoCode={handlePromoCode} promoCode={promoCode} subTotal={subTotal}/>
+      <VoucherModal
+        onPromoCode={handlePromoCode}
+        promoCode={promoCode}
+        subTotal={subTotal}
+      />
 
       <CartAmount
         subTotal={subTotal}
