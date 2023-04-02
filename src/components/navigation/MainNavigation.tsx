@@ -3,13 +3,13 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { ReactComponent as Brand } from '../../assets/brand.svg';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as Profile } from '../../assets/profile.svg';
 import useOutsideAlerter from '../../hooks/useOutsideAlert';
 import { useUserContext } from '../../hooks/useUserContext';
 import Dropdown from './Dropdown';
-import styled from 'styled-components';
 
 const StyledCircleBadge = styled.div`
   position: absolute;
@@ -56,13 +56,13 @@ const MainNavigation = () => {
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
-      <div className='mx-auto flex h-16 max-w-7xl items-center justify-around border-none'>
+      <div className='mx-auto flex h-16 max-w-7xl items-center justify-between border-none px-6 lg:justify-around'>
         <div
           className='relative lg:order-2 lg:border-x lg:border-y-0 lg:border-solid lg:border-gray-300'
           ref={dropdownRef}
         >
           <button
-            className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent px-4'
+            className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent lg:px-4'
             onClick={
               token ? () => setOpen((prevState) => !prevState) : () => login()
             }
@@ -82,8 +82,8 @@ const MainNavigation = () => {
           </button>
           {token && <Dropdown open={open} setOpen={setOpen} />}
         </div>
-        <div className='h-16 w-5/6 px-6 lg:order-1'>
-          <div className='mx-auto my-5 min-w-[8.3125rem] lg:ml-0'>
+        <div className='grid place-items-center lg:order-1 lg:w-full'>
+          <div className='mx-auto lg:ml-0.5'>
             <NavLink
               to='/'
               className='flex place-content-center md:space-x-2 lg:place-content-start'
@@ -94,7 +94,7 @@ const MainNavigation = () => {
             </NavLink>
           </div>
         </div>
-        <div className='grid h-full items-center px-4 lg:order-last'>
+        <div className='grid items-center lg:order-last lg:pl-4'>
           <div className='relative'>
             <StyledNavLink to='carts' end>
               <StyledShoppingBagOutlinedIcon onClick={cartClick} />

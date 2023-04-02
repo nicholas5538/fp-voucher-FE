@@ -1,26 +1,24 @@
-import {
-  Box,
-  Button,
-  Chip,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { useQuery } from '@tanstack/react-query';
+import { Dayjs } from 'dayjs';
+import { useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import VoucherIcon from '../../assets/voucher.svg';
-import { Close } from '@mui/icons-material';
-import PromoCodeField from './promo-code-field';
-import { useForm, FormProvider } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
 import { getVouchers } from '../../utils/api';
-import VoucherCard from './cart-voucher-card';
 import { formatDate } from '../../utils/date';
-import { Dayjs } from 'dayjs';
+import VoucherCard from './cart-voucher-card';
+import PromoCodeField from './promo-code-field';
 
 const StyledButton = styled(Button)<{ $isDisabled?: boolean }>`
   width: 100%;
@@ -66,11 +64,11 @@ type VoucherType = {
   minSpending: number;
 };
 
-const VoucherModal: FC<VoucherModalProps> = ({
+const VoucherModal = ({
   onPromoCode,
   promoCode,
   subTotal,
-}) => {
+}: VoucherModalProps) => {
   const methods = useForm<FormValues>();
   const { handleSubmit, setValue, setError, resetField, watch } = methods;
 
@@ -191,7 +189,7 @@ const VoucherModal: FC<VoucherModalProps> = ({
               >
                 <Typography>Enter or select a voucher code</Typography>
                 <IconButton onClick={handleClose}>
-                  <Close />
+                  <CloseIcon />
                 </IconButton>
               </Box>
             </DialogTitle>

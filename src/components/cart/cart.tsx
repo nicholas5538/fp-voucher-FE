@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Vendor from '../vendor/vendor';

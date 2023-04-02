@@ -1,8 +1,10 @@
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
-import { Box, Card, CardContent, Typography } from '@mui/material';
 import { ReactComponent as VoucherIcon } from '../../assets/voucher.svg';
 import { convertToDayjs, formatDate } from '../../utils/date';
-import { FC } from 'react';
 
 const StyledCard = styled(Card)<{ $isSelected: boolean; $isDisabled: boolean }>`
   display: flex;
@@ -61,7 +63,7 @@ const ExpiryDate = styled(Typography)`
   align-self: end;
   margin-left: 1rem;
   @media (max-width: 500px) {
-    text-align:right;
+    text-align: right;
   }
 `;
 
@@ -70,9 +72,9 @@ const MinSpending = styled(Typography)`
   font-size: 0.7rem;
   font-weight: 400;
   align-self: end;
-  text-align:right;
+  text-align: right;
   @media (max-width: 500px) {
-    text-align:left;
+    text-align: left;
   }
 `;
 
@@ -99,7 +101,7 @@ type VoucherCardProps = {
   isDisabled?: boolean;
 };
 
-const VoucherCard: FC<VoucherCardProps> = ({
+const VoucherCard = ({
   title,
   description,
   expiryDate,
@@ -108,7 +110,7 @@ const VoucherCard: FC<VoucherCardProps> = ({
   onSelect,
   isSelected,
   isDisabled = false,
-}) => {
+}: VoucherCardProps) => {
   const formattedExpiryDate = formatDate({
     date: convertToDayjs(expiryDate),
     dateFormat: 'DD MMM YYYY',

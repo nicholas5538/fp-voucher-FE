@@ -1,5 +1,5 @@
-import { Button, Typography } from '@mui/material';
-import React from 'react';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 
 type Props = {
@@ -14,7 +14,7 @@ const StyledButton = styled(Button)<{ height: number }>`
   margin: 1rem;
 `;
 
-const CheckoutButton = ({ onClick, height = 4 }: Props): JSX.Element => {
+const CheckoutButton = ({ onClick, height = 4 }: Props) => {
   return (
     <StyledButton variant='contained' onClick={onClick} height={height}>
       <Typography sx={{ color: 'white' }} variant='body2'>

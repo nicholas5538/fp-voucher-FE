@@ -1,26 +1,23 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  Box,
-  Typography,
-  Switch,
-} from '@mui/material';
-import { Close } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import SendTimeExtensionOutlinedIcon from '@mui/icons-material/SendTimeExtensionOutlined';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import styled from 'styled-components';
-import ToggleSwitch from './toggle-switch';
-import { FC, useState } from 'react';
-import { SendTimeExtensionOutlined } from '@mui/icons-material';
-
+import CartAmount from './cart-amount';
 import CartList from './cart-list';
 import CheckoutButton from './checkout-button';
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
-import CartAmount from './cart-amount';
+import ToggleSwitch from './toggle-switch';
 import VoucherModal from './voucher-modal';
 
 type CartModalProps = {
-  subTotal:number;
+  subTotal: number;
   open: boolean;
   onClose: () => void;
 };
@@ -41,12 +38,12 @@ const Separator = styled(Box)(() => ({
   margin: '1rem 0',
 }));
 
-const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlined)`
+const StyledSendTimeExtensionOutlined = styled(SendTimeExtensionOutlinedIcon)`
   stroke: white;
   stroke-width: 0.8px;
 `;
 
-const CartModal: FC<CartModalProps> = ({ open, onClose,subTotal }) => {
+const CartModal = ({ open, onClose, subTotal }: CartModalProps) => {
   const [isPickUp, setIsPickUp] = useState<boolean>(true);
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
   const [promoCode, setPromoCode] = useState<string>('');
@@ -123,7 +120,7 @@ const CartModal: FC<CartModalProps> = ({ open, onClose,subTotal }) => {
           </Box>
         </Box>
         <Separator />
-        <VoucherModal onPromoCode={handlePromoCode} subTotal={subTotal}/>
+        <VoucherModal onPromoCode={handlePromoCode} subTotal={subTotal} />
         <CartAmount
           subTotal={subTotal}
           platformFee={0.4}
@@ -134,7 +131,7 @@ const CartModal: FC<CartModalProps> = ({ open, onClose,subTotal }) => {
 
       <DialogActions>
         <StyledCloseButton onClick={onClose}>
-          <Close />
+          <CloseIcon />
         </StyledCloseButton>
         <CheckoutButton
           onClick={() => {

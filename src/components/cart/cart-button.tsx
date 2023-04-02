@@ -1,10 +1,12 @@
-import { Box, Button, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import { ReactComponent as CartLogo } from '../../assets/cart2.svg';
 
 interface Props {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  subTotal:number;
+  subTotal: number;
 }
 
 const StyledBox = styled(Box)`
@@ -24,7 +26,7 @@ const StyledButton = styled(Button)`
   justify-content: space-between;
 `;
 
-const CartButton: React.FC<Props> = ({ onClick,subTotal }) => {
+const CartButton: React.FC<Props> = ({ onClick, subTotal }) => {
   return (
     <>
       <StyledBox>
@@ -39,7 +41,7 @@ const CartButton: React.FC<Props> = ({ onClick,subTotal }) => {
             Review Pick-Up order
           </Typography>
           <Typography fontWeight={100} variant='body2'>
-         S${subTotal}
+            S${subTotal}
           </Typography>
         </StyledButton>
       </StyledBox>

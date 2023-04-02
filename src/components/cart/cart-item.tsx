@@ -1,17 +1,16 @@
-import { FC } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import DeleteSweepOutlinedIcon from '@mui/icons-material/DeleteSweepOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { styled } from '@mui/material/styles';
 import StyledTypography from '../styled-typography';
 
-interface Props {
+type Props = {
   name: string;
   description?: string | null;
   price: number;
   discountedPrice: number;
   quantity: number;
-}
+};
 
 const StyledButton = styled(Button)(() => ({
   boxShadow: 'none',
@@ -26,13 +25,13 @@ const StyledBox = styled(Box)`
   cursor: pointer;
 `;
 
-const CartItem: FC<Props> = ({
+const CartItem = ({
   name,
   description,
   price,
   discountedPrice,
   quantity,
-}) => {
+}: Props) => {
   return (
     <StyledBox
       display='flex'
