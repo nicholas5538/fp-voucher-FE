@@ -1,11 +1,10 @@
+import Button from '@mui/material/Button';
 import clsx from 'clsx';
-import { Dispatch, SetStateAction } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../hooks/useUserContext';
-import { menuItems } from './MenuItems';
-import Button from '@mui/material/Button';
 import ModalComponent from '../modal';
-import { useState } from 'react';
+import { menuItems } from './MenuItems';
 
 type dropdownProps = {
   open: boolean;
@@ -24,7 +23,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
     };
 
     return (
-      <li key={id.toString()} className='li-dropdown'>
+      <li key={text} className='li-dropdown'>
         {id === 3 ? (
           <>
             <Button
@@ -62,7 +61,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
   return (
     <ul
       className={clsx(
-        'ul-dropdown pointer-events-none w-[190px] -translate-x-28 opacity-0 ease-in lg:w-[200px] lg:translate-x-0 lg:-translate-y-28',
+        'ul-dropdown pointer-events-none w-[190px] -translate-x-28 opacity-0 ease-in lg:w-[200px] lg:-translate-y-28 lg:translate-x-0',
         {
           'pointer-events-auto translate-x-0 opacity-100 ease-out lg:translate-y-0':
             open,
