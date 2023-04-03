@@ -22,30 +22,32 @@ type apiSubmitArgs = {
 
 const db_id = import.meta.env.VITE_SHEET_DB_ID;
 const archive_id = import.meta.env.VITE_SHEET_ARCHIVE_ID;
+const baseURL = 'https://sheetdb.io/api/v1/';
+const timeout = 5000;
+const contentType = 'application/json';
 
 const googleSheet = axios.create({
-  baseURL: 'https://sheetdb.io/api/v1/',
-  timeout: 10000,
+  baseURL,
+  timeout,
   headers: {
     Authorization: `Bearer ${import.meta.env.VITE_SHEET_DB_TOKEN}`,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: contentType,
+    'Content-Type': contentType,
   },
 });
 
 const archiveSheet = axios.create({
-  baseURL: 'https://sheetdb.io/api/v1/',
-  timeout: 5000,
+  baseURL,
+  timeout,
   headers: {
     Authorization: `Bearer ${import.meta.env.VITE_SHEET_ARCHIVE_TOKEN}`,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: contentType,
+    'Content-Type': contentType,
   },
 });
 
 const wrapperFn = async (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  callBack: Promise<AxiosResponse<any, any>>,
+  callBack: Promise<AxiosResponse<voucherFormValues[]>>,
 ) => {
   try {
     const response = await callBack;
@@ -67,41 +69,40 @@ export const getVouchers = async (options: {
   page: number;
   pageSize: number;
   signal: queryFnSignal['signal'];
-}): Promise<dataType> => {
+}): Promise<dataType | undefined> => {
   const { page, pageSize, signal } = options;
   const startIndex = page * pageSize;
-  let results = {
-    page: 0,
-    total: 0,
-    totalPages: 0,
-    vouchers: [],
-  };
   let endIndex = (page + 1) * pageSize;
 
   const data = await wrapperFn(
     googleSheet.get(`${db_id}/`, { signal: signal }),
   );
 
-  const total = data.length;
-  const total_pages = Math.floor(data.length / pageSize);
-  const per_page = Math.floor(total / total_pages);
+  if (data) {
+    const total = data.length;
+    const total_pages = Math.floor(data.length / pageSize);
+    const per_page = Math.floor(total / total_pages);
 
-  if (total < endIndex) {
-    endIndex = total - 1;
+    if (total < endIndex) {
+      endIndex = total - 1;
+    }
+
+    const dataObject = {
+      page: page + 1,
+      total: total,
+      totalPages: total_pages,
+      perPage: per_page === Infinity ? data.length : per_page,
+    };
+
+    const results = {
+      ...dataObject,
+      vouchers: data.slice(startIndex, endIndex + 1),
+    };
+
+    return results;
   }
 
-  const dataObject = {
-    page: page + 1,
-    total: total,
-    totalPages: total_pages,
-    perPage: per_page === Infinity ? data.length : per_page,
-  };
-  results = {
-    ...dataObject,
-    vouchers: data.slice(startIndex, endIndex + 1),
-  };
-
-  return results;
+  return data;
 };
 
 export const getVoucher = async ({ id, signal }: getVoucherFn) => {
@@ -109,7 +110,7 @@ export const getVoucher = async ({ id, signal }: getVoucherFn) => {
     googleSheet.get(`${db_id}/search?id=${id}`, { signal: signal }),
   );
 
-  return data[0];
+  if (data) return data[0];
 };
 
 export const createVoucher = async (dataReceived: dataReceivedType) => {
