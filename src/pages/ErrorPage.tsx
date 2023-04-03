@@ -8,15 +8,17 @@ import errorNotFound from '../assets/error_404.json';
 import AnimatedLayout from '../components/animated-layout';
 import ButtonComponent from '../components/button';
 
-function ErrorPage() {
+const ErrorPage = () => {
   const navigate = useNavigate();
   const error = useRouteError();
   const errorResponseStatus =
     error instanceof ErrorResponse && error.status === 404;
   const animationData = errorResponseStatus ? errorNotFound : errorAnimation;
-  const errorText = `Uh oh, ${
-    errorResponseStatus ? 'page not found.' : 'something went wrong.'
-  }`;
+  const errorText = errorResponseStatus
+    ? 'Page not found.'
+    : 'Something went wrong.';
+
+  document.title = `${errorText} | foodpanda voucher management portal`;
 
   console.error(error);
 
@@ -25,7 +27,7 @@ function ErrorPage() {
       <section className='mx-auto mt-8 flex max-w-7xl px-6'>
         <Box className='flex w-full flex-col items-center space-y-2 lg:space-y-4'>
           <Lottie animationData={animationData} className='max-h-80' />
-          <h2 className='text-lg lg:text-2xl'>{errorText}</h2>
+          <h2 className='text-lg lg:text-2xl'>{`Uh oh, ${errorText.toLowerCase()}`}</h2>
           {error instanceof Response && (
             <h3 className='text-base lg:text-xl'>{`${error.statusText}; Status: ${error.status}`}</h3>
           )}
@@ -34,7 +36,7 @@ function ErrorPage() {
             <ButtonComponent
               isLoadingButton={false}
               label='Home page'
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/', { replace: true })}
               startIcon={<HomeIcon />}
             />
           </div>
@@ -42,6 +44,6 @@ function ErrorPage() {
       </section>
     </AnimatedLayout>
   );
-}
+};
 
 export default ErrorPage;
