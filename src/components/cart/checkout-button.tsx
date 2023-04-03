@@ -1,9 +1,10 @@
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { type MouseEventHandler } from 'react';
 import styled from 'styled-components';
 
 type Props = {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   height?: number;
 };
 

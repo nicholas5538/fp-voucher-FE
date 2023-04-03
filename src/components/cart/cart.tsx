@@ -19,7 +19,7 @@ const StyledModalBox = styled(Box)`
 `;
 
 const Cart = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCartButtonClick = () => {
     setIsModalOpen(true);

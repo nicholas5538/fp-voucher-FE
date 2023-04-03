@@ -21,7 +21,7 @@ const createRadioInputs = ({
   disabled: boolean;
   labelsObject: TradioLabels;
 }): JSX.Element[] => {
-  return Object.entries(labelsObject).map(([label, value], index) => {
+  return Object.entries(labelsObject).map(([label, value]) => {
     const navigate = useNavigate();
     const { id } = useParams();
     const clickHandler =
@@ -31,7 +31,7 @@ const createRadioInputs = ({
 
     return (
       <FormControlLabel
-        key={index}
+        key={label}
         disabled={disabled}
         value={value}
         control={

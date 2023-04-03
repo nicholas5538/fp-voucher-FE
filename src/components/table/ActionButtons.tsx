@@ -16,9 +16,9 @@ const ActionButtons = ({ id }: ActionButtonsParams) => {
     { label: 'Delete', icon: <DeleteForeverOutlinedIcon /> },
   ];
   const actionButtons = (id: ActionButtonsParams['id']) =>
-    actions.map(({ label, icon }, index) => (
+    actions.map(({ label, icon }) => (
       <ButtonComponent
-        key={index + 1}
+        key={label}
         isLoadingButton={false}
         label={label}
         onClick={() => {

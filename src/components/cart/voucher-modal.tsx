@@ -104,11 +104,12 @@ const VoucherModal = ({
     ({ category }) => category === 'Pick-up',
   );
 
+  const findVoucher = (code: string | undefined) =>
+    pickUpVouchers?.find(({ promoCode }) => promoCode === code);
+
   const onSubmit = (data: FormValues) => {
     const { promoCode } = data;
-    const isValidVoucher = pickUpVouchers?.find(
-      ({ promoCode }) => promoCode === promoCode,
-    );
+    const isValidVoucher = findVoucher(promoCode);
 
     if (!isValidVoucher) {
       setError('promoCode', {
@@ -150,9 +151,7 @@ const VoucherModal = ({
     return vouchers;
   };
   const isMinSpendingNotHit = () => {
-    const voucher = pickUpVouchers?.find(
-      ({ promoCode }) => promoCode === typedPromoCode,
-    );
+    const voucher = findVoucher(typedPromoCode);
     if (voucher && subTotal < voucher.minSpending) return true;
     return false;
   };
