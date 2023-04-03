@@ -52,7 +52,7 @@ const PromoCodeField = ({ subTotal, pickUpVouchers }: PromoCodeFieldProps) => {
           onChange={(e) => {
             onChange(e.target.value);
           }}
-          error={!!error}
+          error={!error}
           helperText={getHelperText(error, value)}
         />
       )}

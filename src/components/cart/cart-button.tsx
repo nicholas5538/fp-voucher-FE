@@ -1,13 +1,14 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { type MouseEventHandler } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as CartLogo } from '../../assets/cart2.svg';
 
-interface Props {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+type Props = {
+  onClick: MouseEventHandler<HTMLButtonElement>;
   subTotal: number;
-}
+};
 
 const StyledBox = styled(Box)`
   background-color: white;
@@ -26,7 +27,7 @@ const StyledButton = styled(Button)`
   justify-content: space-between;
 `;
 
-const CartButton: React.FC<Props> = ({ onClick, subTotal }) => {
+const CartButton = ({ onClick, subTotal }: Props) => {
   return (
     <>
       <StyledBox>

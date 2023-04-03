@@ -48,7 +48,7 @@ const CartModal = ({ open, onClose, subTotal }: CartModalProps) => {
   const [includeCutlery, setIncludeCutlery] = useState<boolean>(false);
   const [promoCode, setPromoCode] = useState<string>('');
   const handlePromoCode = (code: string | undefined) => {
-    setPromoCode(code || '');
+    setPromoCode(code ?? '');
   };
 
   const handleModeSwitchChange = () => {

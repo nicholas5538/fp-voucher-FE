@@ -12,18 +12,24 @@ type CartItemType = {
 const CartList = () => {
   return (
     <>
-      {mockCartData.map((item: CartItemType) => (
-        <CartItem
-          key={item.name}
-          name={item.name}
-          description={
-            item.name_description ? `(${item.name_description})` : null
-          }
-          price={item.price}
-          discountedPrice={item.discountedPrice}
-          quantity={item.quantity}
-        />
-      ))}
+      {mockCartData.map(
+        ({
+          name,
+          name_description,
+          price,
+          discountedPrice,
+          quantity,
+        }: CartItemType) => (
+          <CartItem
+            key={name}
+            name={name}
+            description={name_description ?? null}
+            price={price}
+            discountedPrice={discountedPrice}
+            quantity={quantity}
+          />
+        ),
+      )}
     </>
   );
 };

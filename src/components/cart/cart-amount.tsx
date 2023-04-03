@@ -13,7 +13,7 @@ import { getVouchers } from '../../utils/api';
 type CartAmountProps = {
   subTotal: number;
   platformFee: number;
-  promoCode?: string;
+  promoCode: string;
   onRemoveVoucher?: () => void;
 };
 
@@ -48,40 +48,27 @@ const CartAmount = ({
   promoCode,
   onRemoveVoucher,
 }: CartAmountProps) => {
+  const [open, setOpen] = useState(false);
   const { data } = useQuery({
-    queryKey: ['vouchers', { page: 0, pageSize: 20, signal: undefined }],
-    queryFn: () => getVouchers({ page: 0, pageSize: 20, signal: undefined }),
+    queryKey: ['vouchers', { page: 0, pageSize: 200 }],
+    queryFn: ({ signal }) => getVouchers({ page: 0, pageSize: 200, signal }),
   });
 
-  const getVoucherDiscountByPromoCode = (promoCode: string | undefined) => {
-    const voucher = data?.vouchers.find(
-      (voucher: { promoCode: string }) => voucher.promoCode === promoCode,
-    );
-
-    return voucher ? voucher.discount : undefined;
+  const getVoucherDiscountByPromoCode = (code: string) => {
+    const voucher = data?.vouchers.find(({ promoCode }) => promoCode === code);
+    return voucher?.discount;
   };
 
   const voucherDiscount = getVoucherDiscountByPromoCode(promoCode);
-
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleOnClick = () => {
     setOpen((prevState) => !prevState);
   };
 
-  let total = subTotal + platformFee;
-  if (voucherDiscount) {
-    const discount = (voucherDiscount / 100) * subTotal;
-    total = subTotal - discount + platformFee;
-  }
+  const calculateTotal = () => {
+    if (voucherDiscount) return subTotal - (voucherDiscount / 100) * subTotal;
+    return subTotal + platformFee;
+  };
 
   return (
     <Box>
@@ -115,10 +102,9 @@ const CartAmount = ({
           </Typography>
           <CustomWidthTooltip
             open={open}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            title='This fee goes into providing you better customer care and app experience
-             '
+            onClose={handleOnClick}
+            onOpen={handleOnClick}
+            title='This fee goes into providing you better customer care and app experience'
             placement='top-start'
             arrow
           >
@@ -136,7 +122,7 @@ const CartAmount = ({
             (incl. GST where applicable)
           </Typography>
         </Box>
-        <Typography>S$ {total.toFixed(2)}</Typography>
+        <Typography>S$ {calculateTotal().toFixed(2)}</Typography>
       </Box>
     </Box>
   );
