@@ -65,7 +65,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const watchAction = watch('action') ?? 'Create';
   const disabledWatchAction = watchAction === 'Delete';
 
-  const onSubmit: SubmitHandler<Partial<voucherFormValues>> = (data) => {
+  const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
     return apiSubmitHandler({ data, navigate });
   };
 
@@ -73,7 +73,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     <MotionConfig transition={{ duration: 0.4 }}>
       <Paper
         elevation={3}
-        className='mx-auto max-w-2xl rounded-lg pt-4 pb-8 lg:mx-0 xl:max-w-3xl'
+        className='mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl'
       >
         <div
           className={clsx(
@@ -111,7 +111,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                 labelsObject={categoryLabels}
                 name='category'
               />
-              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-3 md:space-y-0 md:space-x-4'>
+              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-3 md:space-x-4 md:space-y-0'>
                 <TextFieldComponent
                   className='md:col-span-2'
                   control={control}
@@ -139,7 +139,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   type='text'
                 />
               </div>
-              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-2 md:space-y-0 md:space-x-4'>
+              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-2 md:space-x-4 md:space-y-0'>
                 <TextFieldComponent
                   className='col-span-1'
                   control={control}
@@ -163,7 +163,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   type='number'
                 />
               </div>
-              <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-y-0 md:space-x-5'>
+              <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-x-5 md:space-y-0'>
                 <DateSelector
                   action={watchAction}
                   control={control}
@@ -241,7 +241,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         </motion.div>
       </Paper>
       <aside className='hidden w-[25%] rounded-lg xl:flex xl:w-3/6 xl:max-w-md xl:flex-col xl:items-center xl:justify-around'>
-        <h1 className='cursor-default rounded-md bg-pink-400 py-4 px-6 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
+        <h1 className='cursor-default rounded-md bg-pink-400 px-6 py-4 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
           Voucher
         </h1>
         <Lottie
