@@ -2,7 +2,7 @@
 import { type Dayjs } from 'dayjs';
 
 export type voucherFormValues = {
-  action: string;
+  action: 'Create' | 'Update' | 'Delete';
   category: string;
   description: string;
   discount: number;
@@ -20,18 +20,6 @@ export type dataType = {
   vouchers: voucherFormValues[];
 };
 
-export type createVoucherValues = {
-  action: string;
-  category: string;
-  description: string;
-  discount: number;
-  id: string;
-  minSpending: number;
-  promoCode: string;
-  startDate: string;
-  expiryDate: string;
-};
-
 export type childrenNode = {
   children: JSX.Element | JSX.Element[] | React.ReactNode;
   className?: string;
@@ -39,8 +27,4 @@ export type childrenNode = {
 
 export type TradioLabels = {
   [key: string]: string;
-};
-
-export type queryFnSignal = {
-  signal: AbortSignal | undefined;
 };

@@ -66,6 +66,7 @@ const MainNavigation = () => {
             onClick={
               token ? () => setOpen((prevState) => !prevState) : () => login()
             }
+            type='button'
           >
             <Profile />
             <span className='hidden truncate text-center font-mont text-xs font-bold text-black lg:block'>

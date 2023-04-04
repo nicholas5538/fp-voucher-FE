@@ -27,9 +27,10 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
         {id === 3 ? (
           <>
             <Button
-              className='flex h-full w-full flex-row items-center justify-start space-x-2 pl-4 capitalize hover:bg-gray-100 lg:pl-6'
+              className='flex h-full w-full flex-row items-center justify-start space-x-2 px-4 capitalize hover:bg-gray-100'
               variant='text'
               onClick={() => setOpenModal((prevState) => !prevState)}
+              type='button'
             >
               <Icon className='fill-pink-500' />
               <p>{text}</p>
@@ -48,7 +49,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
             onClick={clickHandler}
             className='link grid h-full w-full grid-cols-1 items-center justify-start text-sm'
           >
-            <div className='flex flex-row items-center space-x-2 px-4 lg:px-6'>
+            <div className='flex flex-row items-center space-x-2 px-4'>
               <Icon className='fill-pink-500' />
               <p>{text}</p>
             </div>
@@ -61,7 +62,7 @@ const Dropdown = ({ open, setOpen }: dropdownProps) => {
   return (
     <ul
       className={clsx(
-        'ul-dropdown pointer-events-none w-[190px] -translate-x-28 opacity-0 ease-in lg:w-[200px] lg:-translate-y-28 lg:translate-x-0',
+        'ul-dropdown pointer-events-none -translate-x-28 opacity-0 ease-in lg:-translate-y-28 lg:translate-x-0',
         {
           'pointer-events-auto translate-x-0 opacity-100 ease-out lg:translate-y-0':
             open,

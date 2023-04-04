@@ -26,6 +26,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_YAML: false
           VALIDATE_XML: false
+          VALIDATE_CSS: false
           IGNORE_GITIGNORED_FILES: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
