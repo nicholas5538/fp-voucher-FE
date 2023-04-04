@@ -1,27 +1,29 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, type AxiosResponse } from 'axios';
 import { type NavigateFunction } from 'react-router-dom';
-import {
-  createVoucherValues,
-  dataType,
-  voucherFormValues,
-  queryFnSignal,
-} from '../constants/globalTypes';
+import { dataType, voucherFormValues } from '../constants/globalTypes';
 import { formatDate } from './date';
 
-type getVoucherFn = {
-  id: string | undefined;
-  signal: queryFnSignal['signal'];
-};
-
-type dataReceivedType = Partial<createVoucherValues>;
-
 type apiSubmitArgs = {
-  data: Partial<voucherFormValues>;
+  data: voucherFormValues;
   navigate: NavigateFunction;
 };
 
-const db_id = import.meta.env.VITE_SHEET_DB_ID;
-const archive_id = import.meta.env.VITE_SHEET_ARCHIVE_ID;
+type dataReceivedType = Omit<
+  voucherFormValues,
+  'action' | 'startDate' | 'expiryDate'
+> & {
+  action?: string;
+  startDate: string;
+  expiryDate: string;
+};
+
+type getVoucherFn = {
+  id: string | undefined;
+  signal: AbortSignal | undefined;
+};
+
+const dbId = import.meta.env.VITE_SHEET_DB_ID;
+const archiveId = import.meta.env.VITE_SHEET_ARCHIVE_ID;
 const baseURL = 'https://sheetdb.io/api/v1/';
 const timeout = 5000;
 const contentType = 'application/json';
@@ -68,15 +70,13 @@ const wrapperFn = async (
 export const getVouchers = async (options: {
   page: number;
   pageSize: number;
-  signal: queryFnSignal['signal'];
+  signal: getVoucherFn['signal'];
 }): Promise<dataType | undefined> => {
   const { page, pageSize, signal } = options;
   const startIndex = page * pageSize;
   let endIndex = (page + 1) * pageSize;
 
-  const data = await wrapperFn(
-    googleSheet.get(`${db_id}/`, { signal: signal }),
-  );
+  const data = await wrapperFn(googleSheet.get(`${dbId}/`, { signal: signal }));
 
   if (data) {
     const total = data.length;
@@ -107,31 +107,26 @@ export const getVouchers = async (options: {
 
 export const getVoucher = async ({ id, signal }: getVoucherFn) => {
   const data = await wrapperFn(
-    googleSheet.get(`${db_id}/search?id=${id}`, { signal: signal }),
+    googleSheet.get(`${dbId}/search?id=${id}`, { signal: signal }),
   );
 
   if (data) return data[0];
+  return data;
 };
 
-export const createVoucher = async (dataReceived: dataReceivedType) => {
+const createVoucher = (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  await wrapperFn(googleSheet.post(`${db_id}/`, dataReceived));
+  wrapperFn(googleSheet.post(`${dbId}/`, dataReceived));
 };
 
-export const updateVoucher = async (dataReceived: dataReceivedType) => {
+const updateVoucher = (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  await wrapperFn(
-    googleSheet.put(`${db_id}/id/${dataReceived.id}`, dataReceived),
-  );
+  wrapperFn(googleSheet.put(`${dbId}/id/${dataReceived.id}`, dataReceived));
 };
 
-export const deleteVoucher = async (id: string) => {
-  await wrapperFn(googleSheet.delete(`${db_id}/id/${id}`));
-};
-
-export const createVoucherArchive = async (dataReceived: dataReceivedType) => {
-  delete dataReceived.action;
-  await wrapperFn(archiveSheet.post(`${archive_id}/`, dataReceived));
+const deleteVoucher = (dataReceived: dataReceivedType) => {
+  wrapperFn(googleSheet.delete(`${dbId}/id/${dataReceived.id}`));
+  wrapperFn(archiveSheet.post(`${archiveId}/`, dataReceived));
 };
 
 export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {
@@ -152,8 +147,7 @@ export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {
       updateVoucher(modifiedData);
       break;
     case 'Delete':
-      createVoucherArchive(modifiedData);
-      deleteVoucher(modifiedData.id ?? '');
+      deleteVoucher(modifiedData);
       break;
     default:
       createVoucher(modifiedData);
