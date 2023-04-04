@@ -14,10 +14,10 @@ body {
 
 @layer components {
   .ul-dropdown {
-    @apply absolute top-[65px] w-[273px] border-[0.02em] border-gray-200 bg-white text-start text-black shadow-md transition duration-300 lg:right-0;
+    @apply absolute -left-6 top-[65px] w-[200px] border-[0.02em] border-gray-200 bg-white text-start text-black shadow-md transition duration-300 lg:left-0 lg:right-0 lg:w-[180px];
   }
   .li-dropdown {
-    @apply grid h-[50px] w-[100%] cursor-pointer items-center text-[.875rem] transition-colors duration-200 ease-linear hover:bg-gray-100 hover:text-pink-700;
+    @apply grid h-[50px] w-full cursor-pointer items-center pl-2 text-[.875rem] transition-colors duration-200 ease-linear hover:bg-gray-100 hover:text-pink-700 lg:pl-0;
   }
 
   .link {
