@@ -13,11 +13,20 @@ export type voucherFormValues = {
   expiryDate: Dayjs;
 };
 
+export type dataReceivedType = Omit<
+  voucherFormValues,
+  'action' | 'startDate' | 'expiryDate'
+> & {
+  action?: voucherFormValues['action'];
+  startDate: string;
+  expiryDate: string;
+};
+
 export type dataType = {
   page: number;
   total: number;
   totalPages: number;
-  vouchers: voucherFormValues[];
+  vouchers: dataReceivedType[];
 };
 
 export type childrenNode = {
