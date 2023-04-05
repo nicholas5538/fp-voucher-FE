@@ -5,11 +5,12 @@ import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
 import { getVoucher } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
+import { voucherFormValues } from '../constants/globalTypes';
 
 const EditVoucherForm = () => {
   const { action, id } = useLoaderData() as {
-    action: string;
-    id: string | undefined;
+    action: voucherFormValues['action'];
+    id: string;
   };
 
   const { data: voucher, isLoading } = useQuery({
@@ -27,12 +28,14 @@ const EditVoucherForm = () => {
         <SkeletonForm />
       ) : (
         <MemoVoucherForm
-          defaultValues={{
-            ...voucher,
-            action: action,
-            startDate: convertToDayjs(voucher.startDate),
-            expiryDate: convertToDayjs(voucher.expiryDate),
-          }}
+          defaultValues={
+            {
+              ...voucher,
+              action: action,
+              startDate: convertToDayjs(voucher?.startDate ?? ''),
+              expiryDate: convertToDayjs(voucher?.expiryDate ?? ''),
+            } as voucherFormValues
+          }
         />
       )}
     </AnimatedLayout>

@@ -1,6 +1,10 @@
 import axios, { AxiosError, type AxiosResponse } from 'axios';
 import { type NavigateFunction } from 'react-router-dom';
-import { dataType, voucherFormValues } from '../constants/globalTypes';
+import {
+  dataReceivedType,
+  dataType,
+  voucherFormValues,
+} from '../constants/globalTypes';
 import { formatDate } from './date';
 
 type apiSubmitArgs = {
@@ -8,17 +12,21 @@ type apiSubmitArgs = {
   navigate: NavigateFunction;
 };
 
-type dataReceivedType = Omit<
-  voucherFormValues,
-  'action' | 'startDate' | 'expiryDate'
-> & {
-  action?: string;
-  startDate: string;
-  expiryDate: string;
-};
+type getVoucherFn = ({
+  id,
+  signal,
+}: {
+  id: voucherFormValues['id'];
+  signal: Tsignal['signal'];
+}) => Promise<dataReceivedType | undefined>;
 
-type getVoucherFn = {
-  id: string | undefined;
+type getVouchersFn = (options: {
+  page: number;
+  pageSize: number;
+  signal: Tsignal['signal'];
+}) => Promise<dataType | undefined>;
+
+type Tsignal = {
   signal: AbortSignal | undefined;
 };
 
@@ -49,7 +57,7 @@ const archiveSheet = axios.create({
 });
 
 const wrapperFn = async (
-  callBack: Promise<AxiosResponse<voucherFormValues[]>>,
+  callBack: Promise<AxiosResponse<dataReceivedType[]>>,
 ) => {
   try {
     const response = await callBack;
@@ -67,11 +75,7 @@ const wrapperFn = async (
   }
 };
 
-export const getVouchers = async (options: {
-  page: number;
-  pageSize: number;
-  signal: getVoucherFn['signal'];
-}): Promise<dataType | undefined> => {
+export const getVouchers: getVouchersFn = async (options) => {
   const { page, pageSize, signal } = options;
   const startIndex = page * pageSize;
   let endIndex = (page + 1) * pageSize;
@@ -105,7 +109,7 @@ export const getVouchers = async (options: {
   return data;
 };
 
-export const getVoucher = async ({ id, signal }: getVoucherFn) => {
+export const getVoucher: getVoucherFn = async ({ id, signal }) => {
   const data = await wrapperFn(
     googleSheet.get(`${dbId}/search?id=${id}`, { signal: signal }),
   );
