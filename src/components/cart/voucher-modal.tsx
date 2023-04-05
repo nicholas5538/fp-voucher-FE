@@ -10,11 +10,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
-import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import VoucherIcon from '../../assets/voucher.svg';
+import { dataReceivedType } from '../../constants/globalTypes';
 import { getVouchers } from '../../utils/api';
 import { formatDate } from '../../utils/date';
 import VoucherCard from './cart-voucher-card';
@@ -51,17 +52,8 @@ type FormValues = {
 type VoucherModalProps = {
   // eslint-disable-next-line no-unused-vars
   onPromoCode: (code: string | undefined) => void;
-  promoCode?: string;
+  promoCode?: FormValues['promoCode'];
   subTotal: number;
-};
-
-type VoucherType = {
-  id: string;
-  expiryDate: Dayjs;
-  promoCode: string;
-  discount: number;
-  description: string;
-  minSpending: number;
 };
 
 type VoucherFilter = 'discount' | 'expiryDate';
@@ -127,29 +119,21 @@ const VoucherModal = ({
     setActiveChip(method);
   };
 
-  const sortedPickUpVouchers = (vouchers: VoucherType[]) => {
-    if (sortMethod === 'discount') {
-      return vouchers.sort((a, b) => b.discount - a.discount);
-    } else if (sortMethod === 'expiryDate') {
-      return vouchers.sort(
-        (a, b) =>
-          new Date(
-            formatDate({
-              date: a.expiryDate,
-              dateFormat: 'YYYY-MM-DD',
-            }),
-          ).getTime() -
-          new Date(
-            formatDate({
-              date: b.expiryDate,
-              dateFormat: 'YYYY-MM-DD',
-            }),
-          ).getTime(),
-      );
+  const sortedPickUpVouchers = (
+    vouchers: Omit<dataReceivedType, 'action' | 'startDate'>[],
+  ) => {
+    switch (sortMethod) {
+      case 'discount':
+        return vouchers.sort((a, b) => b.discount - a.discount);
+      case 'expiryDate':
+        return vouchers.sort((a, b) =>
+          dayjs(a.expiryDate).isAfter(dayjs(b.expiryDate)) ? 1 : -1,
+        );
+      default:
+        return vouchers;
     }
-
-    return vouchers;
   };
+
   const isMinSpendingNotHit = () => {
     const voucher = findVoucher(typedPromoCode);
     if (voucher && subTotal < voucher.minSpending) return true;
@@ -251,7 +235,7 @@ const VoucherModal = ({
                         title={promoCode}
                         description={description}
                         expiryDate={formatDate({
-                          date: expiryDate,
+                          date: dayjs(expiryDate),
                           dateFormat: 'YYYY-MM-DD',
                         })}
                         discount={discount}

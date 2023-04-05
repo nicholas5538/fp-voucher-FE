@@ -1,23 +1,14 @@
 import TextField from '@mui/material/TextField';
-import { Dayjs } from 'dayjs';
 import { Controller, FieldError, useFormContext } from 'react-hook-form';
+import { dataReceivedType } from '../../constants/globalTypes';
 
 type FormValues = {
   promoCode?: string; // change to optional
 };
 
-type VoucherType = {
-  id: string;
-  expiryDate: Dayjs;
-  promoCode: string;
-  discount: number;
-  description: string;
-  minSpending: number;
-};
-
 type PromoCodeFieldProps = {
   subTotal: number;
-  pickUpVouchers: VoucherType[] | undefined;
+  pickUpVouchers: Omit<dataReceivedType, 'action' | 'startDate'>[] | undefined;
 };
 
 const PromoCodeField = ({ subTotal, pickUpVouchers }: PromoCodeFieldProps) => {
