@@ -2,9 +2,7 @@ import TextField from '@mui/material/TextField';
 import { Controller, FieldError, useFormContext } from 'react-hook-form';
 import { dataReceivedType } from '../../constants/globalTypes';
 
-type FormValues = {
-  promoCode?: string; // change to optional
-};
+type FormValues = Partial<Pick<dataReceivedType, 'promoCode'>>;
 
 type PromoCodeFieldProps = {
   subTotal: number;
