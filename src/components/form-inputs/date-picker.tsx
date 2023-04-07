@@ -10,7 +10,7 @@ import { Control, Controller } from 'react-hook-form';
 import { voucherFormValues } from '../../constants/globalTypes';
 
 type DateSelectorProps = DatePickerProps<Date> & {
-  action: string;
+  action: voucherFormValues['action'];
   control: Control<voucherFormValues>;
   title: string;
   name: keyof voucherFormValues;

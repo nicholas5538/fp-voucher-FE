@@ -9,11 +9,12 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { getVouchers } from '../../utils/api';
+import { voucherFormValues } from '../../constants/globalTypes';
 
 type CartAmountProps = {
   subTotal: number;
   platformFee: number;
-  promoCode: string;
+  promoCode: voucherFormValues['promoCode'];
   onRemoveVoucher?: () => void;
 };
 

@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
 import { ReactComponent as VoucherIcon } from '../../assets/voucher.svg';
 import { convertToDayjs, formatDate } from '../../utils/date';
+import { dataReceivedType } from '../../constants/globalTypes';
 
 const StyledCard = styled(Card)<{ $isSelected: boolean; $isDisabled: boolean }>`
   display: flex;
@@ -89,13 +90,11 @@ const ExtraInfo = styled(Box)`
   }
 `;
 
-type VoucherCardProps = {
+type VoucherCardProps = Omit<
+  dataReceivedType,
+  'action' | 'startDate' | 'promoCode' | 'category'
+> & {
   title: string;
-  description: string;
-  expiryDate: string;
-  discount: number;
-  id: string;
-  minSpending: number;
   onSelect: () => void;
   isSelected: boolean;
   isDisabled?: boolean;
