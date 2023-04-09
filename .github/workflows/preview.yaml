@@ -34,3 +34,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VOUCHER }}'
           projectId: fp-capstone-voucher-78842
+          expires: 7d
+          channelId: development
