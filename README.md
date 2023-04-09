@@ -3,7 +3,7 @@
 ## Table Of Contents
 
 - [Context](#context)
-- [Quick Links](#quick-links)
+- [Quick Links](#quick-link)
 - [Getting Started](#getting-started)
   - [Environment Setup](#environment-setup)
   - [Repository Setup](#repository-setup)
@@ -23,15 +23,9 @@ We decided to create an admin portal that allows user to use the following featu
 
 We will be using google sheets as the 'database' and use REST API to perform CRUD operations on it. This is achieved with [SheetDB](https://sheetdb.io/ 'SheetDB documentation').
 
-## Quick Links
+## Quick Link
 
-- [Preview Deployment](https://foodpanda-capstone-nicholas5538.vercel.app/ 'Preview deployment URL')
-
-  > This deployment will be updated for every pull requests made, **_kindly wait for GitHub Actions to finish deploying to the preview channel._**
-
-  > 💁 **Tip:** You can use this URL to see whether the changes you have made are satisfactory before pushing to production.
-
-- [Production Deployment](https://foodpanda-capstone.vercel.app/ 'Production deployment URL')
+- [Production Deployment](https://fp-capstone-voucher-78842.web.app/ 'Production deployment URL')
 
   > Any changes that are merged / pushed to the `main` branch, will be deployed to **_Production_**.
 

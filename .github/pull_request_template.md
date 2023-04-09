@@ -1,10 +1,4 @@
-# Preview Channel
-
-[Preview URL](https://foodpanda-capstone-nicholas5538.vercel.app/ 'Preview deployment URL')
-
-> Please let GitHub actions to finish its checks before clicking on it. It shows your changes as if it is on production.
-
-## Describe your changes
+# Describe your changes
 
 ## Type of change
 
