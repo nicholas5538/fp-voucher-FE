@@ -1,10 +1,5 @@
 ---
-name: Vercel Preview Deployment
-
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
+name: Firebase Preview Deployment
 on:
   pull_request:
     branches:
@@ -37,5 +32,5 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NICHOLAS_E_PORTFOLIO }}'
-          projectId: nicholas-e-portfolio
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_VOUCHER }}'
+          projectId: fp-capstone-voucher-78842
