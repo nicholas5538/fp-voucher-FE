@@ -32,5 +32,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Vercel
-.vercel
+# Firebase
+.firebaserc
+firebase-debug.log
