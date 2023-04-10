@@ -53,7 +53,7 @@ cd fp-capstone
 yarn install
 ```
 
-Once the dependencies have been installed, you are required create a `.env` file **on the root folder** and insert the following codes.
+Once the dependencies have been installed, you are required to create a `.env` file **on the root folder** and insert the following codes.
 **_TAKE NOTE: please request for tokens either from [@nicholas5538](https://github.com/nicholas5538 'nicholas5538 profile') or [@Rychua002](https://github.com/Rychua002 'Rychua002 profile')._**
 
 ```
