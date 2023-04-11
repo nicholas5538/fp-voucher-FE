@@ -24,6 +24,18 @@ jobs:
       - name: Install project dependencies
         run: yarn install --immutable
 
+      - name: Write secrets to file
+        env:
+          archive_token: ${{ secrets.VITE_SHEET_ARCHIVE_TOKEN }}
+          archive_id: ${{ secrets.VITE_SHEET_ARCHIVE_ID }}
+          db_token: ${{ secrets.VITE_SHEET_DB_TOKEN }}
+          db_id: ${{ secrets.VITE_SHEET_DB_ID }}
+        run: |
+          echo "VITE_SHEET_ARCHIVE_TOKEN=${archive_token}" > .env.production
+          echo "VITE_SHEET_ARCHIVE_ID=${archive_id}" >> .env.production
+          echo "VITE_SHEET_DB_TOKEN=${db_token}" >> .env.production
+          echo "VITE_SHEET_DB_ID=${db_id}" >> .env.production
+
       - name: Build project
         run: yarn build
 
