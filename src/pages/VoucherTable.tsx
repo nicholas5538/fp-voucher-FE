@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 import AnimatedLayout from '../components/animated-layout';
 import CustomToolBar from '../components/table/CustomToolbar';
@@ -15,11 +16,14 @@ import { getVouchers } from '../utils/api';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
-  const [ref, { height }] = useMeasure();
-  const [paginationModel, setPaginationModel] = useState({
-    page: 0,
-    pageSize: 10,
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [paginationModel, setPaginationModel] = useState(() => {
+    return {
+      page: Number(searchParams.get('page')) ?? 0,
+      pageSize: 10,
+    };
   });
+  const [ref, { height }] = useMeasure();
 
   const { data, isLoading } = useQuery({
     queryKey: ['vouchers', paginationModel],
@@ -34,6 +38,13 @@ const VoucherTable = () => {
       data?.total !== undefined ? data?.total : prevRowCountState,
     );
   }, [data?.total, setRowCountState]);
+
+  useEffect(() => {
+    setSearchParams({
+      page: `${paginationModel.page + 1}`,
+      pageSize: paginationModel.pageSize.toString(),
+    });
+  }, [paginationModel]);
 
   return (
     <AnimatedLayout className='mx-auto mt-8 flex max-w-7xl flex-col items-start space-y-6 px-6'>
