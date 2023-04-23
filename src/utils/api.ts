@@ -92,18 +92,16 @@ export const getVouchers: getVouchersFn = async (options) => {
     }
 
     const dataObject = {
-      page: page + 1,
-      total: total,
+      page,
+      total,
       totalPages: total_pages,
       perPage: per_page === Infinity ? data.length : per_page,
     };
 
-    const results = {
+    return {
       ...dataObject,
       vouchers: data.slice(startIndex, endIndex + 1),
     };
-
-    return results;
   }
 
   return data;
@@ -120,17 +118,19 @@ export const getVoucher: getVoucherFn = async ({ id, signal }) => {
 
 const createVoucher = (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  wrapperFn(googleSheet.post(`${dbId}/`, dataReceived));
+  void wrapperFn(googleSheet.post(`${dbId}/`, dataReceived));
 };
 
 const updateVoucher = (dataReceived: dataReceivedType) => {
   delete dataReceived.action;
-  wrapperFn(googleSheet.put(`${dbId}/id/${dataReceived.id}`, dataReceived));
+  void wrapperFn(
+    googleSheet.put(`${dbId}/id/${dataReceived.id}`, dataReceived),
+  );
 };
 
 const deleteVoucher = (dataReceived: dataReceivedType) => {
-  wrapperFn(googleSheet.delete(`${dbId}/id/${dataReceived.id}`));
-  wrapperFn(archiveSheet.post(`${archiveId}/`, dataReceived));
+  void wrapperFn(googleSheet.delete(`${dbId}/id/${dataReceived.id}`));
+  void wrapperFn(archiveSheet.post(`${archiveId}/`, dataReceived));
 };
 
 export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {
