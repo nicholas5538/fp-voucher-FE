@@ -84,8 +84,8 @@ export const getVouchers: getVouchersFn = async (options) => {
 
   if (data) {
     const total = data.length;
-    const total_pages = Math.floor(data.length / pageSize);
-    const per_page = Math.floor(total / total_pages);
+    const totalPages = Math.floor(data.length / pageSize);
+    const perPage = Math.floor(total / totalPages);
 
     if (total < endIndex) {
       endIndex = total - 1;
@@ -94,8 +94,8 @@ export const getVouchers: getVouchersFn = async (options) => {
     const dataObject = {
       page,
       total,
-      totalPages: total_pages,
-      perPage: per_page === Infinity ? data.length : per_page,
+      totalPages,
+      perPage: perPage === Infinity ? data.length : perPage,
     };
 
     return {

@@ -16,14 +16,15 @@ import { getVouchers } from '../utils/api';
 
 const VoucherTable = () => {
   document.title = 'Foodpanda Voucher Table';
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [paginationModel, setPaginationModel] = useState(() => {
-    return {
-      page: Number(searchParams.get('page')) ?? 0,
-      pageSize: 10,
-    };
-  });
   const [ref, { height }] = useMeasure();
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: '0',
+    pageSize: '10',
+  });
+  const [paginationModel, setPaginationModel] = useState({
+    page: Number(searchParams.get('page')),
+    pageSize: Number(searchParams.get('pageSize')),
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ['vouchers', paginationModel],
