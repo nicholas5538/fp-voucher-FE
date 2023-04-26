@@ -116,7 +116,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='md:col-span-2'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.description ? true : false}
+                  error={!!errors.description}
                   helperText={errors.description?.message}
                   icon={icons.desc}
                   label='Description'
@@ -130,7 +130,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.promoCode ? true : false}
+                  error={!!errors.promoCode}
                   helperText={errors.promoCode?.message}
                   icon={icons.discount}
                   label='Promo code'
@@ -144,7 +144,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.minSpending ? true : false}
+                  error={!!errors.minSpending}
                   helperText={errors.minSpending?.message}
                   icon={icons.attachMoney}
                   label='Minimum spending'
@@ -155,7 +155,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
                   className='col-span-1'
                   control={control}
                   disabled={disabledWatchAction}
-                  error={errors.discount ? true : false}
+                  error={!!errors.discount}
                   helperText={errors.discount?.message}
                   icon={icons.percent}
                   label='Discount'
