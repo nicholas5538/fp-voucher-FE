@@ -4,3 +4,4 @@
 /src/hooks/*.ts
 /src/utils/**
 /src/components/table/*.ts
+vite.config.ts
