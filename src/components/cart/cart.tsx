@@ -5,6 +5,7 @@ import Vendor from '../vendor/vendor';
 import CartButton from './cart-button';
 import CartModal from './cart-modal';
 import SideCart from './side-cart';
+import useTitle from '../../hooks/useTitle';
 
 const StyledBox = styled(Box)`
   @media (max-width: 959.95px) {
@@ -19,6 +20,7 @@ const StyledModalBox = styled(Box)`
 `;
 
 const Cart = () => {
+  useTitle('foodpanda Checkout Page');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCartButtonClick = () => {

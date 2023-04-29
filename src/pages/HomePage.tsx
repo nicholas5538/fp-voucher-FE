@@ -8,13 +8,14 @@ import homeAnimation from '../assets/home_page.json';
 import AnimatedLayout from '../components/animated-layout';
 import ButtonComponent from '../components/button';
 import { useUserContext } from '../hooks/useUserContext';
+import useTitle from '../hooks/useTitle';
 
 const HomePage = () => {
-  document.title = 'Foodpanda Voucher Admin Home Page';
   const navigate = useNavigate();
   const { token, login } = useUserContext();
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   lottieRef.current?.setSpeed(0.7);
+  useTitle('foodpanda Voucher Admin Home Page');
 
   const viewHandler = () => {
     return navigate('/vouchers');
@@ -51,7 +52,7 @@ const HomePage = () => {
             />
           )}
           {token && (
-            <div className='flex flex-col items-center space-y-6 md:items-start lg:flex-row lg:space-y-0 lg:space-x-6'>
+            <div className='flex flex-col items-center space-y-6 md:items-start lg:flex-row lg:space-x-6 lg:space-y-0'>
               <ButtonComponent
                 isLoadingButton={false}
                 startIcon={<TableViewIcon />}

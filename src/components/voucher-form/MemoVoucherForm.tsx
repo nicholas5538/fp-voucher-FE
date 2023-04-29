@@ -22,13 +22,14 @@ import TextFieldComponent from '../form-inputs/text-field';
 import ModalComponent from '../modal';
 import VoucherCard from '../voucher-card';
 import icons from './icons';
+import useTitle from '../../hooks/useTitle';
 
 type VoucherFormProps = {
   defaultValues: voucherFormValues;
 };
 
 const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
-  document.title = `${defaultValues.action} Foodpanda Voucher`;
+  useTitle(`${defaultValues.action} Foodpanda Voucher`);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
