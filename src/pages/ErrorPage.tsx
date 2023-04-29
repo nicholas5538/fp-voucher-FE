@@ -7,6 +7,7 @@ import errorAnimation from '../assets/error.json';
 import errorNotFound from '../assets/error_404.json';
 import AnimatedLayout from '../components/animated-layout';
 import ButtonComponent from '../components/button';
+import useTitle from '../hooks/useTitle';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const ErrorPage = () => {
     ? 'Page not found.'
     : 'Something went wrong.';
 
-  document.title = `${errorText} | foodpanda voucher management portal`;
+  useTitle(`${errorText} | foodpanda voucher management portal`);
 
   console.error(error);
 
