@@ -12,24 +12,27 @@ import CustomToolBar from '../components/table/CustomToolbar';
 import NoRows from '../components/table/NoRows';
 import SkeletonTable from '../components/table/SkeletonTable';
 import tableColumns from '../components/table/table-columns';
+import useTitle from '../hooks/useTitle';
 import { getVouchers } from '../utils/api';
 
 const VoucherTable = () => {
-  document.title = 'Foodpanda Voucher Table';
+  useTitle('foodpanda Voucher Table');
   const [ref, { height }] = useMeasure();
   const [searchParams, setSearchParams] = useSearchParams({
-    page: '0',
-    pageSize: '10',
+    offset: '0',
+    limit: '10',
   });
   const [paginationModel, setPaginationModel] = useState({
-    page: Number(searchParams.get('page')),
-    pageSize: Number(searchParams.get('pageSize')),
+    page: 0,
+    pageSize: Number(searchParams.get('limit')),
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isPreviousData } = useQuery({
     queryKey: ['vouchers', paginationModel],
     queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
+    retry: 2,
   });
 
   const [rowCountState, setRowCountState] = useState<number>(data?.total || 0);
@@ -38,14 +41,11 @@ const VoucherTable = () => {
     setRowCountState((prevRowCountState) =>
       data?.total !== undefined ? data?.total : prevRowCountState,
     );
-  }, [data?.total, setRowCountState]);
-
-  useEffect(() => {
     setSearchParams({
-      page: `${paginationModel.page + 1}`,
-      pageSize: paginationModel.pageSize.toString(),
+      offset: `${paginationModel.page * paginationModel.pageSize}`,
+      limit: paginationModel.pageSize.toString(),
     });
-  }, [paginationModel]);
+  }, [data?.total, setRowCountState, paginationModel]);
 
   return (
     <AnimatedLayout className='mx-auto mt-8 flex max-w-7xl flex-col items-start space-y-6 px-6'>
@@ -90,7 +90,7 @@ const VoucherTable = () => {
               }}
               disableRowSelectionOnClick={true}
               rowCount={rowCountState}
-              loading={isLoading}
+              loading={isPreviousData}
               pageSizeOptions={[5, 10, 25, 50]}
               paginationModel={paginationModel}
               paginationMode='server'
