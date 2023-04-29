@@ -1,8 +1,11 @@
 import HomeIcon from '@mui/icons-material/Home';
 import Box from '@mui/material/Box';
-import { ErrorResponse } from '@remix-run/router';
 import Lottie from 'lottie-light-react';
-import { useNavigate, useRouteError } from 'react-router-dom';
+import {
+  useNavigate,
+  useRouteError,
+  isRouteErrorResponse,
+} from 'react-router-dom';
 import errorAnimation from '../assets/error.json';
 import errorNotFound from '../assets/error_404.json';
 import AnimatedLayout from '../components/animated-layout';
@@ -13,7 +16,7 @@ const ErrorPage = () => {
   const navigate = useNavigate();
   const error = useRouteError();
   const errorResponseStatus =
-    error instanceof ErrorResponse && error.status === 404;
+    isRouteErrorResponse(error) && error.status === 404;
   const animationData = errorResponseStatus ? errorNotFound : errorAnimation;
   const errorText = errorResponseStatus
     ? 'Page not found.'
@@ -36,7 +39,7 @@ const ErrorPage = () => {
             <h4 className='text-sm lg:text-lg'>Please redirect to</h4>
             <ButtonComponent
               isLoadingButton={false}
-              label='Home page'
+              label='home page'
               onClick={() => navigate('/', { replace: true })}
               startIcon={<HomeIcon />}
             />
