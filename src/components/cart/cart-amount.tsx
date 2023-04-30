@@ -18,20 +18,6 @@ type CartAmountProps = {
   onRemoveVoucher?: () => void;
 };
 
-const StyledIcon = styled(InfoOutlinedIcon)`
-  cursor: pointer;
-  stroke: white;
-  stroke-width: 0.8px;
-`;
-
-const StyledTypography = styled(Typography)`
-  margin-top: 2px;
-  cursor: pointer;
-  &:hover {
-    font-weight: 500;
-  }
-`;
-
 const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
@@ -53,6 +39,10 @@ const CartAmount = ({
   const { data } = useQuery({
     queryKey: ['vouchers', { page: 0, pageSize: 200 }],
     queryFn: ({ signal }) => getVouchers({ page: 0, pageSize: 200, signal }),
+    staleTime: 5 * 1000,
+    cacheTime: 5 * 60 * 1000,
+    retry: 2,
+    retryDelay: 1000,
   });
 
   const getVoucherDiscountByPromoCode = (code: string) => {
@@ -74,33 +64,26 @@ const CartAmount = ({
   return (
     <Box>
       <Box display='flex' justifyContent='space-between' marginBottom={1}>
-        <Typography fontWeight={100}>Subtotal</Typography>
-        <Typography fontWeight={100}>S$ {subTotal.toFixed(2)}</Typography>
+        <Typography className='font-thin'>Subtotal</Typography>
+        <Typography className='font-thin'>S$ {subTotal.toFixed(2)}</Typography>
       </Box>
       {voucherDiscount && (
-        <Box display='flex' justifyContent='space-between' marginBottom={1}>
-          <Box display='flex'>
-            <Typography fontWeight={100} marginRight={1}>
-              Discount
-            </Typography>
-            <StyledTypography
-              fontWeight={200}
-              fontSize={10}
-              alignSelf='center'
-              color='primary'
+        <Box className='mb-2 flex justify-between'>
+          <Box className='flex'>
+            <Typography className='mr-2 font-thin'>Discount</Typography>
+            <Typography
+              className='mt-4 cursor-pointer self-center text-[10px] font-extralight hover:font-medium'
               onClick={onRemoveVoucher}
             >
               Remove Voucher
-            </StyledTypography>
+            </Typography>
           </Box>
-          <Typography fontWeight={100}>-{voucherDiscount}%</Typography>
+          <Typography className='font-thin'>-{voucherDiscount}%</Typography>
         </Box>
       )}
-      <Box display='flex' justifyContent='space-between' marginBottom={1}>
-        <Box display='flex'>
-          <Typography fontWeight={100} marginRight={1}>
-            Platform fee
-          </Typography>
+      <Box className='mb-2 flex justify-between'>
+        <Box className='flex'>
+          <Typography className='mr-2 font-thin'>Platform fee</Typography>
           <CustomWidthTooltip
             open={open}
             onClose={handleOnClick}
@@ -109,17 +92,22 @@ const CartAmount = ({
             placement='top-start'
             arrow
           >
-            <StyledIcon onClick={handleOnClick} />
+            <InfoOutlinedIcon
+              className='cursor-pointer stroke-white stroke-[0.8px]'
+              onClick={handleOnClick}
+            />
           </CustomWidthTooltip>
         </Box>
-        <Typography fontWeight={100}>S$ {platformFee.toFixed(2)}</Typography>
+        <Typography className='font-thin'>
+          S$ {platformFee.toFixed(2)}
+        </Typography>
       </Box>
-      <Box display='flex' justifyContent='space-between'>
-        <Box display='flex'>
-          <Typography marginRight={1}>
+      <Box className='flex justify-between'>
+        <Box className='flex'>
+          <Typography className='mr-px'>
             {voucherDiscount ? 'Total After Disc' : 'Total'}
           </Typography>
-          <Typography fontWeight={100} fontSize={10} alignSelf='center'>
+          <Typography className='self-center text-[10px] font-thin'>
             (incl. GST where applicable)
           </Typography>
         </Box>

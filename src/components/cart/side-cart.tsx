@@ -21,7 +21,7 @@ const StyledSideCart = styled(Box)`
   right: 0;
   bottom: 0;
   width: 250px;
-  padding: 4rem 10px 0px 10px;
+  padding: 4rem 10px 0 10px;
   box-shadow: 0 0.3rem 2rem rgb(0 0 0 / 10%);
 `;
 
