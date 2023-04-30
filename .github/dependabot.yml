@@ -8,6 +8,9 @@ updates:
       day: monday
       time: '10:00'
       timezone: Asia/Singapore
+    reviewers:
+      - 'nicholas5538'
+      - 'Rychua002'
     open-pull-requests-limit: 1
     pull-request-branch-name:
       separator: '-'
@@ -20,8 +23,12 @@ updates:
       time: '10:00'
       timezone: Asia/Singapore
     reviewers:
-      - "nicholas5538"
-      - "Rychua002"
+      - 'nicholas5538'
+      - 'Rychua002'
+    commit-message:
+      prefix: 'Yarn Prod'
+      prefix-development: 'Yarn Dev'
+      include: scope
     open-pull-requests-limit: 3
     pull-request-branch-name:
       separator: '-'
