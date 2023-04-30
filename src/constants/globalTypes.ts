@@ -37,3 +37,8 @@ export type childrenNode = {
 export type TradioLabels = {
   [key: string]: string;
 };
+
+export type TPagination = {
+  offset: string;
+  limit: string;
+};
