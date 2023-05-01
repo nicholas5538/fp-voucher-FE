@@ -55,6 +55,7 @@ const UserProvider = ({ children }: childrenNode) => {
     setGivenName('');
     setToken(undefined);
     googleLogout();
+    sessionStorage.clear();
     localStorage.clear();
     navigate('/');
   };

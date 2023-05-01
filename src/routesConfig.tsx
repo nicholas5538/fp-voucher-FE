@@ -21,6 +21,11 @@ const routesConfig = createRoutesFromElements(
     />
     <Route
       path='vouchers'
+      loader={() => {
+        const offset = sessionStorage.getItem('offset') ?? '0';
+        const limit = sessionStorage.getItem('limit') ?? '10';
+        return { offset, limit };
+      }}
       element={
         <ProtectedRoute>
           <VoucherTable />
