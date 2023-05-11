@@ -1121,12 +1121,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid@npm:6.3.0":
-  version: 6.3.0
-  resolution: "@mui/x-data-grid@npm:6.3.0"
+"@mui/utils@npm:^5.12.3":
+  version: 5.12.3
+  resolution: "@mui/utils@npm:5.12.3"
   dependencies:
     "@babel/runtime": ^7.21.0
-    "@mui/utils": ^5.12.0
+    "@types/prop-types": ^15.7.5
+    "@types/react-is": ^16.7.1 || ^17.0.0
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+  checksum: bec2d8e173805e2a7446aa4fa7a3119d96a62787b685dbf59908f337daec922fa74a54bc60038cf1269621aebb7b61e7a52caa4ac4daa0140c5e290adce20160
+  languageName: node
+  linkType: hard
+
+"@mui/x-data-grid@npm:6.3.1":
+  version: 6.3.1
+  resolution: "@mui/x-data-grid@npm:6.3.1"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+    "@mui/utils": ^5.12.3
     clsx: ^1.2.1
     prop-types: ^15.8.1
     reselect: ^4.1.8
@@ -1135,7 +1150,7 @@ __metadata:
     "@mui/system": ^5.4.1
     react: ^17.0.2 || ^18.0.0
     react-dom: ^17.0.2 || ^18.0.0
-  checksum: 7ddfec61e597f8bb21cc90f9bed8612ed4615a2be47245ca1377f5d73c4a76613b4767aee9e0c5641057db56465528b9053bbeb71a38fced90b07adcf1589042
+  checksum: 2a8034f29ea2c35b785ea76587a10a958eebcd77749bd6317693932bb58918ae654ec1f3b271cb99330b2c53f9e93a93512c85dd425146dc9ad2c0d8181d075b
   languageName: node
   linkType: hard
 
@@ -3298,7 +3313,7 @@ __metadata:
     "@mui/lab": 5.0.0-alpha.128
     "@mui/material": 5.12.2
     "@mui/system": 5.12.1
-    "@mui/x-data-grid": 6.3.0
+    "@mui/x-data-grid": 6.3.1
     "@mui/x-date-pickers": 6.3.0
     "@react-oauth/google": 0.11.0
     "@tanstack/eslint-plugin-query": 4.29.4
