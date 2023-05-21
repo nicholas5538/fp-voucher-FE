@@ -39,7 +39,7 @@ const UserProvider = ({ children }: childrenNode) => {
         })
         .then((res) => {
           setGivenName(res.data.names[0].givenName);
-          setLocalStorageItem('name', res.data.names[0].givenName);
+          return setLocalStorageItem('name', res.data.names[0].givenName);
         })
         .catch((err) => console.error(err));
       setToken(tokenResponse.access_token);
