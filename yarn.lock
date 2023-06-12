@@ -2189,6 +2189,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mui/base@npm:5.0.0-beta.4":
+  version: 5.0.0-beta.4
+  resolution: "@mui/base@npm:5.0.0-beta.4"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+    "@emotion/is-prop-valid": ^1.2.1
+    "@mui/types": ^7.2.4
+    "@mui/utils": ^5.13.1
+    "@popperjs/core": ^2.11.8
+    clsx: ^1.2.1
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10dd9d8198f38085a12f27516da6284f773041b3b8e9f419a0c0c5d05c16944f0620ca5c55a08a7a26c88513d340db04276a3130273d8e253ade38cf18ad0f96
+  languageName: node
+  linkType: hard
+
 "@mui/core-downloads-tracker@npm:^5.13.3":
   version: 5.13.3
   resolution: "@mui/core-downloads-tracker@npm:5.13.3"
@@ -2212,12 +2235,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/lab@npm:5.0.0-alpha.132":
-  version: 5.0.0-alpha.132
-  resolution: "@mui/lab@npm:5.0.0-alpha.132"
+"@mui/lab@npm:5.0.0-alpha.133":
+  version: 5.0.0-alpha.133
+  resolution: "@mui/lab@npm:5.0.0-alpha.133"
   dependencies:
     "@babel/runtime": ^7.21.0
-    "@mui/base": 5.0.0-beta.3
+    "@mui/base": 5.0.0-beta.4
     "@mui/system": ^5.13.2
     "@mui/types": ^7.2.4
     "@mui/utils": ^5.13.1
@@ -2238,7 +2261,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: a37c4c7727b0e15570ea42a2512ef74443fb96314f7da1f686e761f9ea27d63cce8ff318a30dab9c45d94b3988e0a8497eadab909abcdc1f864d1bc60242a19c
+  checksum: 6b35b3255e3ab6f886d2cc77ffba381d19ba20e42c91c97885fb3f7897d33f63733a574bb8f51b4ff0dca6cd48dc9e0bd3dd79083304521bb63731e0c3924d38
   languageName: node
   linkType: hard
 
@@ -2492,6 +2515,13 @@ __metadata:
   version: 2.11.7
   resolution: "@popperjs/core@npm:2.11.7"
   checksum: 5b6553747899683452a1d28898c1b39173a4efd780e74360bfcda8eb42f1c5e819602769c81a10920fc68c881d07fb40429604517d499567eac079cfa6470f19
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: e5c69fdebf52a4012f6a1f14817ca8e9599cb1be73dd1387e1785e2ed5e5f0862ff817f420a87c7fc532add1f88a12e25aeb010ffcbdc98eace3d55ce2139cf0
   languageName: node
   linkType: hard
 
@@ -4484,7 +4514,7 @@ __metadata:
     "@hookform/resolvers": 3.1.0
     "@mui/base": 5.0.0-beta.3
     "@mui/icons-material": 5.11.16
-    "@mui/lab": 5.0.0-alpha.132
+    "@mui/lab": 5.0.0-alpha.133
     "@mui/material": 5.13.3
     "@mui/system": 5.13.2
     "@mui/x-data-grid": 6.6.0
