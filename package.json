@@ -36,7 +36,7 @@
     "add": "2.0.6",
     "axios": "1.4.0",
     "clsx": "1.2.1",
-    "dayjs": "1.11.8",
+    "dayjs": "1.11.9",
     "framer-motion": "10.12.17",
     "lottie-light-react": "2.4.0",
     "react": "18.2.0",
