@@ -2388,16 +2388,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.13.5":
-  version: 5.13.5
-  resolution: "@mui/material@npm:5.13.5"
+"@mui/material@npm:5.13.6":
+  version: 5.13.6
+  resolution: "@mui/material@npm:5.13.6"
   dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/base": 5.0.0-beta.4
+    "@babel/runtime": ^7.22.5
+    "@mui/base": 5.0.0-beta.5
     "@mui/core-downloads-tracker": ^5.13.4
-    "@mui/system": ^5.13.5
+    "@mui/system": ^5.13.6
     "@mui/types": ^7.2.4
-    "@mui/utils": ^5.13.1
+    "@mui/utils": ^5.13.6
     "@types/react-transition-group": ^4.4.6
     clsx: ^1.2.1
     csstype: ^3.1.2
@@ -2417,7 +2417,7 @@ __metadata:
       optional: true
     "@types/react":
       optional: true
-  checksum: 8d45708111f2d118a83e702895850b2db1086eec848e068ec7c7630dd4a79acf571ac29297735e5307f570aa74ebb642cd2e89cfc35d6364c2ec0fadb9cc5eb9
+  checksum: 0c8936d8c1c20ecf1efc64dcd3f7101053255a720a907802a004abd7c96f49622c402e4d5cea42d9c1950a10dcbaf445cfb7da2ae7f239c733eadd8ec287ceab
   languageName: node
   linkType: hard
 
@@ -2484,6 +2484,34 @@ __metadata:
     "@types/react":
       optional: true
   checksum: ff966eb5e4cfd2b0390b71c9b7495bcc5d10330efed1b3aa3340ea59d44699bc927f652fa6b20671ecd80c74bb9c3613d50d58b9e8e3f8bbff3309ca51356f11
+  languageName: node
+  linkType: hard
+
+"@mui/system@npm:^5.13.6":
+  version: 5.13.6
+  resolution: "@mui/system@npm:5.13.6"
+  dependencies:
+    "@babel/runtime": ^7.22.5
+    "@mui/private-theming": ^5.13.1
+    "@mui/styled-engine": ^5.13.2
+    "@mui/types": ^7.2.4
+    "@mui/utils": ^5.13.6
+    clsx: ^1.2.1
+    csstype: ^3.1.2
+    prop-types: ^15.8.1
+  peerDependencies:
+    "@emotion/react": ^11.5.0
+    "@emotion/styled": ^11.3.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+    "@types/react":
+      optional: true
+  checksum: 978426ce5f3fe43ab536eec6f03a11845766c3640cc1da00c81e44f1d61f5c1bb53a33a28a70d83338183f818a04bdd8fb7c483824266aa8d46add5724186ae4
   languageName: node
   linkType: hard
 
@@ -4708,7 +4736,7 @@ __metadata:
     "@mui/base": 5.0.0-beta.5
     "@mui/icons-material": 5.11.16
     "@mui/lab": 5.0.0-alpha.134
-    "@mui/material": 5.13.5
+    "@mui/material": 5.13.6
     "@mui/system": 5.13.5
     "@mui/x-data-grid": 6.8.0
     "@mui/x-date-pickers": 6.8.0
