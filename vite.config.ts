@@ -1,4 +1,4 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 
@@ -8,18 +8,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('@mui/x')) {
-            return 'vendor_mui_x';
-          } else if (id.includes('@mui')) {
-            return 'vendor_mui';
-          } else if (id.includes('lottie')) {
-            return 'vendor_lottie';
-          } else if (id.includes('framer')) {
-            return 'vendor_framer';
-          }
+          if (id.includes('@mui/base')) return 'vendor_mui_base';
+          else if (id.includes('@mui/material')) return 'vendor_mui_material';
+          else if (id.includes('@mui/system')) return 'vendor_mui_system';
+          else if (id.includes('@mui/x')) return 'vendor_mui_x';
+          else if (id.includes('lottie')) return 'vendor_lottie';
+          else if (id.includes('framer')) return 'vendor_framer';
         },
       },
     },
   },
-  plugins: [react(), svgr(), splitVendorChunkPlugin()],
+  plugins: [react(), svgr()],
 });
