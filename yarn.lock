@@ -2498,9 +2498,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid@npm:6.9.2":
-  version: 6.9.2
-  resolution: "@mui/x-data-grid@npm:6.9.2"
+"@mui/x-data-grid@npm:6.10.0":
+  version: 6.10.0
+  resolution: "@mui/x-data-grid@npm:6.10.0"
   dependencies:
     "@babel/runtime": ^7.22.5
     "@mui/utils": ^5.13.6
@@ -2512,7 +2512,7 @@ __metadata:
     "@mui/system": ^5.4.1
     react: ^17.0.0 || ^18.0.0
     react-dom: ^17.0.0 || ^18.0.0
-  checksum: c26aff602c32097729f76729c4c3ad43a7acc1795d68a724713129295270faf16c2458b6ac48d198460fa8ec8969a89dbbc515e4f7d1506de695c47776b31b46
+  checksum: 79925a325d0e8629d12da3949f2cf921d1e323f1aea6a7a5dd77652e37176663057943da40f857b75687068c528c8f69ef85b1dac0ea7e9d465255a97084150e
   languageName: node
   linkType: hard
 
@@ -4723,7 +4723,7 @@ __metadata:
     "@mui/lab": 5.0.0-alpha.135
     "@mui/material": 5.13.7
     "@mui/system": 5.13.7
-    "@mui/x-data-grid": 6.9.2
+    "@mui/x-data-grid": 6.10.0
     "@mui/x-date-pickers": 6.9.2
     "@react-oauth/google": 0.11.0
     "@tanstack/eslint-plugin-query": 4.29.9
