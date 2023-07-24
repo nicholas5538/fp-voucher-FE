@@ -4761,7 +4761,7 @@ __metadata:
     react-is: 18.2.0
     react-router-dom: 6.14.1
     react-use-measure: 2.1.1
-    styled-components: 6.0.3
+    styled-components: 6.0.5
     tailwindcss: 3.3.2
     typescript: 5.1.6
     uuid: 9.0.0
@@ -7149,9 +7149,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-components@npm:6.0.3":
-  version: 6.0.3
-  resolution: "styled-components@npm:6.0.3"
+"styled-components@npm:6.0.5":
+  version: 6.0.5
+  resolution: "styled-components@npm:6.0.5"
   dependencies:
     "@babel/cli": ^7.21.0
     "@babel/core": ^7.21.0
@@ -7179,7 +7179,7 @@ __metadata:
   peerDependenciesMeta:
     babel-plugin-styled-components:
       optional: true
-  checksum: e02e6a38a7d484ed8ce1fa1f36b7934c1c1f57195d9c173853adc8cb89a209c23c79cf9f979ffff22829de5e817fb95aab04038c1270110956dfef168c480b13
+  checksum: 81cc55bb8cba3e85164b9504ac87a61d9435dccc660851f28b570a343facf90e184c01bf8a816ed0b05e21eec0ae36ba6f50a681dd5737696415e8822225bd5f
   languageName: node
   linkType: hard
 
