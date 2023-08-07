@@ -2791,10 +2791,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/eslint-plugin-query@npm:4.29.9":
-  version: 4.29.9
-  resolution: "@tanstack/eslint-plugin-query@npm:4.29.9"
-  checksum: d6a36974982e17630e8fc0772816d9e57c06da812d2cf560c120602febf80d0dbfe61d331a52c8b63773853062904968396f9d5a9b81799994e34a2f4f884438
+"@tanstack/eslint-plugin-query@npm:4.32.5":
+  version: 4.32.5
+  resolution: "@tanstack/eslint-plugin-query@npm:4.32.5"
+  checksum: 3b35152c6a88de3137bdd1cc8910e138411b7fa3135d592198649dd644318aaa45668c6ab049ba0a80de043fbabfbce3e89a2982c3289eab4e5540c2fc304ff3
   languageName: node
   linkType: hard
 
@@ -4726,7 +4726,7 @@ __metadata:
     "@mui/x-data-grid": 6.10.0
     "@mui/x-date-pickers": 6.9.2
     "@react-oauth/google": 0.11.0
-    "@tanstack/eslint-plugin-query": 4.29.9
+    "@tanstack/eslint-plugin-query": 4.32.5
     "@tanstack/react-query": 4.29.19
     "@types/node": 20.4.1
     "@types/react": 18.2.14
