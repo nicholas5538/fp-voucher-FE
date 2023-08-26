@@ -17,7 +17,7 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
       day: monday
       time: '10:00'
       timezone: Asia/Singapore
@@ -28,9 +28,9 @@ updates:
       - dependency-name: 'eslint-plugin-n'
         versions: ['16.x']
     commit-message:
-      prefix: 'Yarn Prod'
-      prefix-development: 'Yarn Dev'
+      prefix: 'pnpm-prod'
+      prefix-development: 'pnpm-prod'
       include: scope
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 5
     pull-request-branch-name:
       separator: '-'

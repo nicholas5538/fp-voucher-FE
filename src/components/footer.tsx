@@ -5,7 +5,7 @@ import { ReactComponent as Brand } from '../assets/brand.svg';
 import { useUserContext } from '../hooks/useUserContext';
 
 const Footer = () => {
-  const { token } = useUserContext();
+  const { cookies } = useUserContext();
   const sitemap = [
     {
       url: '/vouchers',
@@ -48,7 +48,7 @@ const Footer = () => {
   return (
     <footer className='border-0 border-t-2 border-solid border-pink-500 py-8 px-6'>
       <div className='mx-auto flex max-w-7xl flex-col md:items-start xl:px-6'>
-        {token ? (
+        {cookies.jwt ? (
           <>
             <h3 className='mb-4 text-center text-lg'>Overview</h3>
             <div className='mb-4 flex flex-col items-center justify-center space-y-4 px-4 md:flex-row md:space-y-0 md:px-0'>

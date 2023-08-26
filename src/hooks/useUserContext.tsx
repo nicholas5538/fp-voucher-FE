@@ -1,15 +1,16 @@
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { childrenNode } from '../constants/globalTypes';
+import type { childrenNode } from '../constants/globalTypes';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
 } from '../utils/localStorage';
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { useCookies } from 'react-cookie';
 
 type TuserContext = {
-  token: string | undefined;
+  cookies: Record<string, string>;
   givenName: string;
   login: () => void;
   logout: () => void;
@@ -17,61 +18,81 @@ type TuserContext = {
 
 const UserContext = createContext(null as unknown as TuserContext);
 
-export const useUserContext = () => {
-  return useContext(UserContext);
-};
+export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: childrenNode) => {
-  const [token, setToken] = useState<string | undefined>(undefined);
   const [givenName, setGivenName] = useState('');
+  const [email, setEmail] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       const controller = new AbortController();
       axios
-        .get('https://people.googleapis.com/v1/people/me?personFields=names', {
-          headers: {
-            Authorization: `Bearer ${tokenResponse.access_token}`,
-            Accept: 'application/json',
+        .get(
+          'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses',
+          {
+            headers: {
+              Authorization: `Bearer ${tokenResponse.access_token}`,
+              Accept: 'application/json',
+            },
+            signal: controller.signal,
           },
-          signal: controller.signal,
-        })
-        .then((res) => {
-          setGivenName(res.data.names[0].givenName);
-          return setLocalStorageItem('name', res.data.names[0].givenName);
+        )
+        .then(async (res) => {
+          const { names, emailAddresses } = res.data;
+          setGivenName(names[0].givenName);
+          setEmail(emailAddresses[0].value);
+          setLocalStorageItem('name', names[0].givenName);
+          const expires = new Date(
+            new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
+          );
+          const { data } = await axios.post(
+            'https://fp-capstone-backend.onrender.com/user',
+            {
+              email,
+              name: names[0].displayName,
+            },
+            {
+              headers: { 'Content-Type': 'application/json' },
+              signal: controller.signal,
+            },
+          );
+          return setCookie('jwt', data.token, {
+            expires,
+            path: '/',
+            secure: true,
+          });
         })
         .catch((err) => console.error(err));
-      setToken(tokenResponse.access_token);
-      setLocalStorageItem('token', tokenResponse.access_token);
       return () => controller.abort();
     },
     onError: (error) => {
       console.error('Login Failed:', error);
     },
   });
-
   const logout = () => {
     setGivenName('');
-    setToken(undefined);
-    googleLogout();
+    removeCookie('jwt', {
+      path: '/',
+      secure: true,
+    });
     sessionStorage.clear();
     localStorage.clear();
-    navigate('/');
+    googleLogout();
+    return navigate('/');
   };
 
   useEffect(() => {
-    const accessToken = getLocalStorageItem('token');
     const name = getLocalStorageItem('name');
-
-    if (accessToken && name) {
-      setToken(accessToken);
+    if (cookies.jwt && name) {
       setGivenName(name);
     }
   }, []);
 
   return (
-    <UserContext.Provider value={{ token, givenName, login, logout }}>
+    <UserContext.Provider value={{ cookies, givenName, login, logout }}>
       {children}
     </UserContext.Provider>
   );

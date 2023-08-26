@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/en-gb';
+import { CookiesProvider } from 'react-cookie';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routesConfig from './routesConfig';
 
@@ -34,7 +35,9 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='en-gb'>
           <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
+            <CookiesProvider>
+              <RouterProvider router={router} />
+            </CookiesProvider>
           </ThemeProvider>
         </LocalizationProvider>
       </QueryClientProvider>
