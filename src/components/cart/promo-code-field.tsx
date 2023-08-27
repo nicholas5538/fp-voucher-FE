@@ -1,12 +1,15 @@
 import TextField from '@mui/material/TextField';
 import { Controller, FieldError, useFormContext } from 'react-hook-form';
-import { dataReceivedType } from '../../constants/globalTypes';
+import type {
+  getVouchersData,
+  dataReceivedType,
+} from '../../constants/globalTypes';
 
 type FormValues = Partial<Pick<dataReceivedType, 'promoCode'>>;
 
 type PromoCodeFieldProps = {
   subTotal: number;
-  pickUpVouchers: Omit<dataReceivedType, 'action' | 'startDate'>[] | undefined;
+  pickUpVouchers: getVouchersData[] | undefined;
 };
 
 const PromoCodeField = ({ subTotal, pickUpVouchers }: PromoCodeFieldProps) => {

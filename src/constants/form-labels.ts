@@ -23,6 +23,6 @@ export const createDefaultValues: voucherFormValues = {
   id: uuidv4(),
   minSpending: 0,
   promoCode: '',
-  startDate: dayjs(),
-  expiryDate: dayjs().add(7, 'day'),
+  startDate: dayjs().format('YYYY-MM-DD'),
+  expiryDate: dayjs().add(7, 'day').format('YYYY-MM-DD'),
 };

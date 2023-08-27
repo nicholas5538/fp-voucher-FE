@@ -12,7 +12,7 @@ import useTitle from '../hooks/useTitle';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const { token, login } = useUserContext();
+  const { cookies, login } = useUserContext();
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   lottieRef.current?.setSpeed(0.7);
   useTitle('foodpanda Voucher Admin Home Page');
@@ -37,12 +37,12 @@ const HomePage = () => {
         <div className='flex flex-col items-center md:items-start md:space-y-8'>
           <h3 className='mb-6 text-center text-lg font-medium md:mb-0 md:text-start md:text-xl'>
             {`A place where you could easily create, edit, delete and view vouchers in foodpanda. ${
-              token
+              cookies.jwt
                 ? 'Click on the features below to get started.'
                 : 'Click below or sign in to get started.'
             }`}
           </h3>
-          {!token && (
+          {!cookies.jwt && (
             <ButtonComponent
               isLoadingButton={false}
               startIcon={<LoginOutlinedIcon />}
@@ -51,7 +51,7 @@ const HomePage = () => {
               onClick={() => login()}
             />
           )}
-          {token && (
+          {cookies.jwt && (
             <div className='flex flex-col items-center space-y-6 md:items-start lg:flex-row lg:space-x-6 lg:space-y-0'>
               <ButtonComponent
                 isLoadingButton={false}

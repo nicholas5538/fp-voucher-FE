@@ -8,8 +8,9 @@ import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import styled from 'styled-components';
+import type { voucherFormValues } from '../../constants/globalTypes';
+import { useUserContext } from '../../hooks/useUserContext';
 import { getVouchers } from '../../utils/api';
-import { voucherFormValues } from '../../constants/globalTypes';
 
 type CartAmountProps = {
   subTotal: number;
@@ -35,10 +36,12 @@ const CartAmount = ({
   promoCode,
   onRemoveVoucher,
 }: CartAmountProps) => {
+  const { cookies } = useUserContext();
   const [open, setOpen] = useState(false);
   const { data } = useQuery({
-    queryKey: ['vouchers', { page: 0, pageSize: 200 }],
-    queryFn: ({ signal }) => getVouchers({ page: 0, pageSize: 200, signal }),
+    queryKey: ['vouchers', { offset: 0, limit: 200 }],
+    queryFn: ({ signal }) =>
+      getVouchers({ offset: 0, limit: 200, signal, token: cookies.jwt }),
     staleTime: 5 * 1000,
     cacheTime: 5 * 60 * 1000,
     retry: 2,
@@ -46,7 +49,7 @@ const CartAmount = ({
   });
 
   const getVoucherDiscountByPromoCode = (code: string) => {
-    const voucher = data?.vouchers.find(({ promoCode }) => promoCode === code);
+    const voucher = data?.results.find(({ promoCode }) => promoCode === code);
     return voucher?.discount;
   };
 

@@ -2,13 +2,13 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import clsx from 'clsx';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { motion } from 'framer-motion';
 import useMeasure from 'react-use-measure';
 import { calculateDateDifference, formatDate } from '../utils/date';
 
 type VoucherCardProps = {
-  voucherParticulars: [string, number, Dayjs, number, string];
+  voucherParticulars: [string, number, string, number, string];
 };
 
 const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
@@ -17,12 +17,9 @@ const VoucherCard = ({ voucherParticulars }: VoucherCardProps) => {
   const minSpend = (
     Math.round(Number(voucherParticulars[3]) * 100) / 100
   ).toFixed(2);
-  const promoCode = voucherParticulars[4].toUpperCase();
+  const promoCode = voucherParticulars[4];
   const moreThanThree = calculateDateDifference(voucherParticulars[2]);
-  const expiryDate = formatDate({
-    date: voucherParticulars[2],
-    dateFormat: 'DD MMM YYYY',
-  });
+  const expiryDate = dayjs(voucherParticulars[2]).format('DD MMM YYYY');
 
   return (
     <motion.div animate={{ height }} className='overflow-hidden shadow-md'>

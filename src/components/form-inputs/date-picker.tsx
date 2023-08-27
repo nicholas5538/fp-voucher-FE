@@ -75,6 +75,9 @@ const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
       case 'minDate': {
         return 'Do not select a date earlier than today';
       }
+      case 'invalidDate': {
+        return 'Your date is invalid';
+      }
       default: {
         return 'DD-MM-YYYY';
       }
@@ -120,7 +123,7 @@ const DateSelector = ({ action, control, title, name }: DateSelectorProps) => {
                 },
               },
             }}
-            value={value}
+            value={dayjs(value)}
             views={['year', 'month', 'day']}
             disabled={action === 'Delete'}
           />

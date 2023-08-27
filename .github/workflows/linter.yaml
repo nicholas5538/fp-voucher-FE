@@ -27,6 +27,7 @@ jobs:
           VALIDATE_YAML: false
           VALIDATE_XML: false
           VALIDATE_CSS: false
+          VALIDATE_JSCPD: false
           VALIDATE_MARKDOWN: false
           VALIDATE_NATURAL_LANGUAGE: false
           IGNORE_GITIGNORED_FILES: true

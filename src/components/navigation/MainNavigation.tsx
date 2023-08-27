@@ -48,11 +48,11 @@ const StyledNavLink = styled(NavLink)`
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { token, givenName, login } = useUserContext();
+  const { cookies, givenName, login } = useUserContext();
   const navigate = useNavigate();
   useOutsideAlerter(dropdownRef, setOpen);
 
-  const cartClick = token ? () => navigate('carts') : () => login();
+  const cartClick = cookies.jwt ? () => navigate('carts') : () => login();
 
   return (
     <nav className='sticky top-0 z-50 w-full bg-white shadow-lg	'>
@@ -64,15 +64,17 @@ const MainNavigation = () => {
           <button
             className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent lg:px-4'
             onClick={
-              token ? () => setOpen((prevState) => !prevState) : () => login()
+              cookies.jwt
+                ? () => setOpen((prevState) => !prevState)
+                : () => login()
             }
             type='button'
           >
             <Profile />
             <span className='hidden truncate text-center font-mont text-xs font-bold text-black lg:block'>
-              {token ? `${givenName.toUpperCase()}` : 'SIGN IN'}
+              {cookies.jwt ? `${givenName.toUpperCase()}` : 'SIGN IN'}
             </span>
-            {token && (
+            {cookies.jwt && (
               <ExpandMoreRoundedIcon
                 className={clsx(
                   'hidden fill-pink-500 duration-300 ease-out lg:block lg:transition-transform',
@@ -81,7 +83,7 @@ const MainNavigation = () => {
               />
             )}
           </button>
-          {token && <Dropdown open={open} setOpen={setOpen} />}
+          {cookies.jwt && <Dropdown open={open} setOpen={setOpen} />}
         </div>
         <div className='grid place-items-center lg:order-1 lg:w-full'>
           <div className='mx-auto lg:ml-0.5'>
@@ -99,7 +101,7 @@ const MainNavigation = () => {
           <div className='relative'>
             <StyledNavLink to='carts' end>
               <StyledShoppingBagOutlinedIcon onClick={cartClick} />
-              {token && <StyledCircleBadge>3</StyledCircleBadge>}
+              {cookies.jwt && <StyledCircleBadge>3</StyledCircleBadge>}
             </StyledNavLink>
           </div>
         </div>
