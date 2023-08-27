@@ -4,6 +4,7 @@ import { lazy, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { TPagination } from '../../constants/globalTypes';
 import CustomToolBar from './CustomToolbar';
+import { useUserContext } from '../../hooks/useUserContext';
 import tableColumns from './table-columns';
 import { getVouchers } from '../../utils/api';
 
@@ -15,22 +16,34 @@ const LinearProgress = lazy(() =>
 const NoRows = lazy(() => import('./NoRows'));
 
 const DataTable = ({ offset, limit }: TPagination) => {
+  const { cookies } = useUserContext();
   const [searchParams, setSearchParams] = useSearchParams({
     offset,
     limit,
   });
+  const [paginationSettings, setPaginationSettings] = useState({
+    offset: Number(searchParams.get('offset')),
+    limit: Number(searchParams.get('limit')),
+  });
   const [paginationModel, setPaginationModel] = useState({
-    page: Number(offset) / Number(searchParams.get('limit')),
-    pageSize: Number(searchParams.get('limit')),
+    page: paginationSettings.offset / paginationSettings.limit,
+    pageSize: paginationSettings.limit,
   });
 
   const { data, isPreviousData } = useQuery({
-    queryKey: ['vouchers', paginationModel],
-    queryFn: ({ signal }) => getVouchers({ ...paginationModel, signal }),
+    queryKey: ['vouchers', { ...paginationSettings, token: cookies.jwt }],
+    queryFn: ({ signal }) =>
+      getVouchers({
+        ...paginationSettings,
+        signal,
+        token: cookies.jwt,
+      }),
+    cacheTime: 2 * 60 * 1000,
     keepPreviousData: true,
-    refetchOnWindowFocus: false,
     retry: 2,
+    retryOnMount: true,
     suspense: true,
+    staleTime: 0,
   });
 
   const handlePaginationModelChange = useCallback(
@@ -44,19 +57,23 @@ const DataTable = ({ offset, limit }: TPagination) => {
         offset: newOffset,
         limit: newLimit,
       });
+      setPaginationSettings({
+        offset: Number(newOffset),
+        limit: Number(newLimit),
+      });
       sessionStorage.setItem('offset', newOffset);
       sessionStorage.setItem('limit', newLimit);
     },
     [paginationModel],
   );
 
-  const [rowCountState, setRowCountState] = useState<number>(data?.total || 0);
+  const [rowCountState, setRowCountState] = useState(data?.totalVouchers ?? 0);
 
   useEffect(() => {
-    setRowCountState((prevRowCountState) =>
-      data?.total !== undefined ? data?.total : prevRowCountState,
-    );
-  }, [data?.total, setRowCountState]);
+    setRowCountState((prevState) => {
+      return data?.totalVouchers ? data.totalVouchers : prevState;
+    });
+  }, [data?.totalVouchers, setRowCountState]);
 
   return (
     <DataGrid
@@ -65,8 +82,9 @@ const DataTable = ({ offset, limit }: TPagination) => {
       disableRowSelectionOnClick={true}
       getEstimatedRowHeight={() => 60}
       getRowHeight={() => 'auto'}
+      getRowId={(row) => row['_id']}
       loading={isPreviousData}
-      rows={data?.vouchers ?? []}
+      rows={(data?.results as unknown as readonly never[]) ?? []}
       rowCount={rowCountState}
       pageSizeOptions={[5, 10, 25, 50]}
       paginationModel={paginationModel}

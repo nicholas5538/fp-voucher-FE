@@ -1,64 +1,40 @@
 import axios, { AxiosError, type AxiosResponse } from 'axios';
-import { type NavigateFunction } from 'react-router-dom';
-import {
+import type { NavigateFunction } from 'react-router-dom';
+import type {
   dataReceivedType,
   dataType,
+  getVoucherData,
   voucherFormValues,
 } from '../constants/globalTypes';
-import { formatDate } from './date';
+import dayjs from 'dayjs';
 
 type apiSubmitArgs = {
-  data: voucherFormValues;
+  data: voucherFormValues | Pick<voucherFormValues, 'action' | 'id'>;
   navigate: NavigateFunction;
+  token: string;
 };
-
-type getVoucherFn = ({
-  id,
-  signal,
-}: {
-  id: voucherFormValues['id'];
-  signal: Tsignal['signal'];
-}) => Promise<dataReceivedType | undefined>;
 
 type getVouchersFn = (options: {
-  page: number;
-  pageSize: number;
-  signal: Tsignal['signal'];
+  offset: number;
+  limit: number;
+  signal: AbortSignal | undefined;
+  token: string;
 }) => Promise<dataType | undefined>;
 
-type Tsignal = {
-  signal: AbortSignal | undefined;
-};
-
-const dbId = import.meta.env.VITE_SHEET_DB_ID;
-const archiveId = import.meta.env.VITE_SHEET_ARCHIVE_ID;
-const baseURL = 'https://sheetdb.io/api/v1/';
+const baseURL = 'https://fp-capstone-backend.onrender.com/';
 const timeout = 5000;
 const contentType = 'application/json';
 
-const googleSheet = axios.create({
+const fpBackend = axios.create({
   baseURL,
   timeout,
   headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_SHEET_DB_TOKEN}`,
     Accept: contentType,
     'Content-Type': contentType,
   },
 });
 
-const archiveSheet = axios.create({
-  baseURL,
-  timeout,
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_SHEET_ARCHIVE_TOKEN}`,
-    Accept: contentType,
-    'Content-Type': contentType,
-  },
-});
-
-const wrapperFn = async (
-  callBack: Promise<AxiosResponse<dataReceivedType[]>>,
-) => {
+const wrapperFn = async <T>(callBack: Promise<AxiosResponse<T>>) => {
   try {
     const response = await callBack;
     return response.data;
@@ -75,87 +51,84 @@ const wrapperFn = async (
   }
 };
 
-export const getVouchers: getVouchersFn = async (options) => {
-  const { page, pageSize, signal } = options;
-  const startIndex = page * pageSize;
-  let endIndex = (page + 1) * pageSize;
-
-  const data = await wrapperFn(googleSheet.get(`${dbId}/`, { signal: signal }));
-
-  if (data) {
-    const total = data.length;
-    const totalPages = Math.floor(data.length / pageSize);
-    const perPage = Math.floor(total / totalPages);
-
-    if (total < endIndex) {
-      endIndex = total - 1;
-    }
-
-    const dataObject = {
-      page,
-      total,
-      totalPages,
-      perPage: perPage === Infinity ? data.length : perPage,
-    };
-
-    return {
-      ...dataObject,
-      vouchers: data.slice(startIndex, endIndex + 1),
-    };
-  }
-
-  return data;
-};
-
-export const getVoucher: getVoucherFn = async ({ id, signal }) => {
-  const data = await wrapperFn(
-    googleSheet.get(`${dbId}/search?id=${id}`, { signal: signal }),
+export const getVouchers: getVouchersFn = (options) => {
+  const { offset, limit, signal, token } = options;
+  const url = `api/v1/vouchers?offset=${offset}&limit=${limit}`;
+  return wrapperFn<dataType>(
+    fpBackend.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      signal,
+    }),
   );
-
-  if (data) return data[0];
-  return data;
 };
 
-const createVoucher = (dataReceived: dataReceivedType) => {
-  delete dataReceived.action;
-  void wrapperFn(googleSheet.post(`${dbId}/`, dataReceived));
+export const getVoucher = async ({
+  id,
+  signal,
+  token,
+}: {
+  id: string;
+  signal: AbortSignal | undefined;
+  token: string;
+}) => {
+  const data = await wrapperFn<getVoucherData>(
+    fpBackend.get(`api/v1/vouchers/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal,
+    }),
+  );
+  return data?.results;
 };
 
-const updateVoucher = (dataReceived: dataReceivedType) => {
+const createVoucher = (dataReceived: dataReceivedType, token: string) => {
   delete dataReceived.action;
   void wrapperFn(
-    googleSheet.put(`${dbId}/id/${dataReceived.id}`, dataReceived),
+    fpBackend.post(`api/v1/vouchers`, dataReceived, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
   );
 };
 
-const deleteVoucher = (dataReceived: dataReceivedType) => {
-  void wrapperFn(googleSheet.delete(`${dbId}/id/${dataReceived.id}`));
-  void wrapperFn(archiveSheet.post(`${archiveId}/`, dataReceived));
+const updateVoucher = (
+  dataReceived: Partial<dataReceivedType>,
+  token: string,
+) => {
+  const id = dataReceived.id;
+  delete dataReceived.action;
+  delete dataReceived.id;
+  void wrapperFn(
+    fpBackend.patch(`api/v1/vouchers/${id}`, dataReceived, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  );
 };
 
-export const apiSubmitHandler = ({ data, navigate }: apiSubmitArgs) => {
-  const modifiedData = {
-    ...data,
-    startDate: formatDate({
-      date: data.startDate,
-      dateFormat: 'YYYY-MM-DD',
+const deleteVoucher = (id: string, token: string) => {
+  void wrapperFn(
+    fpBackend.delete(`api/v1/vouchers/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
     }),
-    expiryDate: formatDate({
-      date: data.expiryDate,
-      dateFormat: 'YYYY-MM-DD',
-    }),
-  };
+  );
+};
 
-  switch (data.action) {
-    case 'Update':
-      updateVoucher(modifiedData);
-      break;
-    case 'Delete':
-      deleteVoucher(modifiedData);
-      break;
-    default:
-      createVoucher(modifiedData);
+export const apiSubmitHandler = ({ data, navigate, token }: apiSubmitArgs) => {
+  setTimeout(() => navigate('/vouchers', { replace: true }), 4000);
+  if (
+    'expiryDate' in data &&
+    (data.action === 'Create' || data.action === 'Update')
+  ) {
+    const modifiedData = {
+      ...data,
+      startDate: dayjs(data.startDate).format('YYYY-MM-DD'),
+      expiryDate: dayjs(data.expiryDate).format('YYYY-MM-DD'),
+    };
+    return data.action === 'Create'
+      ? createVoucher(modifiedData, token)
+      : updateVoucher(modifiedData, token);
   }
 
-  setTimeout(() => navigate('/vouchers', { replace: true }), 4000);
+  sessionStorage.clear();
+  return deleteVoucher(data.id, token);
 };

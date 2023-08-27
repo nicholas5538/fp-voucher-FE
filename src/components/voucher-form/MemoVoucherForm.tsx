@@ -6,23 +6,24 @@ import clsx from 'clsx';
 import { motion, MotionConfig } from 'framer-motion';
 import Lottie, { type LottieRefCurrentProps } from 'lottie-light-react';
 import { memo, useEffect, useRef, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, type Resolver } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
+import AlertComponent from '../alert';
 import downArrow from '../../assets/down_arrow.json';
+import ButtonComponent from '../button';
 import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
-import { voucherFormValues } from '../../constants/globalTypes';
-import { apiSubmitHandler } from '../../utils/api';
-import AlertComponent from '../alert';
-import ButtonComponent from '../button';
+import type { voucherFormValues } from '../../constants/globalTypes';
 import DateSelector from '../form-inputs/date-picker';
 import RadioInputs from '../form-inputs/radio-inputs';
 import TextFieldComponent from '../form-inputs/text-field';
-import ModalComponent from '../modal';
-import VoucherCard from '../voucher-card';
-import icons from './icons';
+import { useUserContext } from '../../hooks/useUserContext';
 import useTitle from '../../hooks/useTitle';
+import icons from './icons';
+import ModalComponent from '../modal';
+import { apiSubmitHandler } from '../../utils/api';
+import VoucherCard from '../voucher-card';
 
 type VoucherFormProps = {
   defaultValues: voucherFormValues;
@@ -30,6 +31,7 @@ type VoucherFormProps = {
 
 const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   useTitle(`${defaultValues.action} Foodpanda Voucher`);
+  const { cookies } = useUserContext();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
@@ -42,11 +44,21 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     handleSubmit,
     reset,
     watch,
-    formState: { errors, isDirty, isSubmitting, isSubmitSuccessful, isValid },
+    formState: {
+      dirtyFields,
+      errors,
+      isDirty,
+      isSubmitting,
+      isSubmitSuccessful,
+      isValid,
+    },
   } = useForm<voucherFormValues>({
     defaultValues: defaultValues,
     mode: 'all',
-    resolver: yupResolver(voucherFormSchema),
+    resolver: yupResolver(voucherFormSchema) as unknown as Resolver<
+      voucherFormValues,
+      unknown
+    >,
   });
 
   useEffect(() => {
@@ -67,7 +79,34 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const disabledWatchAction = watchAction === 'Delete';
 
   const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
-    return apiSubmitHandler({ data, navigate });
+    const token = cookies.jwt;
+    if (data.action === 'Create') {
+      return apiSubmitHandler({ data, navigate, token });
+    }
+    if (data.action === 'Delete') {
+      return apiSubmitHandler({
+        data: { action: data.action, id: data.id },
+        navigate,
+        token,
+      });
+    }
+    const dirtyFieldsList = Object.keys(dirtyFields);
+    const modifiedData: Record<string, unknown> = {
+      action: data.action,
+      id: data.id,
+      expiryDate: data.expiryDate,
+      startDate: data.startDate,
+    };
+
+    dirtyFieldsList.forEach((dirtyField) => {
+      modifiedData[dirtyField] = data[dirtyField as keyof voucherFormValues];
+    });
+
+    return apiSubmitHandler({
+      data: modifiedData as voucherFormValues,
+      navigate,
+      token: cookies.jwt,
+    });
   };
 
   return (

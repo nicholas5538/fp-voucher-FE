@@ -15,7 +15,8 @@ import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import VoucherIcon from '../../assets/voucher.svg';
-import { dataReceivedType } from '../../constants/globalTypes';
+import type { getVouchersData } from '../../constants/globalTypes';
+import { useUserContext } from '../../hooks/useUserContext';
 import { getVouchers } from '../../utils/api';
 import { formatDate } from '../../utils/date';
 import VoucherCard from './cart-voucher-card';
@@ -68,6 +69,7 @@ const VoucherModal = ({
   const [sortMethod, setSortMethod] = useState<VoucherFilter>('discount');
   const [activeChip, setActiveChip] = useState<VoucherFilter>('discount');
   const [open, setOpen] = useState(false);
+  const { cookies } = useUserContext();
 
   const typedPromoCode = watch('promoCode')?.toUpperCase();
 
@@ -88,11 +90,12 @@ const VoucherModal = ({
   }, [promoCode, resetField, setValue]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['vouchers', { page: 0, pageSize: 20 }],
-    queryFn: ({ signal }) => getVouchers({ page: 0, pageSize: 20, signal }),
+    queryKey: ['vouchers', { offset: 0, limit: 100, token: cookies.jwt }],
+    queryFn: ({ signal }) =>
+      getVouchers({ offset: 0, limit: 100, signal, token: cookies.jwt }),
   });
 
-  const pickUpVouchers = data?.vouchers.filter(
+  const pickUpVouchers = data?.results.filter(
     ({ category }) => category === 'Pick-up',
   );
 
@@ -119,9 +122,7 @@ const VoucherModal = ({
     setActiveChip(method);
   };
 
-  const sortedPickUpVouchers = (
-    vouchers: Omit<dataReceivedType, 'action' | 'startDate'>[],
-  ) => {
+  const sortedPickUpVouchers = (vouchers: getVouchersData[]) => {
     switch (sortMethod) {
       case 'discount':
         return vouchers.sort((a, b) => b.discount - a.discount);
@@ -136,8 +137,7 @@ const VoucherModal = ({
 
   const isMinSpendingNotHit = () => {
     const voucher = findVoucher(typedPromoCode);
-    if (voucher && subTotal < voucher.minSpending) return true;
-    return false;
+    return !!(voucher && subTotal < voucher.minSpending);
   };
 
   return (
@@ -234,10 +234,7 @@ const VoucherModal = ({
                         id={id}
                         title={promoCode}
                         description={description}
-                        expiryDate={formatDate({
-                          date: dayjs(expiryDate),
-                          dateFormat: 'YYYY-MM-DD',
-                        })}
+                        expiryDate={expiryDate}
                         discount={discount}
                         minSpending={minSpending}
                         onSelect={() => {

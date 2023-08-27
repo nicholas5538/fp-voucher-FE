@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
-type formatDateArgs = { date: dayjs.Dayjs | undefined; dateFormat: string };
+type formatDateArgs = { date: Date | undefined; dateFormat: string };
 
-export const convertToDayjs = (date: string): dayjs.Dayjs => {
+export const convertToDayjs = (date: Date): dayjs.Dayjs => {
   return dayjs(date);
 };
 
@@ -14,6 +14,6 @@ export const formatDate = ({ date, dateFormat }: formatDateArgs): string => {
 };
 
 // check if voucher expiry date - today's date exceed 3 days
-export const calculateDateDifference = (expiryDate: object): boolean => {
-  return dayjs(expiryDate as dayjs.Dayjs).diff(dayjs()) > 259200000;
+export const calculateDateDifference = (expiryDate: string): boolean => {
+  return dayjs(expiryDate).diff(dayjs()) > 259200000;
 };

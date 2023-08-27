@@ -2,13 +2,12 @@ import {
   type GridColDef,
   type GridValueFormatterParams,
 } from '@mui/x-data-grid';
-import { Dayjs } from 'dayjs';
 import { formatDate } from '../../utils/date';
 import ActionButtons from './ActionButtons';
 
 const headerClassName = 'font-mont text-pink-400';
-const valueFormatterDate = (date: Dayjs) =>
-  formatDate({ date: date, dateFormat: 'DD MMM YYYY' });
+const valueFormatterDate = (date: Date) =>
+  formatDate({ date, dateFormat: 'DD MMM YYYY' });
 
 const tableColumns: GridColDef[] = [
   {
@@ -46,7 +45,7 @@ const tableColumns: GridColDef[] = [
     headerAlign: 'left',
     headerClassName: headerClassName,
     valueFormatter: (params: GridValueFormatterParams<number>) =>
-      `S$ ${params.value}`,
+      `S$ ${params.value % 1 === 0 ? params.value : params.value.toFixed(2)}`,
   },
   {
     field: 'promoCode',
@@ -63,7 +62,7 @@ const tableColumns: GridColDef[] = [
     align: 'left',
     headerAlign: 'left',
     headerClassName: headerClassName,
-    valueFormatter: (params: GridValueFormatterParams<Dayjs>) =>
+    valueFormatter: (params: GridValueFormatterParams<Date>) =>
       valueFormatterDate(params.value),
   },
   {
@@ -73,7 +72,7 @@ const tableColumns: GridColDef[] = [
     align: 'left',
     headerAlign: 'left',
     headerClassName: headerClassName,
-    valueFormatter: (params: GridValueFormatterParams<Dayjs>) =>
+    valueFormatter: (params: GridValueFormatterParams<Date>) =>
       valueFormatterDate(params.value),
   },
   {
