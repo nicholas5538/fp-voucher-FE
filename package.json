@@ -4,11 +4,6 @@
   "version": "1.0.0",
   "type": "module",
   "license": "UNLICENSED",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx mrm@2 lint-staged"
-    }
-  },
   "scripts": {
     "build": "vite build",
     "dev": "vite --port 5173",
@@ -16,6 +11,7 @@
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint . --ext .tsx --ext .ts",
     "precommit": "pretty-quick --staged",
+    "prepare": "husky install",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -35,9 +31,10 @@
     "@vitejs/plugin-react-swc": "3.3.2",
     "add": "2.0.6",
     "autoprefixer": "10.4.15",
-    "axios": "1.4.0",
+    "axios": "1.5.0",
     "clsx": "2.0.0",
     "dayjs": "1.11.9",
+    "dotenv": "16.3.1",
     "framer-motion": "10.16.1",
     "lottie-light-react": "2.4.0",
     "postcss": "8.4.28",
@@ -56,11 +53,11 @@
     "vite-plugin-progress": "0.0.7",
     "vite-plugin-svgr": "3.2.0",
     "vite-plugin-turbo-console": "0.0.9",
-    "yup": "^1.2.0"
+    "yup": "1.2.0"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "4.32.5",
-    "@types/node": "20.5.6",
+    "@tanstack/eslint-plugin-query": "4.34.1",
+    "@types/node": "20.5.7",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-router-dom": "5.3.3",
@@ -69,13 +66,14 @@
     "@typescript-eslint/eslint-plugin": "6.4.1",
     "@typescript-eslint/parser": "6.4.1",
     "eslint": "8.48.0",
-    "eslint-config-standard-with-typescript": "38.0.0",
+    "eslint-config-standard-with-typescript": "39.0.0",
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-n": "16.0.2",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-promise": "6.1.1",
     "eslint-plugin-react": "7.33.2",
     "husky": "8.0.3",
+    "lint-staged": "14.0.1",
     "prettier": "3.0.2",
     "prettier-plugin-tailwindcss": "0.5.3"
   },
