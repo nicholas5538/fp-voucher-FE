@@ -21,7 +21,10 @@ We decided to create an admin portal that allows user to use the following featu
 4. **Delete** any existing vouchers
 5. A dummy checkout page to show that the vouchers can be applied
 
-We will be using google sheets as the 'database' and use REST API to perform CRUD operations on it. This is achieved with [SheetDB](https://sheetdb.io/ 'SheetDB documentation').
+- [MongoDB](https://www.mongodb.com/ 'MongoDB official site') is currently our choice of database and we are calling REST API endpoints to perform CRUD operations on it.
+- Click here to access the backend repository (Created by [@nicholas5538](https://github.com/nicholas5538)), built with `Node.js`, `TypeScript` and `mongoose`.
+  > Backend repository is currently private as proper documentation of the API endpoints is not completed.
+
 
 ## Quick Link
 
@@ -39,9 +42,9 @@ We will be using google sheets as the 'database' and use REST API to perform CRU
 
   > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
 
-- Install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable) (We're currently using yarn [v3.5.0](https://github.com/nicholas5538/fp-capstone/blob/main/.yarn/releases/yarn-3.5.0.cjs) for this project)
+- Install [pnpm](https://pnpm.io/installation) (We're currently using pnpm [v8.7.0](https://github.com/nicholas5538/fp-capstone/blob/main/.yarn/releases/yarn-3.5.0.cjs) for this project)
 
-  > 💁 `npm install --global yarn`
+  > 💁 `npm install -g pnpm`
 
 ### Repository Setup
 
@@ -50,17 +53,7 @@ Once you have your SSH key added and environment setup, you can clone the reposi
 ```zsh
 git clone git@github.com:nicholas5538/fp-capstone.git
 cd fp-capstone
-yarn install
-```
-
-Once the dependencies have been installed, you are required to create a `.env` file **on the root folder** and insert the following codes.
-**_TAKE NOTE: please request for tokens either from [@nicholas5538](https://github.com/nicholas5538 'nicholas5538 profile') or [@Rychua002](https://github.com/Rychua002 'Rychua002 profile')._**
-
-```
-VITE_SHEET_DB_ID=<insert voucher sheet token here>
-VITE_SHEET_DB_TOKEN=<insert voucher sheet bearer token here>
-VITE_SHEET_ARCHIVE_ID=<insert archive sheet token here>
-VITE_SHEET_ARCHIVE_TOKEN=<insert archive sheet api bearer token here>
+pnpm i
 ```
 
 ## Developing
@@ -68,7 +61,7 @@ VITE_SHEET_ARCHIVE_TOKEN=<insert archive sheet api bearer token here>
 Once you have [set up the repo](#repository-setup), you're ready to start developing. Starting the development environment is managed by the following command.
 
 ```sh
-yarn dev
+pnpm run dev
 ```
 
 The `dev` command will start the application in your local environment (port 5173).
@@ -77,11 +70,11 @@ The `dev` command will start the application in your local environment (port 517
 
 In addition to the `dev` command, there are other scripts available in the package.json. Some of the most common you might get to use are:
 
-- `yarn format` - Check prettier formatting through all the codes
+- `pnpm run format` - Check prettier formatting through all the codes
 
-  > 💁 **Tip:** use `yarn format:fix` to run auto prettier formatting across all the codes
+  > 💁 **Tip:** use `pnpm run format:fix` to run auto prettier formatting across all the codes
 
-- `yarn lint` - Runs TS linter through all the codes
+- `pnpm run lint` - Runs TS linter through all the codes
 
 ## Additional Documentations
 
@@ -93,4 +86,3 @@ In addition to the `dev` command, there are other scripts available in the packa
 - [Tailwindcss](https://tailwindcss.com/docs/installation 'Tailwindcss styling documentation')
 - [Framer Motion](https://www.framer.com/motion/ 'Framer Motion animation')
 - [People API](https://developers.google.com/people 'People API documentation')
-- [SheetDB API](https://sheetdb.io/ 'SheetDB documentation')
