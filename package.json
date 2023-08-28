@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "license": "UNLICENSED",
+  "lint-staged": {
+    "src/**/*.{ts,css,html}": [
+      "pnpm run prettier --check"
+    ]
+  },
   "scripts": {
     "build": "vite build",
     "dev": "vite --port 5173",
