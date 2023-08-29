@@ -1,5 +1,5 @@
 ---
-name: Test build
+name: Push development image
 on:
   pull_request:
     branches:
@@ -8,19 +8,23 @@ on:
       - '**.md'
 
 jobs:
-  Build:
+  Push-to-docker-hub:
     runs-on: ubuntu-latest
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3.6.0
 
-      - name: Write secrets to env file
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
         run: |
-          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env.production
-
-      - name: Build Docker image
-        run: docker build --no-cache -t build-app --target build .
-
-      - name: Run Docker container
-        run: docker run --env-file .env.production --rm --name run-build-test build-app
+          docker build --platform linux/amd64 --compress -t fp-voucher-fe-dev --target dev .
+          docker tag fp-voucher-fe-dev:latest $DOCKERHUB_USERNAME/fp-voucher-fe-dev:latest
+          docker push $DOCKERHUB_USERNAME/fp-voucher-fe-dev:latest
