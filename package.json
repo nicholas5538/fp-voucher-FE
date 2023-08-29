@@ -1,5 +1,5 @@
 {
-  "name": "fp-capstone",
+  "name": "fp-voucher-fe",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,7 +7,8 @@
   "lint-staged": {
     "src/**/*.{ts,css,html}": [
       "pnpm run prettier --check"
-    ]
+    ],
+    "*.{tsx, ts}": "eslint --cache --fix"
   },
   "scripts": {
     "build": "vite build",
@@ -15,7 +16,6 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "eslint . --ext .tsx --ext .ts",
-    "precommit": "pretty-quick --staged",
     "prepare": "husky install",
     "preview": "vite preview"
   },
