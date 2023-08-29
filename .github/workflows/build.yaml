@@ -9,27 +9,18 @@ on:
 
 jobs:
   Build:
-    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.6.0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.4.0
-        with:
-          version: 8.7.0
+      - name: Write secrets to env file
+        run: |
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env.production
 
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3.8.1
-        with:
-          node-version: 18
-          cache: 'pnpm'
-          cache-dependency-path: 'pnpm-lock.yaml'
+      - name: Build Docker image
+        run: docker build --no-cache -t build-app --target build .
 
-      - name: Install production dependencies
-        run: pnpm i --prod --frozen-lockfile
-
-      - name: Build project
-        run: pnpm run build
+      - name: Run Docker container
+        run: docker run --env-file .env.production --rm --name run-build-test build-app
