@@ -2,6 +2,7 @@
 
 ## Table Of Contents
 
+- [Quick Links](#quick-links)
 - [Context](#context)
 - [Getting Started](#getting-started)
   - [Environment Setup](#environment-setup)
@@ -9,6 +10,11 @@
 - [Developing](#developing)
   - [Frequently Used Scripts](#frequently-used-scripts)
 - [Additional Documentations](#additional-documentations)
+
+## Quick links
+
+- [Frontend repository](https://github.com/nicholas5538/fp-voucher-FE "fp-voucher-FE")
+- [Backend repository](https://github.com/nicholas5538/fp-voucher-BE "fp-voucher-BE")
 
 ## Context
 
@@ -22,11 +28,7 @@ We decided to create an admin portal that allows user to use the following featu
 4. _**Delete**_ any existing vouchers
 5. A dummy checkout page to show that the vouchers can be applied
 
-- [MongoDB](https://www.mongodb.com/ 'MongoDB official site') is currently our choice of database and we are calling REST API endpoints to perform CRUD operations on it.
-- Click here to access the backend repository (Created by [@nicholas5538](https://github.com/nicholas5538)), built with `Node.js`, `TypeScript` and `mongoose`.
-
-  > Backend repository is currently private as proper documentation of the API endpoints is not completed.
-  
+- [MongoDB](https://www.mongodb.com/ 'MongoDB official site') is currently our choice of database, and we are calling REST API endpoints to perform CRUD operations on it.
 
 ## Getting Started
 
@@ -53,8 +55,8 @@ We decided to create an admin portal that allows user to use the following featu
 Once you have your SSH key added and environment setup, you can clone the repository.
 
 ```zsh
-git clone git@github.com:nicholas5538/fp-capstone.git
-cd fp-capstone
+git clone https://github.com/nicholas5538/fp-voucher-FE.git
+cd fp-voucher-FE
 ```
 
 ## Developing
