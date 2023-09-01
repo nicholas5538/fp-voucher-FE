@@ -65,10 +65,12 @@ Once you have [set up the repo](#repository-setup), you're ready to start develo
 
 - With **Docker (recommended)**
 ```sh
-# You can either pull the image from Docker Hub or build your own image
-docker pull -q nicholas5538/fp-voucher-fe-dev:latest
+# Docker compose command
+docker compose up -d --build
+
+# Or you could build your own image
 docker build --compress -t <image name> --target dev .
-# For Windows PowerShell: ${pwd}, MacOS: $(pwd)
+# For Windows PowerShell: ${pwd}, the rest: $(pwd)
 docker run -d -p 3000:3000 -v $(pwd):/home/node/app --name <container name> fp-voucher-fe-dev
 ```
 

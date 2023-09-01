@@ -1,4 +1,4 @@
-FROM node:current-alpine3.17 AS base
+FROM node:current-alpine3.18 AS base
 LABEL authors="nicholas5538"
 LABEL version="1.0"
 
@@ -24,9 +24,10 @@ FROM base AS dev
 COPY --from=dev-deps ./app/node_modules ./node_modules
 
 EXPOSE 5173
+ENV HOST "0.0.0.0"
 ENV PORT 5173
 
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "run", "dev", "--host", "0.0.0.0"]
 
 FROM nginx:stable-alpine-slim
 COPY --from=build ./app/dist /usr/share/nginx/html
