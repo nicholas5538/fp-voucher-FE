@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { type MouseEventHandler } from 'react';
-import { ReactComponent as CartLogo } from '../../assets/cart2.svg';
+import CartLogo from '../../assets/cart2.svg?react';
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;

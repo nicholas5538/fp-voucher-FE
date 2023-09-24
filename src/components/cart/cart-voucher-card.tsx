@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import styled from 'styled-components';
-import { ReactComponent as VoucherIcon } from '../../assets/voucher.svg';
+import VoucherIcon from '../../assets/voucher.svg?react';
 import { formatDate } from '../../utils/date';
 import type { dataReceivedType } from '../../constants/globalTypes';
 
