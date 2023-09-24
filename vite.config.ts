@@ -2,7 +2,6 @@ import { resolve } from 'path';
 import { config } from 'dotenv';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import progress from 'vite-plugin-progress';
 import svgr from 'vite-plugin-svgr';
 import TurboConsole from 'vite-plugin-turbo-console';
 
@@ -11,7 +10,7 @@ export default defineConfig(({ mode }) => {
   const path = mode === 'development' ? '.env.development' : '.env.production';
   config({ path });
   return {
-    plugins: [react(), progress(), svgr(), TurboConsole()],
+    plugins: [react(), svgr(), TurboConsole()],
     build: {
       rollupOptions: {
         output: {
@@ -21,9 +20,8 @@ export default defineConfig(({ mode }) => {
             else if (id.includes('@mui/system')) return 'vendor_mui_system';
             else if (id.includes('@mui/x')) return 'vendor_mui_x';
             else if (id.includes('lottie')) return 'vendor_lottie';
-            else if (id.includes('framer')) return 'vendor_framer';
-          }
-        }
+          },
+        },
       },
       outDir: 'dist',
       assetsDir: 'assets',
@@ -43,5 +41,5 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-  }
+  };
 });
