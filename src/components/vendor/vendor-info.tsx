@@ -1,4 +1,4 @@
-import { ReactComponent as InfoIcon } from '../../assets/info-icon.svg';
+import InfoIcon from '../../assets/info-icon.svg';
 import styled from 'styled-components';
 import { Box, Button, Chip, Typography } from '@mui/material';
 import { GroupAddOutlined, AttachMoney, Star } from '@mui/icons-material';

@@ -27,9 +27,11 @@ jobs:
           VALIDATE_BASH: false
           VALIDATE_CSS: false
           VALIDATE_GITHUB_ACTIONS: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
           VALIDATE_JSCPD: false
           VALIDATE_MARKDOWN: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
           VALIDATE_XML: false
           VALIDATE_YAML: false
           IGNORE_GITIGNORED_FILES: true

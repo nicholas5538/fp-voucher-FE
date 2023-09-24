@@ -13,8 +13,8 @@
 
 ## Quick links
 
-- [Frontend repository](https://github.com/nicholas5538/fp-voucher-FE "fp-voucher-FE")
-- [Backend repository](https://github.com/nicholas5538/fp-voucher-BE "fp-voucher-BE")
+- [Frontend repository](https://github.com/nicholas5538/fp-voucher-FE 'fp-voucher-FE')
+- [Backend repository](https://github.com/nicholas5538/fp-voucher-BE 'fp-voucher-BE')
 
 ## Context
 
@@ -37,20 +37,20 @@ We decided to create an admin portal that allows user to use the following featu
 - Add a new SSH key to your GitHub account. [Instructions to how to generate](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account 'Generate SSH key').
 
 #### 2 ways to run the apps
+
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 2. With package manager **[pnpm](https://pnpm.io/installation)**
 
    - Install any version of node that is >= 14.0.0.
-   
-    >    💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
+
+   > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
 
    - Install [pnpm](https://pnpm.io/installation)
 
-    >    💁 `npm install -g pnpm`
+   > 💁 `npm install -g pnpm`
 
 ### Repository Setup
-
 
 Once you have your SSH key added and environment setup, you can clone the repository.
 
@@ -64,6 +64,7 @@ cd fp-voucher-FE
 Once you have [set up the repo](#repository-setup), you're ready to start developing. Starting the development environment is managed by the following command(s).
 
 - With **Docker (recommended)**
+
 ```sh
 # Docker compose command
 docker compose up -d --build
@@ -73,7 +74,6 @@ docker build --compress -t <image name> --target dev .
 # For Windows PowerShell: ${pwd}, the rest: $(pwd)
 docker run -d -p 3000:3000 -v $(pwd):/home/node/app --name <container name> fp-voucher-fe-dev
 ```
-
 
 - With **pnpm**
 
