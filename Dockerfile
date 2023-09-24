@@ -18,6 +18,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm i --prod --frozen-lockfil
 
 FROM base as build
 COPY --from=prod-deps ./app/node_modules ./node_modules
+ENV NODE_ENV "production"
 RUN pnpm run build
 
 FROM base AS dev
