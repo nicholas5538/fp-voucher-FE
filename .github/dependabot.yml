@@ -29,7 +29,7 @@ updates:
         versions: ['16.x']
     commit-message:
       prefix: 'pnpm-prod'
-      prefix-development: 'pnpm-prod'
+      prefix-development: 'pnpm-dev'
       include: scope
     open-pull-requests-limit: 5
     pull-request-branch-name:
