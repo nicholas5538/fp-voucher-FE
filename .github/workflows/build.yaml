@@ -1,5 +1,5 @@
 ---
-name: Push development image
+name: Build development image
 on:
   pull_request:
     branches:
@@ -15,9 +15,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.6.0
+        uses: actions/checkout@v4.1.0
 
-      - name: Try to build image
+      - name: Docker - build dev image
         run: |
           docker build --platform linux/amd64 --no-cache --compress \
           --rm -t vite-build --target build .
