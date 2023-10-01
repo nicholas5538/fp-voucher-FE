@@ -58,7 +58,7 @@
     "vite": "4.4.9",
     "vite-plugin-svgr": "4.0.0",
     "vite-plugin-turbo-console": "0.1.0",
-    "yup": "1.3.0"
+    "yup": "1.3.2"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "4.34.1",
