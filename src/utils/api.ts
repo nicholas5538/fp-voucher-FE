@@ -35,20 +35,14 @@ const fpBackend = axios.create({
 });
 
 const wrapperFn = async <T>(callBack: Promise<AxiosResponse<T>>) => {
-  try {
-    const response = await callBack;
-    return response.data;
-  } catch (reason: unknown) {
+  const { data } = await callBack.catch((reason: unknown) => {
     if (reason instanceof AxiosError) {
-      if (reason.response?.status === 400) {
-        throw new Error('Bad request');
-      } else {
-        throw new Error(`Request failed. Status: ${reason.response?.status}`);
-      }
-    } else {
-      console.error(reason);
+      if (reason.response?.status === 400) throw new Error('Bad request');
+      throw new Error(`Request failed. Status: ${reason.response?.status}`);
     }
-  }
+    throw new Error(`Something went wrong. Reason: ${reason}`);
+  });
+  return data;
 };
 
 export const getVouchers: getVouchersFn = (options) => {
