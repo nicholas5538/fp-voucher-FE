@@ -41,7 +41,7 @@
     "cssnano": "6.0.1",
     "dayjs": "1.11.10",
     "dotenv": "16.3.1",
-    "framer-motion": "10.16.4",
+    "framer-motion": "10.16.9",
     "lottie-light-react": "2.4.0",
     "postcss": "8.4.31",
     "react": "18.2.0",
