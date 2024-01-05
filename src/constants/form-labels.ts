@@ -9,10 +9,10 @@ export const actionLabels: TradioLabels = {
 
 export const categoryLabels: TradioLabels = {
   delivery: 'Delivery',
-  'dine-in': 'Dine-in',
+  'dine': 'Dine',
   pandago: 'Pandago',
   pandamart: 'Pandamart',
-  'pick-up': 'Pick-up',
+  'pickup': 'Pickup',
 };
 
 export const createDefaultValues: voucherFormValues = {

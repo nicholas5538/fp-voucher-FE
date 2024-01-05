@@ -43,7 +43,7 @@ const CartAmount = ({
     queryFn: ({ signal }) =>
       getVouchers({ offset: 0, limit: 200, signal, token: cookies.jwt }),
     staleTime: 5 * 1000,
-    cacheTime: 5 * 60 * 1000,
+    gcTime: 5 * 60 * 1000,
     retry: 2,
     retryDelay: 1000,
   });

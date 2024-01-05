@@ -24,7 +24,7 @@ export type getVouchersData = Omit<
 export type getVoucherData = {
   _links: Record<string, string>;
   results: {
-    _id: string;
+    id: string;
     category: string;
     description: string;
     discount: number;

@@ -21,14 +21,14 @@ const EditVoucherForm = () => {
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     staleTime: 15000,
-    cacheTime: 15 * (60 * 1000),
+    gcTime: 15 * (60 * 1000),
   });
 
   let defaultValues;
   if (data) {
     defaultValues = {
       action,
-      id: data?.['_id'],
+      id: data?.id,
       category: data?.category,
       description: data?.description,
       discount: data?.discount,
