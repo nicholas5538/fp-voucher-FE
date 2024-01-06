@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { v4 as uuidv4 } from 'uuid';
 import { TradioLabels, voucherFormValues } from './globalTypes';
 
 export const actionLabels: TradioLabels = {
@@ -9,10 +8,10 @@ export const actionLabels: TradioLabels = {
 
 export const categoryLabels: TradioLabels = {
   delivery: 'Delivery',
-  'dine-in': 'Dine-in',
+  dine: 'Dine',
   pandago: 'Pandago',
   pandamart: 'Pandamart',
-  'pick-up': 'Pick-up',
+  pickup: 'Pickup',
 };
 
 export const createDefaultValues: voucherFormValues = {
@@ -20,7 +19,6 @@ export const createDefaultValues: voucherFormValues = {
   category: categoryLabels.delivery,
   description: '',
   discount: 5,
-  id: uuidv4(),
   minSpending: 0,
   promoCode: '',
   startDate: dayjs().format('YYYY-MM-DD'),

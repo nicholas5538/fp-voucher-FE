@@ -48,7 +48,7 @@ const StyledNavLink = styled(NavLink)`
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { cookies, givenName, login } = useUserContext();
+  const { cookies, name, login } = useUserContext();
   const navigate = useNavigate();
   useOutsideAlerter(dropdownRef, setOpen);
 
@@ -72,7 +72,7 @@ const MainNavigation = () => {
           >
             <Profile />
             <span className='hidden truncate text-center font-mont text-xs font-bold text-black lg:block'>
-              {cookies.jwt ? `${givenName.toUpperCase()}` : 'SIGN IN'}
+              {cookies.jwt ? `${name.toUpperCase()}` : 'SIGN IN'}
             </span>
             {cookies.jwt && (
               <ExpandMoreRoundedIcon

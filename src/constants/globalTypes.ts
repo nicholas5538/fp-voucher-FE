@@ -2,11 +2,12 @@
 import type { ReactElement, ReactNode } from 'react';
 
 export type voucherFormValues = {
+  userId?: string;
   action: 'Create' | 'Update' | 'Delete';
   category: string;
   description: string;
   discount: number;
-  id: string;
+  id?: string;
   minSpending: number;
   promoCode: string;
   startDate: string;
@@ -24,7 +25,7 @@ export type getVouchersData = Omit<
 export type getVoucherData = {
   _links: Record<string, string>;
   results: {
-    _id: string;
+    id: string;
     category: string;
     description: string;
     discount: number;

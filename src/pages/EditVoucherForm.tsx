@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import { useLoaderData } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
+import { getVoucherData, voucherFormValues } from '../constants/globalTypes';
 import { useUserContext } from '../hooks/useUserContext';
 import { getVoucher } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
-import { voucherFormValues } from '../constants/globalTypes';
 
 const EditVoucherForm = () => {
   const { cookies } = useUserContext();
@@ -15,40 +15,45 @@ const EditVoucherForm = () => {
     id: string;
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['voucher', id, cookies.jwt],
+  const { data, isFetched } = useQuery({
+    queryKey: ['voucher', id],
     queryFn: ({ signal }) => getVoucher({ id, signal, token: cookies.jwt }),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     staleTime: 15000,
-    cacheTime: 15 * (60 * 1000),
+    gcTime: 15 * (60 * 1000),
   });
 
-  let defaultValues;
-  if (data) {
+  let defaultValues = {} as unknown as voucherFormValues;
+  if (isFetched && data) {
+    const {
+      category,
+      description,
+      discount,
+      minSpending,
+      promoCode,
+      startDate,
+      expiryDate,
+    } = data as unknown as getVoucherData['results'][][0];
     defaultValues = {
       action,
-      id: data?.['_id'],
-      category: data?.category,
-      description: data?.description,
-      discount: data?.discount,
-      minSpending: data?.minSpending,
-      promoCode: data?.promoCode,
-      startDate: convertToDayjs(data?.startDate ?? new Date()).format(
-        'YYYY-MM-DD',
-      ),
-      expiryDate: convertToDayjs(data?.expiryDate ?? new Date()).format(
-        'YYYY-MM-DD',
-      ),
+      id,
+      category,
+      description,
+      discount,
+      minSpending,
+      promoCode,
+      startDate: convertToDayjs(startDate ?? new Date()).format('YYYY-MM-DD'),
+      expiryDate: convertToDayjs(expiryDate ?? new Date()).format('YYYY-MM-DD'),
     };
   }
 
   return (
     <AnimatedLayout className='form-container'>
-      {isLoading ? (
+      {!isFetched ? (
         <SkeletonForm />
       ) : (
-        <MemoVoucherForm defaultValues={defaultValues as voucherFormValues} />
+        <MemoVoucherForm defaultValues={defaultValues} />
       )}
     </AnimatedLayout>
   );

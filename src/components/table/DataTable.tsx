@@ -1,5 +1,5 @@
 import { DataGrid, type GridPaginationModel } from '@mui/x-data-grid';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { lazy, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { TPagination } from '../../constants/globalTypes';
@@ -30,7 +30,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
     pageSize: paginationSettings.limit,
   });
 
-  const { data, isPreviousData } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ['vouchers', { ...paginationSettings, token: cookies.jwt }],
     queryFn: ({ signal }) =>
       getVouchers({
@@ -38,11 +38,9 @@ const DataTable = ({ offset, limit }: TPagination) => {
         signal,
         token: cookies.jwt,
       }),
-    cacheTime: 2 * 60 * 1000,
-    keepPreviousData: true,
+    gcTime: 2 * 60 * 1000,
     retry: 2,
     retryOnMount: true,
-    suspense: true,
     staleTime: 0,
   });
 
@@ -73,7 +71,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
     setRowCountState((prevState) => {
       return data?.totalVouchers ? data.totalVouchers : prevState;
     });
-  }, [data?.totalVouchers, setRowCountState]);
+  }, [setRowCountState]);
 
   return (
     <DataGrid
@@ -82,8 +80,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
       disableRowSelectionOnClick={true}
       getEstimatedRowHeight={() => 60}
       getRowHeight={() => 'auto'}
-      getRowId={(row) => row['_id']}
-      loading={isPreviousData}
+      getRowId={(row) => row['id']}
       rows={(data?.results as unknown as readonly never[]) ?? []}
       rowCount={rowCountState}
       pageSizeOptions={[5, 10, 25, 50]}

@@ -2,8 +2,8 @@ import { resolve } from 'path';
 import { config } from 'dotenv';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import TurboConsole from 'unplugin-turbo-console/vite';
 import svgr from 'vite-plugin-svgr';
-import TurboConsole from 'vite-plugin-turbo-console';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
