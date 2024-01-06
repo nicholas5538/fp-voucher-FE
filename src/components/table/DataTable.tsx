@@ -71,7 +71,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
     setRowCountState((prevState) => {
       return data?.totalVouchers ? data.totalVouchers : prevState;
     });
-  }, [data?.totalVouchers, setRowCountState]);
+  }, [setRowCountState]);
 
   return (
     <DataGrid
@@ -80,7 +80,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
       disableRowSelectionOnClick={true}
       getEstimatedRowHeight={() => 60}
       getRowHeight={() => 'auto'}
-      getRowId={(row) => row['_id']}
+      getRowId={(row) => row['id']}
       rows={(data?.results as unknown as readonly never[]) ?? []}
       rowCount={rowCountState}
       pageSizeOptions={[5, 10, 25, 50]}
