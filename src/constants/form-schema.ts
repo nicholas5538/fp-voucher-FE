@@ -8,7 +8,7 @@ const voucherFormSchema = yup.object().shape({
   category: yup
     .string()
     .required()
-    .matches(/(Delivery|Dine-in|Pandago|Pandamart|Pick-up)/, {
+    .matches(/(Delivery|Dine|Pandago|Pandamart|Pickup)/, {
       excludeEmptyString: false,
     }),
   description: yup

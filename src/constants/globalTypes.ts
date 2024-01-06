@@ -2,6 +2,7 @@
 import type { ReactElement, ReactNode } from 'react';
 
 export type voucherFormValues = {
+  userId?: string;
   action: 'Create' | 'Update' | 'Delete';
   category: string;
   description: string;
