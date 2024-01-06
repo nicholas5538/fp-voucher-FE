@@ -83,8 +83,8 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     if (data.action === 'Create') {
       const createData = {
         ...data,
-        userId
-      }
+        userId,
+      };
       console.log(createData);
       return apiSubmitHandler({ data: createData, navigate, token });
     }

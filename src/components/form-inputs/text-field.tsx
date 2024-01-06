@@ -21,8 +21,8 @@ const TextFieldComponent = ({
     props.type === 'number' && name === 'minSpending'
       ? { step: 0.5 }
       : name !== 'minSpending'
-      ? { step: 1 }
-      : {};
+        ? { step: 1 }
+        : {};
 
   return (
     <Controller
@@ -43,8 +43,8 @@ const TextFieldComponent = ({
             props.type === 'number' && name === 'minSpending'
               ? (Math.round(Number(value) * 100) / 100).toFixed(2)
               : typeof value === 'string' && name === 'promoCode'
-              ? value.toUpperCase()
-              : value
+                ? value.toUpperCase()
+                : value
           }
           onChange={onChange}
           sx={{

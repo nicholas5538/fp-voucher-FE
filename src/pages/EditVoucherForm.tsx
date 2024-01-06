@@ -1,5 +1,5 @@
 import { useLoaderData } from 'react-router-dom';
-import { useQuery} from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
@@ -15,7 +15,7 @@ const EditVoucherForm = () => {
     id: string;
   };
 
-  const { data, isFetched} = useQuery({
+  const { data, isFetched } = useQuery({
     queryKey: ['voucher', id],
     queryFn: ({ signal }) => getVoucher({ id, signal, token: cookies.jwt }),
     refetchOnMount: true,
@@ -26,7 +26,15 @@ const EditVoucherForm = () => {
 
   let defaultValues = {} as unknown as voucherFormValues;
   if (isFetched && data) {
-    const { category, description, discount, minSpending, promoCode, startDate, expiryDate } = data as unknown as getVoucherData['results'][][0];
+    const {
+      category,
+      description,
+      discount,
+      minSpending,
+      promoCode,
+      startDate,
+      expiryDate,
+    } = data as unknown as getVoucherData['results'][][0];
     defaultValues = {
       action,
       id,
@@ -35,13 +43,9 @@ const EditVoucherForm = () => {
       discount,
       minSpending,
       promoCode,
-      startDate: convertToDayjs(startDate ?? new Date()).format(
-        'YYYY-MM-DD',
-      ),
-      expiryDate: convertToDayjs(expiryDate ?? new Date()).format(
-        'YYYY-MM-DD',
-      ),
-    }
+      startDate: convertToDayjs(startDate ?? new Date()).format('YYYY-MM-DD'),
+      expiryDate: convertToDayjs(expiryDate ?? new Date()).format('YYYY-MM-DD'),
+    };
   }
 
   return (

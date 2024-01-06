@@ -22,13 +22,16 @@ async function fetchGoogleProfile(
   accessToken: string,
   signal: GenericAbortSignal | undefined,
 ) {
-  return await axios.get('https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/json',
+  return await axios.get(
+    'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      signal,
     },
-    signal,
-  });
+  );
 }
 
 async function fetchJWT(
@@ -82,18 +85,11 @@ const UserProvider = ({ children }: childrenNode) => {
         refreshToken: tokens.refresh_token,
       });
       setTokenExpiryToken(new Date(tokens.expiry_date).getSeconds());
-      const { data } = await fetchGoogleProfile(
-        tokens.access_token,
-        signal,
-      );
+      const { data } = await fetchGoogleProfile(tokens.access_token, signal);
 
       const email = data.emailAddresses[0].value;
       const { givenName: googleName } = data.names[0];
-      const response = await fetchJWT(
-        email,
-        googleName,
-        signal,
-      );
+      const response = await fetchJWT(email, googleName, signal);
 
       // Set jwt cookie
       const expires = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -161,7 +157,9 @@ const UserProvider = ({ children }: childrenNode) => {
   }, [timer]);
 
   return (
-    <UserContext.Provider value={{ cookies, googleTokens, name, login, logout, userId }}>
+    <UserContext.Provider
+      value={{ cookies, googleTokens, name, login, logout, userId }}
+    >
       {children}
     </UserContext.Provider>
   );

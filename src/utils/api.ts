@@ -76,7 +76,10 @@ export const getVoucher = async ({
   return data?.results;
 };
 
-const createVoucher = (dataReceived: Partial<dataReceivedType>, token: string) => {
+const createVoucher = (
+  dataReceived: Partial<dataReceivedType>,
+  token: string,
+) => {
   delete dataReceived.action;
   delete dataReceived.id;
   void wrapperFn(
