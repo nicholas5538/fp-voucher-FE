@@ -76,8 +76,9 @@ export const getVoucher = async ({
   return data?.results;
 };
 
-const createVoucher = (dataReceived: dataReceivedType, token: string) => {
+const createVoucher = (dataReceived: Partial<dataReceivedType>, token: string) => {
   delete dataReceived.action;
+  delete dataReceived.id;
   void wrapperFn(
     fpBackend.post(`api/v1/vouchers`, dataReceived, {
       headers: { Authorization: `Bearer ${token}` },
@@ -115,8 +116,8 @@ export const apiSubmitHandler = ({ data, navigate, token }: apiSubmitArgs) => {
   ) {
     const modifiedData = {
       ...data,
-      startDate: dayjs(data.startDate).format('YYYY-MM-DD'),
-      expiryDate: dayjs(data.expiryDate).format('YYYY-MM-DD'),
+      startDate: dayjs(data.startDate).toISOString(),
+      expiryDate: dayjs(data.expiryDate).toISOString(),
     };
     return data.action === 'Create'
       ? createVoucher(modifiedData, token)
