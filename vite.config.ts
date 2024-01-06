@@ -2,7 +2,7 @@ import { resolve } from 'path';
 import { config } from 'dotenv';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import TurboConsole from 'unplugin-turbo-console/vite'
+import TurboConsole from 'unplugin-turbo-console/vite';
 import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
