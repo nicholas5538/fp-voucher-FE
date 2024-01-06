@@ -7,7 +7,7 @@ export type voucherFormValues = {
   category: string;
   description: string;
   discount: number;
-  id: string;
+  id?: string;
   minSpending: number;
   promoCode: string;
   startDate: string;

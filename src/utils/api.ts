@@ -81,7 +81,6 @@ const createVoucher = (
   token: string,
 ) => {
   delete dataReceived.action;
-  delete dataReceived.id;
   void wrapperFn(
     fpBackend.post(`api/v1/vouchers`, dataReceived, {
       headers: { Authorization: `Bearer ${token}` },
@@ -128,5 +127,5 @@ export const apiSubmitHandler = ({ data, navigate, token }: apiSubmitArgs) => {
   }
 
   sessionStorage.clear();
-  return deleteVoucher(data.id, token);
+  return deleteVoucher(data.id!, token);
 };
