@@ -31,7 +31,7 @@ type VoucherFormProps = {
 
 const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   useTitle(`${defaultValues.action} Foodpanda Voucher`);
-  const { cookies } = useUserContext();
+  const { cookies, userId } = useUserContext();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
@@ -81,7 +81,12 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
     const token = cookies.jwt;
     if (data.action === 'Create') {
-      return apiSubmitHandler({ data, navigate, token });
+      const createData = {
+        ...data,
+        userId
+      }
+      console.log(createData);
+      return apiSubmitHandler({ data: createData, navigate, token });
     }
     if (data.action === 'Delete') {
       return apiSubmitHandler({
