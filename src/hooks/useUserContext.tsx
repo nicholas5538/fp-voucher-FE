@@ -46,9 +46,12 @@ async function fetchJWT(
         email,
         name,
       },
-      { signal },
+      {
+        withCredentials: true,
+        signal },
     )
     .catch((err) => console.error(err));
+
 }
 
 const UserContext = createContext(null as unknown as TuserContext);
@@ -86,23 +89,21 @@ const UserProvider = ({ children }: childrenNode) => {
       });
       setTokenExpiryToken(new Date(tokens.expiry_date).getSeconds());
       const { data } = await fetchGoogleProfile(tokens.access_token, signal);
-
       const email = data.emailAddresses[0].value;
       const { givenName: googleName } = data.names[0];
+      // @ts-ignore
       const response = await fetchJWT(email, googleName, signal);
 
       // Set jwt cookie
-      const expires = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
-      setCookie('jwt', response!.headers['authorization'], {
-        expires,
-        path: '/',
+      setCookie('jwt', response!.data.access_token, {
+        expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        httpOnly: true,
         sameSite: 'none',
         secure: true,
       });
 
       setName(googleName);
       setLocalStorageItem('name', name);
-      setLocalStorageItem('token', tokens.access_token);
       setUserId(response!.data.userId);
       return () => abort();
     },
@@ -137,7 +138,7 @@ const UserProvider = ({ children }: childrenNode) => {
   useEffect(() => {
     const fetchRefreshTokens = async () => {
       const { data: tokens } = await axios.post(
-        'http://localhost:3500/auth/google/refresh-token',
+        'https://fp-capstone-backend.onrender.com/auth/google/refresh-token',
       );
       setGoogleToken({
         accessToken: tokens.access_token,
@@ -152,7 +153,7 @@ const UserProvider = ({ children }: childrenNode) => {
       });
       setTimer(0);
     } else {
-      setTimeout(() => setTimer((prevTime) => prevTime++), 1000);
+      setTimeout(() => setTimer((prevTime) => ++prevTime), 1000);
     }
   }, [timer]);
 
