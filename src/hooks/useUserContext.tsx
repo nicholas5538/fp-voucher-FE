@@ -46,6 +46,9 @@ const UserProvider = ({ children }: childrenNode) => {
         },
         {
           signal,
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
         },
       );
 
