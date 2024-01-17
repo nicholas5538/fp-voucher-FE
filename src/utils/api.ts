@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosResponse } from 'axios';
+import axios, { AxiosError, type AxiosResponse, type GenericAbortSignal } from 'axios';
 import type { NavigateFunction } from 'react-router-dom';
 import type {
   dataReceivedType,
@@ -45,6 +45,48 @@ const wrapperFn = async <T>(callBack: Promise<AxiosResponse<T>>) => {
   return data;
 };
 
+export async function fetchGoogleProfile(
+  accessToken: string,
+  signal: GenericAbortSignal | undefined,
+) {
+  const url = 'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses';
+  return await axios.get(
+    'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses',
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+      signal,
+    },
+  );
+}
+
+export async function fetchJWT(
+  email: string,
+  name: string,
+  signal: GenericAbortSignal | undefined,
+) {
+  return await axios
+    .post(
+      baseURL + 'user',
+      {
+        email,
+        name,
+      },
+      {
+        withCredentials: true,
+        signal },
+    )
+    .catch((reason) => {
+      if (reason instanceof AxiosError) {
+        if (reason.response?.status === 400) throw new Error('Bad request');
+        throw new Error(`Request failed. Status: ${reason.response?.status}`);
+      }
+      throw new Error(`Something went wrong. Reason: ${reason}`);
+    });
+}
+
 export const getVouchers: getVouchersFn = (options) => {
   const { offset, limit, signal, token } = options;
   const url = `api/v1/vouchers?offset=${offset}&limit=${limit}`;
@@ -73,7 +115,7 @@ export const getVoucher = async ({
       signal,
     }),
   );
-  return data?.results;
+  return data ?? {};
 };
 
 const createVoucher = (
