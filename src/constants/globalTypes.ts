@@ -24,7 +24,7 @@ export type getVouchersData = Omit<
 
 export type getVoucherData = {
   _links: Record<string, string>;
-  results: {
+  results: [{
     id: string;
     category: string;
     description: string;
@@ -33,7 +33,7 @@ export type getVoucherData = {
     promoCode: string;
     startDate: Date;
     expiryDate: Date;
-  };
+  }, length: number];
   'X-Total-count': number;
 };
 

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import AnimatedLayout from '../components/animated-layout';
 import MemoVoucherForm from '../components/voucher-form/MemoVoucherForm';
 import SkeletonForm from '../components/voucher-form/SkeletonForm';
-import { getVoucherData, voucherFormValues } from '../constants/globalTypes';
+import { voucherFormValues } from '../constants/globalTypes';
 import { useUserContext } from '../hooks/useUserContext';
 import { getVoucher } from '../utils/api';
 import { convertToDayjs } from '../utils/date';
@@ -24,29 +24,16 @@ const EditVoucherForm = () => {
     gcTime: 15 * (60 * 1000),
   });
 
-  let defaultValues = {} as unknown as voucherFormValues;
-  if (isFetched && data) {
-    const {
-      category,
-      description,
-      discount,
-      minSpending,
-      promoCode,
-      startDate,
-      expiryDate,
-    } = data as unknown as getVoucherData['results'][][0];
-    defaultValues = {
-      action,
-      id,
-      category,
-      description,
-      discount,
-      minSpending,
-      promoCode,
-      startDate: convertToDayjs(startDate ?? new Date()).format('YYYY-MM-DD'),
-      expiryDate: convertToDayjs(expiryDate ?? new Date()).format('YYYY-MM-DD'),
-    };
-  }
+  const voucherData = data?.results[0];
+  const defaultValues = {
+    ...voucherData,
+    action,
+    id,
+    startDate: convertToDayjs(voucherData?.startDate ?? new Date()).format('YYYY-MM-DD'),
+    expiryDate: convertToDayjs(voucherData?.expiryDate ?? new Date()).format('YYYY-MM-DD')
+  } as voucherFormValues
+
+  // console.log(defaultValues);
 
   return (
     <AnimatedLayout className='form-container'>

@@ -1,13 +1,14 @@
 import axios, { type GenericAbortSignal } from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import type { childrenNode } from '../constants/globalTypes';
+import { fetchJWT, fetchGoogleProfile } from '../utils/api';
 import {
   getLocalStorageItem,
   setLocalStorageItem,
 } from '../utils/localStorage';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import { useCookies } from 'react-cookie';
 
 type TuserContext = {
   cookies: Record<string, string>;
@@ -18,41 +19,6 @@ type TuserContext = {
   userId: string;
 };
 
-async function fetchGoogleProfile(
-  accessToken: string,
-  signal: GenericAbortSignal | undefined,
-) {
-  return await axios.get(
-    'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: 'application/json',
-      },
-      signal,
-    },
-  );
-}
-
-async function fetchJWT(
-  email: string,
-  name: string,
-  signal: GenericAbortSignal | undefined,
-) {
-  return await axios
-    .post(
-      'https://fp-capstone-backend.onrender.com/user',
-      {
-        email,
-        name,
-      },
-      {
-        withCredentials: true,
-        signal },
-    )
-    .catch((err) => console.error(err));
-
-}
 
 const UserContext = createContext(null as unknown as TuserContext);
 
