@@ -129,13 +129,6 @@ const UserProvider = ({ children }: childrenNode) => {
   };
 
   useEffect(() => {
-    const name = getLocalStorageItem('name');
-    if (cookies.jwt && name) {
-      setName(name);
-    }
-  }, []);
-
-  useEffect(() => {
     const fetchRefreshTokens = async () => {
       const { data: tokens } = await axios.post(
         'https://fp-capstone-backend.onrender.com/auth/google/refresh-token',
@@ -155,7 +148,12 @@ const UserProvider = ({ children }: childrenNode) => {
     } else {
       setTimeout(() => setTimer((prevTime) => ++prevTime), 1000);
     }
-  }, [timer]);
+
+    const name = getLocalStorageItem('name');
+    if (cookies.jwt && name) {
+      setName(name);
+    }
+  }, []);
 
   return (
     <UserContext.Provider
