@@ -97,7 +97,7 @@ const UserProvider = ({ children }: childrenNode) => {
       // Set jwt cookie
       setCookie('jwt', response!.data.access_token, {
         expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'none',
         secure: true,
       });
