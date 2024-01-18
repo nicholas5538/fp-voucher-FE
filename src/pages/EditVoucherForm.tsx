@@ -29,9 +29,13 @@ const EditVoucherForm = () => {
     ...voucherData,
     action,
     id,
-    startDate: convertToDayjs(voucherData?.startDate ?? new Date()).format('YYYY-MM-DD'),
-    expiryDate: convertToDayjs(voucherData?.expiryDate ?? new Date()).format('YYYY-MM-DD')
-  } as voucherFormValues
+    startDate: convertToDayjs(voucherData?.startDate ?? new Date()).format(
+      'YYYY-MM-DD',
+    ),
+    expiryDate: convertToDayjs(voucherData?.expiryDate ?? new Date()).format(
+      'YYYY-MM-DD',
+    ),
+  } as voucherFormValues;
 
   // console.log(defaultValues);
 

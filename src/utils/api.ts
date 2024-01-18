@@ -1,4 +1,8 @@
-import axios, { AxiosError, type AxiosResponse, type GenericAbortSignal } from 'axios';
+import axios, {
+  AxiosError,
+  type AxiosResponse,
+  type GenericAbortSignal,
+} from 'axios';
 import type { NavigateFunction } from 'react-router-dom';
 import type {
   dataReceivedType,
@@ -12,6 +16,14 @@ type apiSubmitArgs = {
   data: voucherFormValues | Pick<voucherFormValues, 'action' | 'id'>;
   navigate: NavigateFunction;
   token: string;
+};
+
+type googleTokens = {
+  msg: string;
+  access_token: string;
+  refresh_token: string;
+  id_token: string;
+  expiry_date: string;
 };
 
 type getVouchersFn = (options: {
@@ -34,8 +46,8 @@ const fpBackend = axios.create({
   },
 });
 
-const wrapperFn = async <T>(callBack: Promise<AxiosResponse<T>>) => {
-  const { data } = await callBack.catch((reason: unknown) => {
+const wrapperFn = async <T>(callback: Promise<AxiosResponse<T>>) => {
+  const { data } = await callback.catch((reason: unknown) => {
     if (reason instanceof AxiosError) {
       if (reason.response?.status === 400) throw new Error('Bad request');
       throw new Error(`Request failed. Status: ${reason.response?.status}`);
@@ -45,28 +57,51 @@ const wrapperFn = async <T>(callBack: Promise<AxiosResponse<T>>) => {
   return data;
 };
 
-export async function fetchGoogleProfile(
+export const fetchGoogleTokens = (
+  code: string,
+  signal: GenericAbortSignal | undefined,
+) => {
+  return wrapperFn<googleTokens>(
+    axios.post(
+      'https://fp-capstone-backend.onrender.com/auth/google',
+      {
+        code,
+      },
+      {
+        signal,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+    ),
+  );
+};
+
+export const fetchRefreshGoogleTokens = () => {
+  const url = baseURL + 'auth/google/refresh-token';
+  return wrapperFn<googleTokens>(axios.post(url));
+};
+
+export const fetchGoogleProfile = async (
   accessToken: string,
   signal: GenericAbortSignal | undefined,
-) {
-  const url = 'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses';
-  return await axios.get(
-    'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses',
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: 'application/json',
-      },
-      signal,
+) => {
+  const url =
+    'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses';
+  return await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/json',
     },
-  );
-}
+    signal,
+  });
+};
 
-export async function fetchJWT(
+export const fetchJWT = async (
   email: string,
   name: string,
   signal: GenericAbortSignal | undefined,
-) {
+) => {
   return await axios
     .post(
       baseURL + 'user',
@@ -76,7 +111,8 @@ export async function fetchJWT(
       },
       {
         withCredentials: true,
-        signal },
+        signal,
+      },
     )
     .catch((reason) => {
       if (reason instanceof AxiosError) {
@@ -85,7 +121,7 @@ export async function fetchJWT(
       }
       throw new Error(`Something went wrong. Reason: ${reason}`);
     });
-}
+};
 
 export const getVouchers: getVouchersFn = (options) => {
   const { offset, limit, signal, token } = options;

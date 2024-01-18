@@ -24,16 +24,19 @@ export type getVouchersData = Omit<
 
 export type getVoucherData = {
   _links: Record<string, string>;
-  results: [{
-    id: string;
-    category: string;
-    description: string;
-    discount: number;
-    minSpending: number;
-    promoCode: string;
-    startDate: Date;
-    expiryDate: Date;
-  }, length: number];
+  results: [
+    {
+      id: string;
+      category: string;
+      description: string;
+      discount: number;
+      minSpending: number;
+      promoCode: string;
+      startDate: Date;
+      expiryDate: Date;
+    },
+    length: number,
+  ];
   'X-Total-count': number;
 };
 
