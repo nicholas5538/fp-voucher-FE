@@ -40,7 +40,7 @@ const EditVoucherForm = () => {
   // console.log(defaultValues);
 
   return (
-    <AnimatedLayout className="form-container">
+    <AnimatedLayout className='form-container'>
       {!isFetched ? (
         <SkeletonForm />
       ) : (
