@@ -16,8 +16,8 @@ const EditVoucherForm = () => {
   };
 
   const { data, isFetched } = useQuery({
-    queryKey: ['voucher', id],
-    queryFn: ({ signal }) => getVoucher({ id, signal, token: cookies.jwt }),
+    queryKey: ['voucher', { id, token: cookies.jwt }],
+    queryFn: ({ signal }) => getVoucher({ id, signal, token: cookies.jwt! }),
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     staleTime: 15000,
@@ -40,7 +40,7 @@ const EditVoucherForm = () => {
   // console.log(defaultValues);
 
   return (
-    <AnimatedLayout className='form-container'>
+    <AnimatedLayout className="form-container">
       {!isFetched ? (
         <SkeletonForm />
       ) : (
