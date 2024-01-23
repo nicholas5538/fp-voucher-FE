@@ -1,29 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Paper from '@mui/material/Paper';
-import clsx from 'clsx';
 import { motion, MotionConfig } from 'framer-motion';
-import Lottie, { type LottieRefCurrentProps } from 'lottie-light-react';
-import { memo, useEffect, useRef, useState } from 'react';
-import { SubmitHandler, useForm, type Resolver } from 'react-hook-form';
+import type { LottieRefCurrentProps } from 'lottie-light-react';
+import { memo, useEffect, useRef } from 'react';
+import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useMeasure from 'react-use-measure';
 import AlertComponent from '../alert';
-import downArrow from '../../assets/down_arrow.json';
-import ButtonComponent from '../button';
-import { actionLabels, categoryLabels } from '../../constants/form-labels';
 import voucherFormSchema from '../../constants/form-schema';
 import type { voucherFormValues } from '../../constants/globalTypes';
-import DateSelector from '../form-inputs/date-picker';
-import RadioInputs from '../form-inputs/radio-inputs';
-import TextFieldComponent from '../form-inputs/text-field';
+import FormAnimation from './FormAnimation';
+import FormHeader from './FormHeader';
+import FormButtonsModals from './FormButtonsModals';
+import FormInputs from './FormInputs';
 import { useUserContext } from '../../hooks/useUserContext';
 import useTitle from '../../hooks/useTitle';
-import icons from './icons';
-import ModalComponent from '../modal';
 import { apiSubmitHandler } from '../../utils/api';
-import VoucherCard from '../voucher-card';
 
 type VoucherFormProps = {
   defaultValues: voucherFormValues;
@@ -31,10 +24,8 @@ type VoucherFormProps = {
 
 const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   useTitle(`${defaultValues.action} Foodpanda Voucher`);
-  const { cookies, userId } = useUserContext();
+  const { cookies, userInfo } = useUserContext();
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(() => false);
-  const [openDeleteModal, setDeleteModal] = useState(() => false);
   const [ref, { height }] = useMeasure();
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   lottieRef.current?.setSpeed(0.6);
@@ -44,14 +35,7 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     handleSubmit,
     reset,
     watch,
-    formState: {
-      dirtyFields,
-      errors,
-      isDirty,
-      isSubmitting,
-      isSubmitSuccessful,
-      isValid,
-    },
+    formState: { errors, isDirty, isSubmitting, isSubmitSuccessful, isValid },
   } = useForm<voucherFormValues>({
     defaultValues: defaultValues,
     mode: 'all',
@@ -79,39 +63,35 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
   const disabledWatchAction = watchAction === 'Delete';
 
   const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
-    const token = cookies.jwt;
+    const token = cookies.jwt!;
     if (data.action === 'Create') {
       const createData = {
         ...data,
-        userId,
+        userId: userInfo.userId,
       };
-      console.log(createData);
-      return apiSubmitHandler({ data: createData, navigate, token });
-    }
-    if (data.action === 'Delete') {
-      return apiSubmitHandler({
+      apiSubmitHandler({ data: createData, navigate, token });
+    } else if (data.action === 'Delete') {
+      apiSubmitHandler({
         data: { action: data.action, id: data.id },
         navigate,
         token,
       });
+    } else {
+      const modifiedData: Record<string, unknown> = {
+        action: data.action,
+        id: data.id,
+        expiryDate: data.expiryDate,
+        startDate: data.startDate,
+      };
+
+      apiSubmitHandler({
+        data: modifiedData as voucherFormValues,
+        navigate,
+        token,
+      });
     }
-    const dirtyFieldsList = Object.keys(dirtyFields);
-    const modifiedData: Record<string, unknown> = {
-      action: data.action,
-      id: data.id,
-      expiryDate: data.expiryDate,
-      startDate: data.startDate,
-    };
 
-    dirtyFieldsList.forEach((dirtyField) => {
-      modifiedData[dirtyField] = data[dirtyField as keyof voucherFormValues];
-    });
-
-    return apiSubmitHandler({
-      data: modifiedData as voucherFormValues,
-      navigate,
-      token: cookies.jwt,
-    });
+    return setTimeout(() => navigate('/vouchers', { replace: true }), 4000);
   };
 
   return (
@@ -120,16 +100,10 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
         elevation={3}
         className='mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl'
       >
-        <div
-          className={clsx(
-            'border-0 border-b border-solid border-gray-700 pb-2',
-            { 'mb-0': isSubmitSuccessful, 'mb-4': !isSubmitSuccessful },
-          )}
-        >
-          <h2 className='ml-3 text-2xl font-semibold tracking-wider text-gray-700 xl:text-3xl'>
-            {watchAction} voucher
-          </h2>
-        </div>
+        <FormHeader
+          isSubmitSuccessful={isSubmitSuccessful}
+          watchAction={watchAction}
+        />
         <motion.div animate={{ height }} className='overflow-y-hidden'>
           <div ref={ref}>
             <AlertComponent
@@ -141,161 +115,30 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
               text={`The voucher has been successfully ${watchAction.toLowerCase()}d! You'll be redirected shortly.`}
             />
             <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
-              {watchAction !== 'Create' && (
-                <RadioInputs
-                  control={control}
-                  label='Select an action'
-                  labelsObject={actionLabels}
-                  name='action'
-                />
-              )}
-              <RadioInputs
+              <FormInputs
                 control={control}
-                disabled={disabledWatchAction}
-                label='Select a category'
-                labelsObject={categoryLabels}
-                name='category'
+                disabledWatchAction={disabledWatchAction}
+                errors={errors}
+                watchAction={watchAction}
               />
-              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-3 md:space-x-4 md:space-y-0'>
-                <TextFieldComponent
-                  className='md:col-span-2'
-                  control={control}
-                  disabled={disabledWatchAction}
-                  error={!!errors.description}
-                  helperText={errors.description?.message}
-                  icon={icons.desc}
-                  label='Description'
-                  multiline
-                  maxRows={2}
-                  name='description'
-                  placeholder='5% off pick-up on Pizza Hut'
-                  type='text'
-                />
-                <TextFieldComponent
-                  className='col-span-1'
-                  control={control}
-                  disabled={disabledWatchAction}
-                  error={!!errors.promoCode}
-                  helperText={errors.promoCode?.message}
-                  icon={icons.discount}
-                  label='Promo code'
-                  name='promoCode'
-                  placeholder='PIZZAHUT5'
-                  type='text'
-                />
-              </div>
-              <div className='mb-6 grid grid-cols-1 space-y-6 md:grid-cols-2 md:space-x-4 md:space-y-0'>
-                <TextFieldComponent
-                  className='col-span-1'
-                  control={control}
-                  disabled={disabledWatchAction}
-                  error={!!errors.minSpending}
-                  helperText={errors.minSpending?.message}
-                  icon={icons.attachMoney}
-                  label='Minimum spending'
-                  name='minSpending'
-                  type='number'
-                />
-                <TextFieldComponent
-                  className='col-span-1'
-                  control={control}
-                  disabled={disabledWatchAction}
-                  error={!!errors.discount}
-                  helperText={errors.discount?.message}
-                  icon={icons.percent}
-                  label='Discount'
-                  name='discount'
-                  type='number'
-                />
-              </div>
-              <div className='mb-6 flex flex-col items-start space-y-6 md:flex-row md:items-center md:justify-between md:space-x-5 md:space-y-0'>
-                <DateSelector
-                  action={watchAction}
-                  control={control}
-                  disabled={disabledWatchAction}
-                  disablePast={false}
-                  title='Select start date'
-                  name='startDate'
-                />
-                <DateSelector
-                  action={watchAction}
-                  control={control}
-                  disabled={disabledWatchAction}
-                  disablePast={true}
-                  title='Select expiry date'
-                  name='expiryDate'
-                />
-              </div>
-              <ButtonGroup
-                color='secondary'
-                aria-label='contained secondary button group'
-              >
-                {disabledWatchAction ? (
-                  <>
-                    <ButtonComponent
-                      isLoadingButton={false}
-                      label='Delete'
-                      onClick={() => setDeleteModal(true)}
-                      startIcon={icons.delete}
-                    />
-                    <ModalComponent
-                      modalTitle='Are you sure you want to delete the voucher?'
-                      modalDesc='Warning, all actions are irreversible.'
-                      clickHandler={() => {
-                        handleSubmit(onSubmit)();
-                        setDeleteModal((prevState) => !prevState);
-                      }}
-                      openModal={openDeleteModal}
-                      setOpenModal={setDeleteModal}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <ButtonComponent
-                      disabled={!isDirty || !isValid}
-                      isLoadingButton={true}
-                      isSubmitting={isSubmitting}
-                      label='Confirm'
-                      startIcon={icons.send}
-                    />
-                    <ButtonComponent
-                      disabled={!isDirty}
-                      isLoadingButton={false}
-                      label='Reset'
-                      onClick={() => reset()}
-                      startIcon={icons.reset}
-                    />
-                  </>
-                )}
-                <ButtonComponent
-                  isLoadingButton={false}
-                  label='Cancel'
-                  onClick={() => setOpenModal(true)}
-                  startIcon={icons.cancel}
-                />
-              </ButtonGroup>
-              <ModalComponent
-                modalTitle='Are you sure you want to cancel?'
-                modalDesc='Warning, all changes are not saved upon clicking on Yes.'
-                clickHandler={() => navigate('/')}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
+              <FormButtonsModals
+                disabledWatchAction={disabledWatchAction}
+                handleSubmit={handleSubmit}
+                navigate={navigate}
+                isDirty={isDirty}
+                isValid={isValid}
+                isSubmitting={isSubmitting}
+                onSubmit={onSubmit}
+                reset={reset}
               />
             </form>
           </div>
         </motion.div>
       </Paper>
-      <aside className='hidden w-[25%] rounded-lg xl:flex xl:w-3/6 xl:max-w-md xl:flex-col xl:items-center xl:justify-around'>
-        <h1 className='cursor-default rounded-md bg-pink-400 px-6 py-4 text-center font-mont text-2xl text-gray-100 xl:text-3xl'>
-          Voucher
-        </h1>
-        <Lottie
-          lottieRef={lottieRef}
-          className='max-w-[200px]'
-          animationData={downArrow}
-        />
-        <VoucherCard voucherParticulars={watchVoucherCard} />
-      </aside>
+      <FormAnimation
+        lottieRef={lottieRef}
+        watchVoucherCard={watchVoucherCard}
+      />
     </MotionConfig>
   );
 };

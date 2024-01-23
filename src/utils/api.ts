@@ -188,8 +188,7 @@ const deleteVoucher = (id: string, token: string) => {
   );
 };
 
-export const apiSubmitHandler = ({ data, navigate, token }: apiSubmitArgs) => {
-  setTimeout(() => navigate('/vouchers', { replace: true }), 4000);
+export const apiSubmitHandler = ({ data, token }: apiSubmitArgs) => {
   if (
     'expiryDate' in data &&
     (data.action === 'Create' || data.action === 'Update')
