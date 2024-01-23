@@ -11,8 +11,8 @@ import AlertComponent from '../alert';
 import voucherFormSchema from '../../constants/form-schema';
 import type { voucherFormValues } from '../../constants/globalTypes';
 import FormAnimation from './FormAnimation';
-import FormHeader from './FormHeader';
 import FormButtonsModals from './FormButtonsModals';
+import FormHeader from './FormHeader';
 import FormInputs from './FormInputs';
 import { useUserContext } from '../../hooks/useUserContext';
 import useTitle from '../../hooks/useTitle';
@@ -98,23 +98,23 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     <MotionConfig transition={{ duration: 0.4 }}>
       <Paper
         elevation={3}
-        className='mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl'
+        className="mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl"
       >
         <FormHeader
           isSubmitSuccessful={isSubmitSuccessful}
           watchAction={watchAction}
         />
-        <motion.div animate={{ height }} className='overflow-y-hidden'>
+        <motion.div animate={{ height }} className="overflow-y-hidden">
           <div ref={ref}>
             <AlertComponent
-              className='mb-4 px-2'
+              className="mb-4 px-2"
               iconMapping={{
-                success: <CheckCircleOutlineIcon fontSize='inherit' />,
+                success: <CheckCircleOutlineIcon fontSize="inherit" />,
               }}
               shouldRender={isSubmitSuccessful}
               text={`The voucher has been successfully ${watchAction.toLowerCase()}d! You'll be redirected shortly.`}
             />
-            <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
+            <form onSubmit={handleSubmit(onSubmit)} className="px-3">
               <FormInputs
                 control={control}
                 disabledWatchAction={disabledWatchAction}
