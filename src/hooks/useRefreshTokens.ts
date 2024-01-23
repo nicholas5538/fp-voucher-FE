@@ -1,30 +1,27 @@
-import { useEffect, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import { fetchRefreshGoogleTokens } from '../utils/api';
 import { getLocalStorageItem } from '../utils/localStorage';
+import type { User } from './useUserContext';
 
 type RefreshTokens = {
   cookies: { jwt?: string };
-  setName: Dispatch<SetStateAction<string>>;
-  setTimer: Dispatch<SetStateAction<number>>;
-  setTokenExpiryTime: Dispatch<SetStateAction<number>>;
-  timer: number;
+  setUserInfo: Dispatch<SetStateAction<User>>;
   tokenExpiryTime: number;
 };
 
 export default function useRefreshTokens(props: RefreshTokens) {
-  const {
-    cookies,
-    setName,
-    setTimer,
-    setTokenExpiryTime,
-    timer,
-    tokenExpiryTime,
-  } = props;
+  const { cookies, setUserInfo, tokenExpiryTime } = props;
+  const [timer, setTimer] = useState(0);
 
   useEffect(() => {
     async function getRefreshTokens() {
       const { expiry_date } = await fetchRefreshGoogleTokens();
-      return setTokenExpiryTime(new Date(expiry_date).getSeconds());
+      setUserInfo((prevState) => {
+        return {
+          ...prevState,
+          tokenExpiryTime: new Date(expiry_date).getSeconds(),
+        };
+      });
     }
 
     if (timer > tokenExpiryTime) {
@@ -35,7 +32,9 @@ export default function useRefreshTokens(props: RefreshTokens) {
 
     const name = getLocalStorageItem('name');
     if (cookies.jwt && name) {
-      setName(name);
+      setUserInfo((prevState) => {
+        return { ...prevState, name };
+      });
     }
   }, []);
 }

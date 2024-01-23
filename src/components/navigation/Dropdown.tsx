@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import clsx from 'clsx';
 import { useState, type Dispatch, type SetStateAction } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../hooks/useUserContext';
 import ModalComponent from '../modal';
 import { menuItems } from './MenuItems';
@@ -14,12 +14,12 @@ type dropdownProps = {
 const Dropdown = ({ open, setOpen }: dropdownProps) => {
   const { logout } = useUserContext();
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
   const liElements = menuItems.map(({ Icon, id, url, text }) => {
     const clickHandler = () => {
-      {
-        id === 3 && logout();
-      }
+      id === 3 && logout();
       setOpen((prevState) => !prevState);
+      return navigate('/');
     };
 
     return (

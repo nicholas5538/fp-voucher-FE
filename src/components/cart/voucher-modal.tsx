@@ -18,7 +18,6 @@ import VoucherIcon from '../../assets/voucher.svg';
 import type { getVouchersData } from '../../constants/globalTypes';
 import { useUserContext } from '../../hooks/useUserContext';
 import { getVouchers } from '../../utils/api';
-import { formatDate } from '../../utils/date';
 import VoucherCard from './cart-voucher-card';
 import PromoCodeField from './promo-code-field';
 
@@ -40,6 +39,7 @@ const StyledChip = styled(Chip)<{ $isActive: boolean }>`
   background-color: ${({ $isActive }) =>
     $isActive ? '#e21b70' : 'transparent'};
   color: ${({ $isActive }) => ($isActive ? 'white' : 'inherit')};
+
   :hover {
     color: white;
     background-color: rgb(158 18 78) !important;
@@ -90,9 +90,9 @@ const VoucherModal = ({
   }, [promoCode, resetField, setValue]);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['vouchers', { offset: 0, limit: 100, token: cookies.jwt }],
+    queryKey: ['vouchers', { offset: 0, limit: 100, token: cookies.jwt! }],
     queryFn: ({ signal }) =>
-      getVouchers({ offset: 0, limit: 100, signal, token: cookies.jwt }),
+      getVouchers({ offset: 0, limit: 100, signal, token: cookies.jwt! }),
   });
 
   const pickUpVouchers = data?.results.filter(
