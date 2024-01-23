@@ -39,9 +39,9 @@ const CartAmount = ({
   const { cookies } = useUserContext();
   const [open, setOpen] = useState(false);
   const { data } = useQuery({
-    queryKey: ['vouchers', { offset: 0, limit: 200 }],
+    queryKey: ['vouchers', { offset: 0, limit: 200, token: cookies.jwt }],
     queryFn: ({ signal }) =>
-      getVouchers({ offset: 0, limit: 200, signal, token: cookies.jwt }),
+      getVouchers({ offset: 0, limit: 200, signal, token: cookies.jwt! }),
     staleTime: 5 * 1000,
     gcTime: 5 * 60 * 1000,
     retry: 2,

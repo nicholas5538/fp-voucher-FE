@@ -3,6 +3,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import type { CookieSetOptions } from '../constants/globalTypes';
 import { fetchGoogleProfile, fetchGoogleTokens, fetchJWT } from '../utils/api';
 import { setLocalStorageItem } from '../utils/localStorage';
+import type { User } from './useUserContext';
 
 type LoginProps = {
   setCookie: (
@@ -10,23 +11,14 @@ type LoginProps = {
     value: any,
     options?: CookieSetOptions | undefined,
   ) => void;
-  setTokenExpiryTime: Dispatch<SetStateAction<number>>;
-  setName: Dispatch<SetStateAction<string>>;
-  setUserId: Dispatch<SetStateAction<string>>;
+  setUserInfo: Dispatch<SetStateAction<User>>;
 };
-export default function useLogin({
-  setCookie,
-  setName,
-  setTokenExpiryTime,
-  setUserId,
-}: LoginProps) {
+export default function useLogin({ setCookie, setUserInfo }: LoginProps) {
   return useGoogleLogin({
     onSuccess: async ({ code }) => {
       const { signal } = new AbortController();
       const { access_token, refresh_token, expiry_date } =
         await fetchGoogleTokens(code, signal);
-
-      setTokenExpiryTime(new Date(expiry_date).getSeconds());
 
       const { data } = await fetchGoogleProfile(access_token, signal);
       const email = data.emailAddresses[0].value;
@@ -42,9 +34,12 @@ export default function useLogin({
         secure: true,
       });
 
-      setName(givenName);
+      setUserInfo({
+        name: givenName,
+        userId: response!.data.userId,
+        tokenExpiryTime: new Date(expiry_date).getSeconds(),
+      });
       setLocalStorageItem('name', givenName);
-      setUserId(response!.data.userId);
     },
     onError: (error) => {
       throw new Error(`Login Failed: ${error.error_description}`);

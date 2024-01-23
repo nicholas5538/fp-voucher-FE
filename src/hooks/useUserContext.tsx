@@ -5,12 +5,23 @@ import useLogin from './useLogin';
 import useRefreshTokens from './useRefreshTokens';
 import useLogout from './useLogout';
 
+export type User = {
+  name: string;
+  userId: string;
+  tokenExpiryTime: number;
+};
+
 type UserContextType = {
   cookies: { jwt?: string | undefined };
-  name: string;
+  userInfo: User;
   login(): void;
   logout(): void;
-  userId: string;
+};
+
+export const initialState: User = {
+  name: '',
+  userId: '',
+  tokenExpiryTime: 0,
 };
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -24,30 +35,22 @@ export function useUserContext() {
 }
 
 export default function UserProvider({ children }: childrenNode) {
-  const [name, setName] = useState('');
-  const [userId, setUserId] = useState('');
-  const [timer, setTimer] = useState(0);
-  const [tokenExpiryTime, setTokenExpiryTime] = useState(0);
+  const [userInfo, setUserInfo] = useState<User>(initialState);
   const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
-  const login = useLogin({ setCookie, setName, setTokenExpiryTime, setUserId });
+  const login = useLogin({ setCookie, setUserInfo });
   const logout = useLogout({
     removeCookie,
-    setName,
-    setUserId,
-    setTokenExpiryTime,
+    setUserInfo,
   });
 
   useRefreshTokens({
     cookies,
-    setName,
-    setTimer,
-    setTokenExpiryTime,
-    timer,
-    tokenExpiryTime,
+    setUserInfo,
+    tokenExpiryTime: userInfo.tokenExpiryTime,
   });
 
   return (
-    <UserContext.Provider value={{ cookies, name, login, logout, userId }}>
+    <UserContext.Provider value={{ cookies, userInfo, login, logout }}>
       {children}
     </UserContext.Provider>
   );

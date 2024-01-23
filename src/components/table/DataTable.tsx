@@ -36,7 +36,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
       getVouchers({
         ...paginationSettings,
         signal,
-        token: cookies.jwt,
+        token: cookies.jwt!,
       }),
     gcTime: 2 * 60 * 1000,
     retry: 2,

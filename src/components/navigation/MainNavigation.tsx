@@ -38,6 +38,7 @@ const StyledNavLink = styled(NavLink)`
     transform: scale(1.1);
     transition: transform 330ms ease-in-out;
   }
+
   &:hover ${StyledCircleBadge} {
     background-color: rgb(243, 168, 200);
     transform: scale(1.1);
@@ -48,10 +49,14 @@ const StyledNavLink = styled(NavLink)`
 const MainNavigation = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { cookies, name, login } = useUserContext();
+  const { cookies, userInfo, login } = useUserContext();
   const navigate = useNavigate();
   useOutsideAlerter(dropdownRef, setOpen);
 
+  const username = cookies.jwt ? userInfo.name.toUpperCase() : 'SIGN IN';
+  const onClick = cookies.jwt
+    ? () => setOpen((prevState) => !prevState)
+    : () => login();
   const cartClick = cookies.jwt ? () => navigate('carts') : () => login();
 
   return (
@@ -63,16 +68,12 @@ const MainNavigation = () => {
         >
           <button
             className='flex h-16 cursor-pointer items-center space-x-2 border-0 bg-transparent lg:px-4'
-            onClick={
-              cookies.jwt
-                ? () => setOpen((prevState) => !prevState)
-                : () => login()
-            }
+            onClick={onClick}
             type='button'
           >
             <Profile />
             <span className='hidden truncate text-center font-mont text-xs font-bold text-black lg:block'>
-              {cookies.jwt ? `${name.toUpperCase()}` : 'SIGN IN'}
+              {username}
             </span>
             {cookies.jwt && (
               <ExpandMoreRoundedIcon
