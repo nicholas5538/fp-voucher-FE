@@ -36,7 +36,7 @@
     "@vitejs/plugin-react-swc": "3.5.0",
     "add": "2.0.6",
     "autoprefixer": "10.4.16",
-    "axios": "1.6.5",
+    "axios": "1.6.7",
     "clsx": "2.1.0",
     "cssnano": "6.0.3",
     "dayjs": "1.11.10",
