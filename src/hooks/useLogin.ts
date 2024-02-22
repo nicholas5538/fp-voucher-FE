@@ -36,7 +36,7 @@ export default function useLogin({ setCookie, setUserInfo }: LoginProps) {
 
       setUserInfo({
         name: givenName,
-        userId: response!.data.userId,
+        userId: response.headers.get('userId'),
         tokenExpiryTime: new Date(expiry_date).getSeconds(),
       });
       setLocalStorageItem('name', givenName);
