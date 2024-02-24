@@ -3,7 +3,6 @@ import axios, {
   type AxiosResponse,
   type GenericAbortSignal,
 } from 'axios';
-import type { NavigateFunction } from 'react-router-dom';
 import type {
   dataReceivedType,
   dataType,
@@ -12,10 +11,13 @@ import type {
 } from '../constants/globalTypes';
 import dayjs from 'dayjs';
 
-type apiSubmitArgs = {
-  data: voucherFormValues | Pick<voucherFormValues, 'action' | 'id'>;
-  navigate: NavigateFunction;
+type modifyDataArgs = {
+  data: Partial<voucherFormValues>;
   token: string;
+};
+
+type apiSubmitArgs = modifyDataArgs & {
+  action: voucherFormValues['action'] | undefined;
 };
 
 type googleTokens = {
@@ -154,27 +156,21 @@ export const getVoucher = async ({
   return data ?? {};
 };
 
-const createVoucher = (
-  dataReceived: Partial<dataReceivedType>,
-  token: string,
-) => {
-  delete dataReceived.action;
+const createVoucher = (data: Partial<dataReceivedType>, token: string) => {
   void wrapperFn(
-    fpBackend.post(`api/v1/vouchers`, dataReceived, {
+    fpBackend.post(`api/v1/vouchers`, data, {
       headers: { Authorization: `Bearer ${token}` },
     }),
   );
 };
 
 const updateVoucher = (
-  dataReceived: Partial<dataReceivedType>,
+  data: Partial<dataReceivedType>,
   token: string,
+  voucherId: string,
 ) => {
-  const id = dataReceived.id;
-  delete dataReceived.action;
-  delete dataReceived.id;
   void wrapperFn(
-    fpBackend.patch(`api/v1/vouchers/${id}`, dataReceived, {
+    fpBackend.patch(`api/v1/vouchers/${voucherId}`, data, {
       headers: { Authorization: `Bearer ${token}` },
     }),
   );
@@ -188,21 +184,28 @@ const deleteVoucher = (id: string, token: string) => {
   );
 };
 
-export const apiSubmitHandler = ({ data, token }: apiSubmitArgs) => {
-  if (
-    'expiryDate' in data &&
-    (data.action === 'Create' || data.action === 'Update')
-  ) {
-    const modifiedData = {
-      ...data,
-      startDate: dayjs(data.startDate).toISOString(),
-      expiryDate: dayjs(data.expiryDate).toISOString(),
-    };
-    return data.action === 'Create'
-      ? createVoucher(modifiedData, token)
-      : updateVoucher(modifiedData, token);
+export const modifyData = ({ data, token }: modifyDataArgs) => {
+  const { action, startDate, expiryDate, id } = data;
+  delete data.action;
+
+  if (expiryDate || startDate) {
+    data.expiryDate = dayjs(data.expiryDate).add(1, 'day').toISOString();
+    data.startDate = dayjs(data.startDate).add(1, 'day').toISOString();
   }
 
-  sessionStorage.clear();
-  return deleteVoucher(data.id!, token);
+  return apiSubmitHandler({ action, data, token });
+};
+
+const apiSubmitHandler = ({ action, data, token }: apiSubmitArgs) => {
+  const { id } = data;
+  switch (action) {
+    case 'Create':
+      return createVoucher(data, token);
+    case 'Update':
+      delete data.id;
+      return updateVoucher(data, token, id ?? '');
+    default:
+      sessionStorage.clear();
+      return deleteVoucher(id ?? '', token);
+  }
 };

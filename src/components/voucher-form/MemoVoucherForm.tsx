@@ -16,7 +16,7 @@ import FormHeader from './FormHeader';
 import FormInputs from './FormInputs';
 import { useUserContext } from '../../hooks/useUserContext';
 import useTitle from '../../hooks/useTitle';
-import { apiSubmitHandler } from '../../utils/api';
+import { modifyData } from '../../utils/api';
 
 type VoucherFormProps = {
   defaultValues: voucherFormValues;
@@ -35,7 +35,14 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
     handleSubmit,
     reset,
     watch,
-    formState: { errors, isDirty, isSubmitting, isSubmitSuccessful, isValid },
+    formState: {
+      errors,
+      isDirty,
+      isSubmitting,
+      isSubmitSuccessful,
+      isValid,
+      dirtyFields,
+    },
   } = useForm<voucherFormValues>({
     defaultValues: defaultValues,
     mode: 'all',
@@ -64,57 +71,72 @@ const VoucherFormComponent = ({ defaultValues }: VoucherFormProps) => {
 
   const onSubmit: SubmitHandler<voucherFormValues> = (data) => {
     const token = cookies.jwt!;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    clearTimeout(timeoutId ?? undefined);
+
     if (data.action === 'Create') {
-      const createData = {
-        ...data,
-        userId: userInfo.userId,
-      };
-      apiSubmitHandler({ data: createData, navigate, token });
+      modifyData({
+        data: {
+          ...data,
+          userId: userInfo.userId,
+        },
+        token,
+      });
     } else if (data.action === 'Delete') {
-      apiSubmitHandler({
+      modifyData({
         data: { action: data.action, id: data.id },
-        navigate,
         token,
       });
     } else {
-      const modifiedData: Record<string, unknown> = {
+      const modifiedData: Partial<voucherFormValues> = {
         action: data.action,
         id: data.id,
-        expiryDate: data.expiryDate,
-        startDate: data.startDate,
+        userId: userInfo.userId,
       };
+      for (const field of Object.keys(dirtyFields)) {
+        // @ts-expect-error "modifiedData might not accept field prop"
+        modifiedData[field] = data[field];
+      }
 
-      apiSubmitHandler({
-        data: modifiedData as voucherFormValues,
-        navigate,
+      if (Object.hasOwn(dirtyFields, 'expiryDate')) {
+        modifiedData.startDate = data.startDate;
+      } else if (Object.hasOwn(dirtyFields, 'startDate')) {
+        modifiedData.expiryDate = data.expiryDate;
+      }
+      modifyData({
+        data: modifiedData,
         token,
       });
     }
 
-    return setTimeout(() => navigate('/vouchers', { replace: true }), 4000);
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      navigate('/vouchers', { replace: true });
+    }, 4000);
+    return;
   };
 
   return (
     <MotionConfig transition={{ duration: 0.4 }}>
       <Paper
         elevation={3}
-        className="mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl"
+        className='mx-auto max-w-2xl rounded-lg pb-8 pt-4 lg:mx-0 xl:max-w-3xl'
       >
         <FormHeader
           isSubmitSuccessful={isSubmitSuccessful}
           watchAction={watchAction}
         />
-        <motion.div animate={{ height }} className="overflow-y-hidden">
+        <motion.div animate={{ height }} className='overflow-y-hidden'>
           <div ref={ref}>
             <AlertComponent
-              className="mb-4 px-2"
+              className='mb-4 px-2'
               iconMapping={{
-                success: <CheckCircleOutlineIcon fontSize="inherit" />,
+                success: <CheckCircleOutlineIcon fontSize='inherit' />,
               }}
               shouldRender={isSubmitSuccessful}
               text={`The voucher has been successfully ${watchAction.toLowerCase()}d! You'll be redirected shortly.`}
             />
-            <form onSubmit={handleSubmit(onSubmit)} className="px-3">
+            <form onSubmit={handleSubmit(onSubmit)} className='px-3'>
               <FormInputs
                 control={control}
                 disabledWatchAction={disabledWatchAction}
