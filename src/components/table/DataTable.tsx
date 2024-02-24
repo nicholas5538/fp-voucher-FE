@@ -21,9 +21,11 @@ const DataTable = ({ offset, limit }: TPagination) => {
     offset,
     limit,
   });
-  const [paginationSettings, setPaginationSettings] = useState({
-    offset: Number(searchParams.get('offset')),
-    limit: Number(searchParams.get('limit')),
+  const [paginationSettings, setPaginationSettings] = useState(() => {
+    return {
+      offset: Number(searchParams.get('offset')),
+      limit: Number(searchParams.get('limit')),
+    };
   });
   const [paginationModel, setPaginationModel] = useState({
     page: paginationSettings.offset / paginationSettings.limit,
@@ -66,12 +68,11 @@ const DataTable = ({ offset, limit }: TPagination) => {
   );
 
   const [rowCountState, setRowCountState] = useState(data?.totalVouchers ?? 0);
-
   useEffect(() => {
     setRowCountState((prevState) => {
-      return data?.totalVouchers ? data.totalVouchers : prevState;
+      return data?.totalVouchers ? data?.totalVouchers : prevState;
     });
-  }, [setRowCountState]);
+  }, [data?.totalVouchers]);
 
   return (
     <DataGrid
