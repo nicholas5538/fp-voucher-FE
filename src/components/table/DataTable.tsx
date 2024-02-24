@@ -86,7 +86,7 @@ const DataTable = ({ offset, limit }: TPagination) => {
       rowCount={rowCountState}
       pageSizeOptions={[5, 10, 25, 50]}
       paginationModel={paginationModel}
-      paginationMode="server"
+      paginationMode='server'
       onPaginationModelChange={handlePaginationModelChange}
       slots={{
         loadingOverlay: LinearProgress,
