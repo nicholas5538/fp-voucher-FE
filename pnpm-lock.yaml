@@ -69,8 +69,8 @@ dependencies:
     specifier: 16.3.1
     version: 16.3.1
   framer-motion:
-    specifier: 10.17.9
-    version: 10.17.9(react-dom@18.2.0)(react@18.2.0)
+    specifier: 11.0.8
+    version: 11.0.8(react-dom@18.2.0)(react@18.2.0)
   lottie-light-react:
     specifier: 2.4.0
     version: 2.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -3479,8 +3479,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: false
 
-  /framer-motion@10.17.9(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-z2NpP8r+XuALoPA7ZVZHm/OoTnwkQNJFBu91sC86o/FYvJ4x7ar3eQnixgwYWFK7kEqOtQ6whtNM37tn1KrOOA==}
+  /framer-motion@11.0.8(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-1KSGNuqe1qZkS/SWQlDnqK2VCVzRVEoval379j0FiUBJAZoqgwyvqFkfvJbgW2IPFo4wX16K+M0k5jO23lCIjA==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
