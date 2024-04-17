@@ -1,3 +1,6 @@
 # Ignore artifacts:
 build
 coverage
+
+# Ignore dependencies/lockfile:
+pnpm-lock.yaml
