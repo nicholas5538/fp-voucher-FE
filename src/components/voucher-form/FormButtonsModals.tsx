@@ -30,35 +30,35 @@ type FormButtonsProps = {
 };
 
 export default function FormButtonsModals({
-                                            disabledWatchAction,
-                                            handleSubmit,
-                                            navigate,
-                                            isDirty,
-                                            isValid,
-                                            isSubmitting,
-                                            onSubmit,
-                                            reset,
-                                          }: FormButtonsProps) {
+  disabledWatchAction,
+  handleSubmit,
+  navigate,
+  isDirty,
+  isValid,
+  isSubmitting,
+  onSubmit,
+  reset,
+}: FormButtonsProps) {
   const [openModal, setOpenModal] = useState(() => false);
   const [openDeleteModal, setDeleteModal] = useState(() => false);
 
   return (
     <>
       <ButtonGroup
-        color="secondary"
-        aria-label="contained secondary button group"
+        color='secondary'
+        aria-label='contained secondary button group'
       >
         {disabledWatchAction ? (
           <>
             <ButtonComponent
               isLoadingButton={false}
-              label="Delete"
+              label='Delete'
               onClick={() => setDeleteModal(true)}
               startIcon={icons.delete}
             />
             <ModalComponent
-              modalTitle="Are you sure you want to delete the voucher?"
-              modalDesc="Warning, all actions are irreversible."
+              modalTitle='Are you sure you want to delete the voucher?'
+              modalDesc='Warning, all actions are irreversible.'
               clickHandler={() => {
                 handleSubmit(onSubmit)();
                 setDeleteModal((prevState) => !prevState);
@@ -73,13 +73,13 @@ export default function FormButtonsModals({
               disabled={!isDirty || !isValid}
               isLoadingButton={true}
               isSubmitting={isSubmitting}
-              label="Confirm"
+              label='Confirm'
               startIcon={icons.send}
             />
             <ButtonComponent
               disabled={!isDirty}
               isLoadingButton={false}
-              label="Reset"
+              label='Reset'
               onClick={() => reset()}
               startIcon={icons.reset}
             />
@@ -87,14 +87,14 @@ export default function FormButtonsModals({
         )}
         <ButtonComponent
           isLoadingButton={false}
-          label="Cancel"
+          label='Cancel'
           onClick={() => setOpenModal(true)}
           startIcon={icons.cancel}
         />
       </ButtonGroup>
       <ModalComponent
-        modalTitle="Are you sure you want to cancel?"
-        modalDesc="Warning, all changes are not saved upon clicking on Yes."
+        modalTitle='Are you sure you want to cancel?'
+        modalDesc='Warning, all changes are not saved upon clicking on Yes.'
         clickHandler={() => navigate('/')}
         openModal={openModal}
         setOpenModal={setOpenModal}
