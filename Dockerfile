@@ -6,7 +6,7 @@ COPY . /app
 WORKDIR /app
 
 # Install pnpm
-RUN yarn global add pnpm
+RUN corepack enable pnpm
 
 # Install dependencies
 FROM base AS dev-deps
