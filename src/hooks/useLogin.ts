@@ -1,3 +1,4 @@
+import type { AxiosResponse } from 'axios';
 import type { Dispatch, SetStateAction } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import type { CookieSetOptions } from '../constants/globalTypes';
@@ -24,10 +25,14 @@ export default function useLogin({ setCookie, setUserInfo }: LoginProps) {
       const email = data.emailAddresses[0].value;
       const { givenName } = data.names[0];
       // @ts-ignore
-      const response = await fetchJWT(email, givenName, signal);
+      const response: AxiosResponse<{
+        msg: string;
+        access_token: string;
+        userId: string;
+      }> = await fetchJWT(email, givenName, signal);
 
       // Set jwt cookie
-      setCookie('jwt', response!.data.access_token, {
+      setCookie('jwt', response.data.access_token, {
         expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
         httpOnly: false,
         sameSite: 'none',
@@ -36,7 +41,7 @@ export default function useLogin({ setCookie, setUserInfo }: LoginProps) {
 
       setUserInfo({
         name: givenName,
-        userId: response.headers.get('userId'),
+        userId: response.data.userId,
         tokenExpiryTime: new Date(expiry_date).getSeconds(),
       });
       setLocalStorageItem('name', givenName);
