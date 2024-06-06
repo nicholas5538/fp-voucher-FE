@@ -18,7 +18,8 @@
 
 ## Context
 
-_**NOTE**_: Google Oauth2 does not work well with the current 3rd party React library, hence you might need to log in twice to use the app.
+_**NOTE**_: Google Oauth2 does not work well with the current 3rd party React library, hence you might need to log in
+twice to use the app.
 
 We decided to create an admin portal that allows user to use the following features with relative ease.
 
@@ -28,13 +29,16 @@ We decided to create an admin portal that allows user to use the following featu
 4. _**Delete**_ any existing vouchers
 5. A dummy checkout page to show that the vouchers can be applied
 
-- [MongoDB](https://www.mongodb.com/ 'MongoDB official site') is currently our choice of database, and we are calling REST API endpoints to perform CRUD operations on it.
+- [PostgreSQL](https://www.postgresql.org/docs/ 'PostgreSQL official site') is currently our choice of database, and we
+  are
+  calling REST API endpoints to perform CRUD operations on it.
 
 ## Getting Started
 
 ### Environment Setup
 
-- Add a new SSH key to your GitHub account. [Instructions to how to generate](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account 'Generate SSH key').
+- Add a new SSH key to your GitHub
+  account. [Instructions to how to generate](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account 'Generate SSH key').
 
 #### 2 ways to run the apps
 
@@ -44,7 +48,8 @@ We decided to create an admin portal that allows user to use the following featu
 
    - Install any version of node that is >= 14.0.0.
 
-   > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node. Once installed, run `nvm use` in the project directory.
+   > 💁 **Tip:** You can use [nvm](https://github.com/nvm-sh/nvm 'nvm repo') to easily manage multiple versions of node.
+   > Once installed, run `nvm use` in the project directory.
 
    - Install [pnpm](https://pnpm.io/installation)
 
@@ -61,7 +66,8 @@ cd fp-voucher-FE
 
 ## Developing
 
-Once you have [set up the repo](#repository-setup), you're ready to start developing. Starting the development environment is managed by the following command(s).
+Once you have [set up the repo](#repository-setup), you're ready to start developing. Starting the development
+environment is managed by the following command(s).
 
 - With **Docker (recommended)**
 
@@ -86,7 +92,8 @@ The `dev` command will start the application in your local environment (port 517
 
 ### Frequently Used Scripts
 
-In addition to the `dev` command, there are other scripts available in the package.json. Some of the most common you might get to use are:
+In addition to the `dev` command, there are other scripts available in the package.json. Some of the most common you
+might get to use are:
 
 - `pnpm run format` - Check prettier formatting through all the codes
 
